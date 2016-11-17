@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup android:id="@+id/menu_group"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cyan"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingTop="7dp"
+    >
+
+    <RadioButton
+        android:id="@+id/radio_home"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:button="@null"
+        android:checked="true"
+        android:drawablePadding="3dp"
+        android:drawableTop="@drawable/select_tab_home"
+        android:gravity="center"
+        android:text="@string/menu_home"
+        android:textColor="@color/select_menu_txt"
+        android:textSize="13sp"
+        />
+<!-- android:text="我的"
+        android:textColor="@color/select_menu_txt"
+        android:textSize="13sp"-->
+    <RadioButton
+        android:id="@+id/radio_contact"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:button="@null"
+        android:drawablePadding="3dp"
+        android:drawableTop="@drawable/select_tab_contact"
+        android:gravity="center"
+        android:text="@string/menu_contact"
+        android:textColor="@color/select_menu_txt"
+        android:textSize="13sp"
+
+        />
+
+    <RadioButton
+        android:id="@+id/radio_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:button="@null"
+        android:drawablePadding="3dp"
+        android:drawableTop="@drawable/select_tab_message"
+        android:gravity="center"
+        android:text="@string/menu_message"
+        android:textColor="@color/select_menu_txt"
+        android:textSize="13sp"
+        />
+
+    <RadioButton
+        android:id="@+id/radio_mine"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:button="@null"
+        android:drawablePadding="3dp"
+        android:drawableTop="@drawable/select_tab_mine"
+        android:gravity="center"
+        android:text="@string/menu_mine"
+        android:textColor="@color/select_menu_txt"
+        android:textSize="13sp"
+        />
+
+</RadioGroup>

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">文广通讯</string>
+    <string name="action_settings">Settings</string>
+    <string name="account">手机号/账号:</string>
+    <string name="passwed">验证码/密码:</string>
+    <string name="login_verify">获取验证码</string>
+    <string name="login">登    录</string>
+    <string name="passwed_login">有密码？密码登录</string>
+    <string name="accountandpasswedempty">账号或密码为空</string>
+    <string name="accountandpasswederror">账号或密码错误</string>
+    <string name="notmobnumber">请输入正确的手机号码</string>
+    <string name="forget_verifylogin">忘记密码?验证码登录</string>
+    <string name="menu_home">通话记录</string>
+    <string name="menu_contact">联系人</string>
+    <string name="menu_message">信息</string>
+    <string name="menu_mine">我</string>
+</resources>

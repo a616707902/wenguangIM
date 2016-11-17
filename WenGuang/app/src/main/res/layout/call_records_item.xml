@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/five_dp"
+        >
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/account"
+        android:layout_marginLeft="@dimen/eighteen_sp"
+        android:textSize="@dimen/eighteen_sp"
+        android:drawablePadding="@dimen/fifteen_dp"
+        android:drawableLeft="@drawable/circle_pink"/>
+
+        <TextView
+            android:id="@+id/item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/ten_dp"
+            android:text="8:30 pm"/>
+    </RelativeLayout>
+
+<TextView
+    android:id="@+id/item_phone"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/five_dp"
+    android:text="1325256425"
+    android:layout_marginLeft="@dimen/fourty"/>
+
+
+</LinearLayout>
