@@ -12,7 +12,16 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/thin_white"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/call_records"
+            android:textSize="20sp"/>
+    </android.support.v7.widget.Toolbar>
 
 
     <LinearLayout
@@ -29,7 +38,7 @@
             android:layout_weight="1"
             android:background="@color/cyan"
             android:gravity="center"
-            android:text="未接来电\n\n16"
+            android:text="@string/miss_call_count"
             android:textColor="@color/white"/>
 
         <TextView
@@ -39,7 +48,7 @@
             android:layout_weight="1"
             android:background="@color/ray_red"
             android:gravity="center"
-            android:text="未读短信\n\n0"
+            android:text="@string/miss_sms_count"
             android:textColor="@color/white"/>
 
     </LinearLayout>

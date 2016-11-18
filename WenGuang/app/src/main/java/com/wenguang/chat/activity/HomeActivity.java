@@ -1,8 +1,8 @@
 package com.wenguang.chat.activity;
 
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -78,7 +78,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
     }
 
     private void showFragment(int index) {
-        FragmentManager fragmentManager = getFragmentManager();
+       FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         // ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
         hideFragment(ft);

@@ -2,8 +2,8 @@ package com.wenguang.chat.base;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.Window;
 
@@ -17,7 +17,7 @@ import com.wenguang.chat.utils.StatusBarUtil;
 import butterknife.ButterKnife;
 
 
-public abstract class BaseActivity<T extends BasePresenter<BaseView>> extends AppCompatActivity implements IBase{
+public abstract class BaseActivity<T extends BasePresenter<BaseView>> extends FragmentActivity implements IBase{
     public BasePresenter mPresenter;
     public RxManager mRxManager;
 

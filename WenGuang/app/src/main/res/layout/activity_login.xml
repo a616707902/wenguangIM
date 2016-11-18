@@ -77,12 +77,15 @@
         <Button
             android:id="@+id/login_auth"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/four_eight_dp"
+            android:layout_height="@dimen/third_five"
             android:layout_alignParentRight="true"
             android:layout_below="@id/t_psd"
             android:text="@string/login_verify"
             android:background="@drawable/verify_background"
             android:layout_margin="@dimen/five_dp"
+            android:textSize="@dimen/tenteen_sp"
+            android:paddingLeft="@dimen/five_dp"
+            android:paddingRight="@dimen/five_dp"
             android:textColor="@color/white"/>
 
         <Button

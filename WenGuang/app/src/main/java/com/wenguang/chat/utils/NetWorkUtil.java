@@ -10,7 +10,7 @@ import android.net.NetworkInfo;
 public class NetWorkUtil {
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°ÍøÂçÊÇ·ñÒÑÁ¬½Ó
+	 * åˆ¤æ–­å½“å‰ç½‘ç»œæ˜¯å¦å·²è¿æ¥
 	 *
 	 * @param context
 	 * @return
@@ -30,7 +30,7 @@ public class NetWorkUtil {
 
 
 	/**
-	 * ÅĞ¶Ïµ±Ç°µÄÍøÂçÁ¬½Ó·½Ê½ÊÇ·ñÎªWIFI
+	 * åˆ¤æ–­å½“å‰çš„ç½‘ç»œè¿æ¥æ–¹å¼æ˜¯å¦ä¸ºWIFI
 	 *
 	 * @param context
 	 * @return
