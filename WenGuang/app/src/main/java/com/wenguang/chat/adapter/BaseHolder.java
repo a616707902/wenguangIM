@@ -7,9 +7,9 @@ import android.view.View;
 import butterknife.ButterKnife;
 
 public abstract class BaseHolder<T> extends RecyclerView.ViewHolder {
-    protected View mView;
-    protected T mData;
-    protected Context mContext;
+    public View mView;
+    public T mData;
+    public  Context mContext;
 
     public View getView() {
         return mView;
