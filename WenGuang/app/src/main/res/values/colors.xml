@@ -9,4 +9,5 @@
     <color name="cyan">#50d2c2</color>
     <color name="ray_red">#ed6ac4</color>
     <color name="thin_white">#f1f1f1</color>
+    <color name="bg_color">#F4F3F3</color>
 </resources>
