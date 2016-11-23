@@ -1,6 +1,7 @@
 package com.wenguang.chat.mvp.model;
 
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -9,11 +10,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.wenguang.chat.event.CallBack;
 import com.wenguang.chat.utils.common.SortModel;
 import com.wenguang.chat.utils.common.SortToken;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,7 +27,9 @@ public class ContactFragmentModelImpl implements ContactFragmentModel{
     /**
      * 加载联系人数据
      */
-    public  void loadContacts(final Context context) {
+    @Override
+    public  void loadContacts(final Context context,final CallBack callBack) {
+        final List<SortModel> mAllContactsList = new ArrayList<SortModel>();
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -47,7 +50,7 @@ public class ContactFragmentModelImpl implements ContactFragmentModel{
                     int PHONEBOOK_LABEL = phoneCursor.getColumnIndex("phonebook_label");
                     int PHOTO_ID = phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_ID);
                     if (phoneCursor.getCount() > 0) {
-                       List<SortModel> mAllContactsList = new ArrayList<SortModel>();
+
                         while (phoneCursor.moveToNext()) {
                             String phoneNumber = phoneCursor.getString(PHONES_NUMBER_INDEX);
                             if (TextUtils.isEmpty(phoneNumber))
@@ -78,10 +81,10 @@ public class ContactFragmentModelImpl implements ContactFragmentModel{
                         }
                     }
                     phoneCursor.close();
-                   runOnUiThread(new Runnable() {
+                    ((Activity)context). runOnUiThread(new Runnable() {
                         public void run() {
-                            Collections.sort(mAllContactsList, pinyinComparator);
-                            adapter.updateListView(mAllContactsList);
+                            callBack.getContactlist(mAllContactsList);
+
                         }
                     });
                 } catch (Exception e) {

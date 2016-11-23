@@ -19,6 +19,7 @@ import com.wenguang.chat.adapter.ContactsSortAdapter;
 import com.wenguang.chat.base.BaseFragment;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
 import com.wenguang.chat.mvp.presenter.ContactFragmentPresenter;
+import com.wenguang.chat.mvp.view.ContactFragmentView;
 import com.wenguang.chat.utils.common.CharacterParser;
 import com.wenguang.chat.utils.common.PinyinComparator;
 import com.wenguang.chat.utils.common.SortModel;
@@ -31,7 +32,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ContactFragment extends BaseFragment {
+public class ContactFragment extends BaseFragment implements ContactFragmentView {
 
 
     @Bind(R.id.et_search)
@@ -149,6 +150,7 @@ public class ContactFragment extends BaseFragment {
     @Override
     protected void lazyLoadData() {
 
+
     }
 
     @Override
@@ -157,5 +159,9 @@ public class ContactFragment extends BaseFragment {
     }
 
 
-
+    @Override
+    public void setAdapter(List<SortModel> models) {
+        Collections.sort(models, pinyinComparator);
+        adapter.updateListView(models);
+    }
 }
