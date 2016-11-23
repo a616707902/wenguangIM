@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/eighteen_sp"
+            android:layout_marginRight="@dimen/hundred_dp"
+            android:drawableLeft="@drawable/circle_cyan"
+            android:drawablePadding="@dimen/fifteen_dp"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:text="@string/account"
+            android:textSize="@dimen/eighteen_sp"/>
+
+
+
+
+    <TextView
+        android:id="@+id/item_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/fourty"
+        android:layout_marginTop="@dimen/five_dp"
+        android:drawableLeft="@drawable/icon_call_in"
+        android:text="1325256425"/>
+
+
+</LinearLayout>

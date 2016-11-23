@@ -5,10 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.wenguang.chat.R;
 import com.wenguang.chat.utils.common.SortModel;
 
 import java.util.ArrayList;
@@ -62,9 +62,9 @@ public class ContactsSortAdapter extends BaseAdapter implements SectionIndexer {
 		final SortModel mContent = mList.get(position);
 		if (view == null) {
 			viewHolder = new ViewHolder();
-//			view = LayoutInflater.from(mContext).inflate(R.layout.item_contact, null);
-//			viewHolder.tvTitle = (TextView) view.findViewById(R.id.title);
-//			viewHolder.tvNumber = (TextView) view.findViewById(R.id.number);
+		view = LayoutInflater.from(mContext).inflate(R.layout.contact_item, null);
+			viewHolder.tvName = (TextView) view.findViewById(R.id.item_name);
+			viewHolder.tvNumber = (TextView) view.findViewById(R.id.item_phone);
 //			viewHolder.tvLetter = (TextView) view.findViewById(R.id.catalog);
 //			viewHolder.cbChecked = (CheckBox) view.findViewById(R.id.cbChecked);
 			view.setTag(viewHolder);
@@ -76,26 +76,23 @@ public class ContactsSortAdapter extends BaseAdapter implements SectionIndexer {
 		int section = getSectionForPosition(position);
 
 		//如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
-		if (position == getPositionForSection(section)) {
-			viewHolder.tvLetter.setVisibility(View.VISIBLE);
-			viewHolder.tvLetter.setText(mContent.sortLetters);
-		} else {
-			viewHolder.tvLetter.setVisibility(View.GONE);
-		}
+//		if (position == getPositionForSection(section)) {
+//			viewHolder.tvLetter.setVisibility(View.VISIBLE);
+//			viewHolder.tvLetter.setText(mContent.sortLetters);
+//		} else {
+//			viewHolder.tvLetter.setVisibility(View.GONE);
+//		}
 
-		viewHolder.tvTitle.setText(this.mList.get(position).name);
+		viewHolder.tvName.setText(this.mList.get(position).name);
 		viewHolder.tvNumber.setText(this.mList.get(position).number);
-		viewHolder.cbChecked.setChecked(isSelected(mContent));
 
 		return view;
 
 	}
 
 	public static class ViewHolder {
-		public TextView tvLetter;
-		public TextView tvTitle;
+		public TextView tvName;
 		public TextView tvNumber;
-		public CheckBox cbChecked;
 	}
 
 	/**

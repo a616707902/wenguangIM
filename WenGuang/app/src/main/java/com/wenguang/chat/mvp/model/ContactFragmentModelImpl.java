@@ -16,6 +16,7 @@ import com.wenguang.chat.utils.common.SortToken;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
 * Created by MVPHelper on 2016/11/16
@@ -117,5 +118,49 @@ public class ContactFragmentModelImpl implements ContactFragmentModel{
             }
         }
         return token;
+    }
+
+
+    /**
+     * 模糊查询
+     *
+     * @param str
+     * @return
+     */
+    @Override
+    public void search(String str, List<SortModel> mAllContactsList,CallBack callBack) {
+        List<SortModel> filterList = new ArrayList<SortModel>();// 过滤后的list
+        // if (str.matches("^([0-9]|[/+])*$")) {// 正则表达式 匹配号码
+        if (str.matches("^([0-9]|[/+]).*")) {// 正则表达式
+            // 匹配以数字或者加号开头的字符串(包括了带空格及-分割的号码)
+            String simpleStr = str.replaceAll("\\-|\\s", "");
+            for (SortModel contact : mAllContactsList) {
+                if (contact.number != null && contact.name != null) {
+                    if (contact.simpleNumber.contains(simpleStr) || contact.name.contains(str)) {
+                        if (!filterList.contains(contact)) {
+                            filterList.add(contact);
+                        }
+                    }
+                }
+            }
+        } else {
+            for (SortModel contact : mAllContactsList) {
+                if (contact.number != null && contact.name != null) {
+                    // 姓名全匹配,姓名首字母简拼匹配,姓名全字母匹配
+                    if (contact.name.toLowerCase(Locale.CHINESE).contains(str.toLowerCase(Locale.CHINESE))
+                            || contact.sortKey.toLowerCase(Locale.CHINESE).replace(" ", "")
+                            .contains(str.toLowerCase(Locale.CHINESE))
+                            || contact.sortToken.simpleSpell.toLowerCase(Locale.CHINESE)
+                            .contains(str.toLowerCase(Locale.CHINESE))
+                            || contact.sortToken.wholeSpell.toLowerCase(Locale.CHINESE)
+                            .contains(str.toLowerCase(Locale.CHINESE))) {
+                        if (!filterList.contains(contact)) {
+                            filterList.add(contact);
+                        }
+                    }
+                }
+            }
+        }
+        callBack.getContactlist(filterList);
     }
 }

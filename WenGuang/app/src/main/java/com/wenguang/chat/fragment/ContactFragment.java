@@ -110,8 +110,9 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
                     ivClearText.setVisibility(View.VISIBLE);
                 }
                 if (content.length() > 0) {
-                    ArrayList<SortModel> fileterList = (ArrayList<SortModel>) search(content);
-                    adapter.updateListView(fileterList);
+//                    ArrayList<SortModel> fileterList = (ArrayList<SortModel>) search(content);
+//                    adapter.updateListView(fileterList);
+                    ((ContactFragmentPresenter)mPresenter).serchContact(mActivity,content,mAllContactsList);
                     // mAdapter.updateData(mContacts);
                 } else {
                     adapter.updateListView(mAllContactsList);
@@ -149,7 +150,7 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
 
     @Override
     protected void lazyLoadData() {
-
+        ((ContactFragmentPresenter)mPresenter).getContactList(mActivity);
 
     }
 

@@ -8,7 +8,9 @@ import com.wenguang.chat.mvp.model.ContactFragmentModelImpl;
 import com.wenguang.chat.mvp.view.ContactFragmentView;
 import com.wenguang.chat.utils.common.SortModel;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 作者：chenpan
@@ -29,5 +31,16 @@ public class ContactFragmentPresenter extends BasePresenter<ContactFragmentView>
                 }
             }
         });
+    }
+    public void serchContact(Context context,String content,List<SortModel> models ){
+        mContactFragmentModel.search(content, models, new CallBack() {
+            @Override
+            public void getContactlist(List<SortModel> models) {
+                if (null != mView&&models!=null) {
+                    mView.setAdapter(models);
+                }
+            }
+        });
+
     }
 }
