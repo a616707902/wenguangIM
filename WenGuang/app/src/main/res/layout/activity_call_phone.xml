@@ -34,18 +34,21 @@
                 android:id="@+id/one"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/select_one"
                 android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/two"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/select_two"
                 android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/three"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/select_three"
                 android:layout_weight="1"/>
 
 
@@ -60,18 +63,21 @@
                 android:id="@+id/four"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/select_four"
                 android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/five"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/select_five"
                 android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/six"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/select_six"
                 android:layout_weight="1"/>
 
 
@@ -84,20 +90,23 @@
 
             <TextView
                 android:id="@+id/seven"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/select_seven"
                 android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/eight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/select_eight"
                 android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/nine"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/select_nine"
                 android:layout_weight="1"/>
 
 
@@ -105,8 +114,10 @@
 
         <TextView
             android:id="@+id/zero"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/select_zero"
             />
 
         <LinearLayout

@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface ContactFragmentView extends BaseView{
    void  setAdapter(List<SortModel> models);
+
+   void setList(List<SortModel> models);
 }

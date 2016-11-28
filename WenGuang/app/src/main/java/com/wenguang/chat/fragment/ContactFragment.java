@@ -166,6 +166,12 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
         Collections.sort(models, pinyinComparator);
         adapter.updateListView(models);
     }
+
+    @Override
+    public void setList(List<SortModel> models) {
+        mAllContactsList=models;
+    }
+
     @PermissionGrant(Common.REQUECT_CODE_CONTACT)
     public void requestContactSuccess() {
         ((ContactFragmentPresenter)mPresenter).getContactList(mActivity);

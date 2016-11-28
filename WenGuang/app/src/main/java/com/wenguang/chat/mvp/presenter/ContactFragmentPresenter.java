@@ -28,6 +28,7 @@ public class ContactFragmentPresenter extends BasePresenter<ContactFragmentView>
             public void getContactlist(List<SortModel> models) {
                 if (null != mView&&models!=null) {
                     mView.setAdapter(models);
+                    mView.setList(models);
                 }
             }
         });

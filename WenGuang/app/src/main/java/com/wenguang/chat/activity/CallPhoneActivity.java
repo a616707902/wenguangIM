@@ -1,5 +1,6 @@
 package com.wenguang.chat.activity;
 
+import com.wenguang.chat.R;
 import com.wenguang.chat.base.BaseActivity;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
 import com.wenguang.chat.mvp.view.CallPhoneView;
@@ -9,7 +10,7 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView{
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.activity_call_phone;
     }
 
     @Override
