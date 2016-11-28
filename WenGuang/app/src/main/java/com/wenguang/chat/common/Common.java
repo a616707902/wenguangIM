@@ -23,4 +23,5 @@ public class Common {
     }
 
     public static final int REQUECT_CODE_MISSCALL =1 ;
+    public static final int REQUECT_CODE_CONTACT =2 ;
 }

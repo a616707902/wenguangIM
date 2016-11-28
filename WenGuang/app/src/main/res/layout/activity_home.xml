@@ -3,24 +3,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context="com.hdf.etdemo.viewframe.HomeFragmentActivity">
-
-    <FrameLayout
-        android:id="@+id/frame"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </FrameLayout>
-
     <LinearLayout
+        android:id="@+id/menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
-
 
         <include
             layout="@layout/tab_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/menu">
+    </FrameLayout>
+
+
 
 </RelativeLayout>

@@ -55,7 +55,9 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
 
     @Override
     protected void initInjector() {
+        mToolbar.setTitle("");
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+
         mLayoutManager = new LinearLayoutManager(mRecyclerView.getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
     }

@@ -10,4 +10,6 @@
     <color name="ray_red">#ed6ac4</color>
     <color name="thin_white">#f1f1f1</color>
     <color name="bg_color">#F4F3F3</color>
+    <color name="call_bg">#aaafffff</color>
+    <color name="alpa_cyan">#aa50d2c2</color>
 </resources>

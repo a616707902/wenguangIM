@@ -17,9 +17,17 @@
     <string name="call_records">通话记录</string>
     <string name="miss_call_count">未接来电\n\n0</string>
     <string name="miss_sms_count">未读短信\n\n0</string>
-  <!--  <![CDATA[请使用<font color="#ff0000"><b>%1$s</b></font>牛兑换<font color="#00ff00"><b>%2$s</b></font>%3$s 上网时长]]>-->
+    <!--  <![CDATA[请使用<font color="#ff0000"><b>%1$s</b></font>牛兑换<font color="#00ff00"><b>%2$s</b></font>%3$s 上网时长]]>-->
     <string name="miss_call_counts"> 未接来电\n%s</string>
     <string name="miss_sms_counts">未读短信\n%s</string>
-    <string name="record_call_time"  formatted="false">%s %s</string>
+    <string name="record_call_time" formatted="false">%s %s</string>
     <string name="add_contact">添加联系人</string>
+    <string name="address_list">通讯录</string>
+    <string name="mine_info">我的资料</string>
+    <string name="mine_account">我的账号</string>
+    <string name="mine_idcard">身份认证</string>
+    <string name="mine_recommend">推荐好友</string>
+    <string name="mine_recommend_info">推荐给好友，让好友和你一起玩转免费通话！</string>
+    <string name="mine_about">关于我们</string>
+    <string name="mine_about_info">因为专注，所以专业。文广通讯让你沟通无忧！</string>
 </resources>

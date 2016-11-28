@@ -1,12 +1,10 @@
 package com.wenguang.chat.fragment;
 
 
-import android.os.Bundle;
+import android.Manifest;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -17,6 +15,7 @@ import android.widget.TextView;
 import com.wenguang.chat.R;
 import com.wenguang.chat.adapter.ContactsSortAdapter;
 import com.wenguang.chat.base.BaseFragment;
+import com.wenguang.chat.common.Common;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
 import com.wenguang.chat.mvp.presenter.ContactFragmentPresenter;
 import com.wenguang.chat.mvp.view.ContactFragmentView;
@@ -24,13 +23,15 @@ import com.wenguang.chat.utils.common.CharacterParser;
 import com.wenguang.chat.utils.common.PinyinComparator;
 import com.wenguang.chat.utils.common.SortModel;
 import com.wenguang.chat.widget.SideBar;
+import com.zhy.m.permission.MPermissions;
+import com.zhy.m.permission.PermissionDenied;
+import com.zhy.m.permission.PermissionGrant;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class ContactFragment extends BaseFragment implements ContactFragmentView {
 
@@ -69,6 +70,7 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
 
     @Override
     protected void initInjector() {
+        sideBar.setTextView(dialog);
         characterParser = CharacterParser.getInstance();
         mAllContactsList = new ArrayList<SortModel>();
         pinyinComparator = new PinyinComparator();
@@ -79,7 +81,7 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
 
     @Override
     protected void initEventAndData() {
-
+        MPermissions.requestPermissions(this, Common.REQUECT_CODE_CONTACT, Manifest.permission.READ_CONTACTS);
         /** 清除输入字符 **/
         ivClearText.setOnClickListener(new View.OnClickListener() {
 
@@ -140,8 +142,6 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
-                ContactsSortAdapter.ViewHolder viewHolder = (ContactsSortAdapter.ViewHolder) view.getTag();
-                viewHolder.cbChecked.performClick();
                 adapter.toggleChecked(position);
             }
         });
@@ -150,7 +150,8 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
 
     @Override
     protected void lazyLoadData() {
-        ((ContactFragmentPresenter)mPresenter).getContactList(mActivity);
+
+
 
     }
 
@@ -164,5 +165,14 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
     public void setAdapter(List<SortModel> models) {
         Collections.sort(models, pinyinComparator);
         adapter.updateListView(models);
+    }
+    @PermissionGrant(Common.REQUECT_CODE_CONTACT)
+    public void requestContactSuccess() {
+        ((ContactFragmentPresenter)mPresenter).getContactList(mActivity);
+
+    }
+
+    @PermissionDenied(Common.REQUECT_CODE_CONTACT)
+    public void requestContactFailed() {
     }
 }

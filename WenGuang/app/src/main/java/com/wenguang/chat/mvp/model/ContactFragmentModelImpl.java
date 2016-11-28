@@ -1,7 +1,6 @@
 package com.wenguang.chat.mvp.model;
 
 
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -31,13 +30,16 @@ public class ContactFragmentModelImpl implements ContactFragmentModel{
     @Override
     public  void loadContacts(final Context context,final CallBack callBack) {
         final List<SortModel> mAllContactsList = new ArrayList<SortModel>();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
                 try {
                     // 插叙
-                    String queryTye[] = { ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER, "sort_key", "phonebook_label",
+                    String queryTye[] = { ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER, "sort_key",ContactsContract.Contacts.SORT_KEY_PRIMARY,
                             ContactsContract.CommonDataKinds.Phone.PHOTO_ID };
+                    if(android.os.Build.VERSION.SDK_INT>=19){
+                        queryTye[3]="phonebook_label";
+                    }
                     ContentResolver resolver = context.getContentResolver();
                     Cursor phoneCursor = resolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, queryTye, null, null,
                             "sort_key COLLATE LOCALIZED ASC");
@@ -48,7 +50,7 @@ public class ContactFragmentModelImpl implements ContactFragmentModel{
                     int PHONES_NUMBER_INDEX = phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                     int PHONES_DISPLAY_NAME_INDEX = phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
                     int SORT_KEY_INDEX = phoneCursor.getColumnIndex("sort_key");
-                    int PHONEBOOK_LABEL = phoneCursor.getColumnIndex("phonebook_label");
+                    int PHONEBOOK_LABEL = phoneCursor.getColumnIndex(queryTye[3]);
                     int PHOTO_ID = phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_ID);
                     if (phoneCursor.getCount() > 0) {
 
@@ -62,13 +64,7 @@ public class ContactFragmentModelImpl implements ContactFragmentModel{
                             String sortKey = phoneCursor.getString(SORT_KEY_INDEX);
                             String book = phoneCursor.getString(PHONEBOOK_LABEL);
                             SortModel sortModel = new SortModel(contactName, phoneNumber, sortKey);
-                            // //优先使用系统sortkey取,取不到再使用工具取
-                            // String sortLetters =
-                            // getSortLetterBySortKey(sortKey);
-                            // Log.i("main", "sortLetters:"+sortLetters);
-                            // if (sortLetters == null) {
-                            // sortLetters = getSortLetter(contactName);
-                            // }
+
                             if (book == null) {
                                 book = "#";
                             } else if (book.equals("#")) {
@@ -82,18 +78,18 @@ public class ContactFragmentModelImpl implements ContactFragmentModel{
                         }
                     }
                     phoneCursor.close();
-                    ((Activity)context). runOnUiThread(new Runnable() {
-                        public void run() {
+                   // ((Activity)context). runOnUiThread(new Runnable() {
+                      //  public void run() {
                             callBack.getContactlist(mAllContactsList);
 
-                        }
-                    });
+//                        }
+//                    });
                 } catch (Exception e) {
                     Log.e("xbc", e.getLocalizedMessage());
                 }
             }
-        }).start();
-    }
+//        }).start();
+//    }
 
 
 
