@@ -1,158 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:toolbar="http://schemas.android.com/tools"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.wenguang.chat.activity.CallPhoneActivity">
 
-    <ListView
-        android:id="@+id/contact_lv"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
-
-    <LinearLayout
-        android:id="@+id/keyboard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/call_bg"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/call_phone_num"
-            android:background="@color/alpa_cyan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/one"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_one"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/two"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_two"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/three"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_three"
-                android:layout_weight="1"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/four"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_four"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/five"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_five"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/six"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_six"
-                android:layout_weight="1"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/seven"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_seven"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/eight"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_eight"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/nine"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_nine"
-                android:layout_weight="1"/>
-
-
-        </LinearLayout>
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/thin_white"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        toolbar:theme="@style/ToolBarTheme"
+        >
 
         <TextView
-            android:id="@+id/zero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/select_zero"
-            />
+            android:layout_gravity="center"
+            android:text="@string/call_phone"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/contact_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
 
         <LinearLayout
+            android:id="@+id/keyboard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/cyan"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/five_dp"
-            android:paddingTop="@dimen/five_dp"
-            android:gravity="center_vertical">
+            android:layout_gravity="bottom"
+            android:background="@color/call_bg"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/main_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/menu_home_p"
-                android:layout_weight="1"/>
+            <EditText
+                android:id="@+id/call_phone_num"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/four_eight_dp"
+                android:background="@color/alpa_cyan"/>
 
-            <ImageView
-                android:id="@+id/call_phone"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:src="@drawable/call_phone"/>
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/delete"
-                android:layout_width="0dp"
+                <Button
+                    android:id="@+id/one"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/select_one"/>
+
+                <Button
+                    android:id="@+id/two"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/select_two"/>
+
+                <Button
+                    android:id="@+id/three"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/select_three"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/delete"/>
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/four"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/select_four"/>
+
+                <Button
+                    android:id="@+id/five"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/select_five"/>
+
+                <Button
+                    android:id="@+id/six"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/select_six"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/seven"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/select_seven"/>
+
+                <Button
+                    android:id="@+id/eight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/select_eight"/>
+
+                <Button
+                    android:id="@+id/nine"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/select_nine"/>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/zero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/select_zero"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/cyan"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/five_dp"
+                android:paddingTop="@dimen/five_dp">
+
+                <ImageView
+                    android:id="@+id/main_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/menu_home_p"/>
+
+                <ImageView
+                    android:id="@+id/call_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/call_phone"/>
+
+                <ImageView
+                    android:id="@+id/delete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/delete"/>
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
-
-
-    </LinearLayout>
-</FrameLayout>
+    </FrameLayout>
+</LinearLayout>

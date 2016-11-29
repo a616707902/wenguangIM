@@ -1,6 +1,9 @@
 package com.wenguang.chat.fragment;
 
 import android.Manifest;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,12 +11,16 @@ import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wenguang.chat.R;
+import com.wenguang.chat.activity.CallPhoneActivity;
 import com.wenguang.chat.adapter.BaseRecyclerAdapter;
 import com.wenguang.chat.adapter.RecordCallHolder;
 import com.wenguang.chat.base.BaseFragment;
@@ -31,6 +38,7 @@ import com.zhy.m.permission.PermissionGrant;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class HomeFragment extends BaseFragment implements HomeFragmentView {
 
@@ -43,6 +51,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     TextView mHomeUnreadMessages;
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView;
+    @Bind(R.id.fab)
+    FloatingActionButton mFab;
 
 
     private BaseRecyclerAdapter mAdapter;
@@ -65,6 +75,13 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     @Override
     protected void initEventAndData() {
         MPermissions.requestPermissions(this, Common.REQUECT_CODE_MISSCALL, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_SMS, Manifest.permission.READ_CALL_LOG);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(mActivity, CallPhoneActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -80,19 +97,20 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
-        inflater.inflate(R.menu.home_menu,menu);
+        inflater.inflate(R.menu.home_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.action_item1:
-                ToastUtils.showToast(mActivity,"ssss");
+                ToastUtils.showToast(mActivity, "ssss");
                 break;
 
-            default:break;
+            default:
+                break;
         }
         return true;
     }
@@ -150,4 +168,17 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     }
 
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 }

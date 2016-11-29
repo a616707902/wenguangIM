@@ -30,4 +30,6 @@
     <string name="mine_recommend_info">推荐给好友，让好友和你一起玩转免费通话！</string>
     <string name="mine_about">关于我们</string>
     <string name="mine_about_info">因为专注，所以专业。文广通讯让你沟通无忧！</string>
+    <string name="call_phone">通话</string>
+    <string name="title_activity_recommend">RecommendActivity</string>
 </resources>
