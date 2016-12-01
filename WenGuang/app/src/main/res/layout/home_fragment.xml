@@ -12,19 +12,26 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/thin_white"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         toolbar:theme="@style/ToolBarTheme"
-        >
+        app:popupTheme="@style/ToolBarTheme"
 
+        >
+        <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+        <!--app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/call_records"
             android:textColor="@android:color/black"
-            android:textSize="20sp"/>
-
+            android:textSize="@dimen/twenty_sp"/>
+       <!-- <Button
+            android:id="@+id/btnRight"
+            android:layout_gravity="right|center_vertical"
+            android:background="@drawable/toolbar_add"
+            android:layout_marginRight="10dp"
+            android:layout_width="@dimen/third_three"
+            android:layout_height="@dimen/third_three"/>-->
     </android.support.v7.widget.Toolbar>
 
 

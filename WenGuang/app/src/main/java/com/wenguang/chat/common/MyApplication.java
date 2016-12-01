@@ -2,6 +2,7 @@ package com.wenguang.chat.common;
 
 import android.app.Application;
 
+import cn.bmob.v3.Bmob;
 import cn.smssdk.SMSSDK;
 
 /**
@@ -14,24 +15,22 @@ import cn.smssdk.SMSSDK;
 public class MyApplication extends Application {
 
 
-
     private static MyApplication mMyApplication;
 
 
     @Override
     public void onCreate() {
+
         super.onCreate();
         mMyApplication = this;
         SMSSDK.initSDK(this, "1913670399fc0", "b315b8802256aa230d1f855624ef15ff");
-      //  initFrescoConfig();
+        Bmob.initialize(this, "4bdac565f3790ee4edac17b048261edc");
+        //  initFrescoConfig();
     }
 
-    public static MyApplication getApplication(){
+    public static MyApplication getApplication() {
         return mMyApplication;
     }
-
-
-
 
 
 }

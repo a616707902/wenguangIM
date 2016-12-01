@@ -31,4 +31,8 @@ public interface LoginView extends BaseView{
      * 跳转界面
      */
     void  goHomeActivity();
+    /**
+     *
+     */
+    void showError(String msg);
 }

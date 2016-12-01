@@ -1,6 +1,18 @@
 package com.wenguang.chat.mvp.presenter;
 
+import android.content.Context;
+
+import com.wenguang.chat.R;
+import com.wenguang.chat.event.CallBack;
+import com.wenguang.chat.mvp.model.CallPhoneModel;
+import com.wenguang.chat.mvp.model.CallPhoneModelImpl;
+import com.wenguang.chat.mvp.model.ContactFragmentModel;
+import com.wenguang.chat.mvp.model.ContactFragmentModelImpl;
 import com.wenguang.chat.mvp.view.CallPhoneView;
+import com.wenguang.chat.utils.MobileUtils;
+import com.wenguang.chat.utils.common.SortModel;
+
+import java.util.List;
 
 /**
  * 作者：chenpan
@@ -10,4 +22,45 @@ import com.wenguang.chat.mvp.view.CallPhoneView;
  */
 
 public class CallPhonePresenter extends BasePresenter<CallPhoneView> {
+    ContactFragmentModel mContactFragmentModel=new ContactFragmentModelImpl();
+    CallPhoneModel callPhone=new CallPhoneModelImpl();
+    public void  getContactList(Context context){
+        mContactFragmentModel.loadContacts(context, new CallBack() {
+            @Override
+            public void getContactlist(List<SortModel> models) {
+                if (null != mView&&models!=null) {
+                    mView.setAdapter(models);
+                    mView.setList(models);
+                }
+            }
+        });
+    }
+    public void serchContact(Context context,String content,List<SortModel> models ){
+        mContactFragmentModel.search(content, models, new CallBack() {
+            @Override
+            public void getContactlist(List<SortModel> models) {
+                if (null != mView && models != null) {
+                    mView.setAdapter(models);
+                }
+            }
+        });
+
+    }
+
+    /**
+     * 拨打电话
+     * @param callPhoneActivity
+     * @param phoneNum
+     */
+    public void callPhone(Context callPhoneActivity, String phoneNum) {
+        boolean isphone=MobileUtils.isMobileNo(phoneNum);
+        if (isphone){
+            callPhone.callPhone(callPhoneActivity,phoneNum);
+        }else {
+            if (null!=mView)
+            {
+                mView.showMessage(callPhoneActivity.getResources().getString(R.string.notmobnumber));
+            }
+        }
+    }
 }

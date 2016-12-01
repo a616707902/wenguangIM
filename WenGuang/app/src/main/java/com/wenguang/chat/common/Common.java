@@ -24,4 +24,5 @@ public class Common {
 
     public static final int REQUECT_CODE_MISSCALL =1 ;
     public static final int REQUECT_CODE_CONTACT =2 ;
+    public static final int REQUECT_CALL_PHONE =3 ;
 }

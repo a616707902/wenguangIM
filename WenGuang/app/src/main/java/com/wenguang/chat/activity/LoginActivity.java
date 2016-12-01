@@ -53,7 +53,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
                     //回调完成
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                         //提交验证码成功
-                       goHomeActivity();
+//                       goHomeActivity();
+                        ((LoginPresenter) mPresenter).queryUserbyAccount(LoginActivity.this,account);
                     }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
                         //获取验证码成功
                     }else if (event ==SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES){
@@ -89,6 +90,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
                 if (!ClickUtil.isFastDoubleClick()) {
                     account = mLoginAccount.getText().toString().trim();
                     passwed = mLoginPasswed.getText().toString().trim();
+
                     ((LoginPresenter) mPresenter).login(this, account, passwed,mLoginAuth.getVisibility() == View.VISIBLE);
                 }
                 break;
@@ -122,9 +124,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void isMobNumber() {
-        {
             ToastUtils.showToast(this, R.string.notmobnumber);
-        }
     }
 
     @Override
@@ -132,6 +132,11 @@ public class LoginActivity extends BaseActivity implements LoginView {
         Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void showError(String msg) {
+        ToastUtils.showToast(this,msg);
     }
 
     @Override

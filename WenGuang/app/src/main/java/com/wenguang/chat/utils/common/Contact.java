@@ -61,4 +61,27 @@ public class Contact {
 		return true;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getSimpleNumber() {
+		return simpleNumber;
+	}
+
+	public void setSimpleNumber(String simpleNumber) {
+		this.simpleNumber = simpleNumber;
+	}
 }

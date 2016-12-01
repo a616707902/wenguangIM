@@ -15,4 +15,5 @@ public interface ContactFragmentModel{
     void loadContacts(final Context context,final CallBack callBack);
    void search(String str, List<SortModel> mAllContactsList,final CallBack callBack);
 
+
 }
