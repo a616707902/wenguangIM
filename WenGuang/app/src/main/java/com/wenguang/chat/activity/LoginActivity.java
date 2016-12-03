@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.wenguang.chat.R;
 import com.wenguang.chat.base.BaseActivity;
+import com.wenguang.chat.common.Common;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
 import com.wenguang.chat.mvp.presenter.LoginPresenter;
 import com.wenguang.chat.mvp.view.LoginView;
@@ -44,7 +45,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     protected void initInjector() {
-        mEventHandler=new EventHandler(){
+        mEventHandler = new EventHandler() {
 
             @Override
             public void afterEvent(int event, int result, Object data) {
@@ -54,14 +55,20 @@ public class LoginActivity extends BaseActivity implements LoginView {
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                         //提交验证码成功
 //                       goHomeActivity();
-                        ((LoginPresenter) mPresenter).queryUserbyAccount(LoginActivity.this,account);
-                    }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
+                        ((LoginPresenter) mPresenter).queryUserbyAccount(LoginActivity.this, account);
+                    } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+                       runOnUiThread(new Runnable() {
+                           @Override
+                           public void run() {
+                               showError("已发送验证码");
+                           }
+                       });
                         //获取验证码成功
-                    }else if (event ==SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES){
+                    } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                         //返回支持发送验证码的国家列表
                     }
-                }else{
-                    ((Throwable)data).printStackTrace();
+                } else {
+                    ((Throwable) data).printStackTrace();
                 }
             }
         };
@@ -79,7 +86,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     }
 
 
-    @OnClick({R.id.login_auth, R.id.login_login,R.id.login_other})
+    @OnClick({R.id.login_auth, R.id.login_login, R.id.login_other})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_auth:
@@ -91,7 +98,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
                     account = mLoginAccount.getText().toString().trim();
                     passwed = mLoginPasswed.getText().toString().trim();
 
-                    ((LoginPresenter) mPresenter).login(this, account, passwed,mLoginAuth.getVisibility() == View.VISIBLE);
+                    ((LoginPresenter) mPresenter).login(this, account, passwed, mLoginAuth.getVisibility() == View.VISIBLE);
                 }
                 break;
             case R.id.login_other:
@@ -124,19 +131,20 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void isMobNumber() {
-            ToastUtils.showToast(this, R.string.notmobnumber);
+        ToastUtils.showToast(this, R.string.notmobnumber);
     }
 
     @Override
     public void goHomeActivity() {
-        Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        Common.USER_ACCOUNT = account;
         startActivity(intent);
         finish();
     }
 
     @Override
     public void showError(String msg) {
-        ToastUtils.showToast(this,msg);
+        ToastUtils.showToast(this, msg);
     }
 
     @Override

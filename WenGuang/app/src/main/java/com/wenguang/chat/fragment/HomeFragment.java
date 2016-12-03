@@ -2,6 +2,7 @@ package com.wenguang.chat.fragment;
 
 import android.Manifest;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -104,7 +105,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         switch (item.getItemId()) {
 
             case R.id.action_item1:
-                ToastUtils.showToast(mActivity, "ssss");
+                Intent intent=new Intent(Intent.ACTION_EDIT, Uri.parse("content://com.android.contacts/contacts/"+"1"));
+                startActivity(intent);
                 break;
 
             default:

@@ -25,6 +25,7 @@ public class MyApplication extends Application {
         mMyApplication = this;
         SMSSDK.initSDK(this, "1913670399fc0", "b315b8802256aa230d1f855624ef15ff");
         Bmob.initialize(this, "4bdac565f3790ee4edac17b048261edc");
+        UserManager.getInstance().init(this);
         //  initFrescoConfig();
     }
 

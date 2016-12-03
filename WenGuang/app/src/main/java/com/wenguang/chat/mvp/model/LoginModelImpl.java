@@ -5,7 +5,9 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.wenguang.chat.bean.User;
+import com.wenguang.chat.common.UserManager;
 import com.wenguang.chat.event.CallBackBmob;
 
 import org.json.JSONArray;
@@ -48,7 +50,7 @@ public class LoginModelImpl implements LoginModel{
                     Log.i("bmob", "查询成功：" + jsonArray.toString());
                     System.out.print(jsonArray);
                     if (jsonArray != null && jsonArray.length() > 0) {
-                        try {
+                       /* try {
                             JSONObject jsonObj = jsonArray.getJSONObject(0);
                             String userid = jsonObj.getString("objectId");
                             if (!TextUtils.isEmpty(userid)) {
@@ -59,13 +61,22 @@ public class LoginModelImpl implements LoginModel{
                         } catch (JSONException s) {
                             e.printStackTrace();
                             callBackBmob.failed(e.getMessage());
+                        }*/
+                        Gson gson = new Gson();
+                        User[]  users = gson.fromJson(jsonArray.toString(), User[].class);
+                        if (users!=null){
+                            callBackBmob.succssCallBack(true);
+                            UserManager.getInstance().saveUser(users[0]);
+                        }else{
+                            callBackBmob.succssCallBack(false);
                         }
                     } else {
-                        callBackBmob.failed(e.getMessage() );
+                        callBackBmob.succssCallBack(false);
+                      //  callBackBmob.failed(e.getMessage() );
                     }
                 } else {
                     Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
-                    callBackBmob.failed(e.getMessage() + "," + e.getErrorCode());
+                    callBackBmob.succssCallBack(false);
                 }
             }
         });
@@ -75,6 +86,7 @@ public class LoginModelImpl implements LoginModel{
 //注意：不能调用user.setObjectId("")方法
         user.setAccount(account);
         user.setPassword(password);
+        UserManager.getInstance().saveUser(user);
         user.save(new SaveListener<String>() {
 
             @Override
@@ -103,20 +115,18 @@ public class LoginModelImpl implements LoginModel{
                     Log.i("bmob", "查询成功：" + jsonArray.toString());
                     System.out.print(jsonArray);
                     if (jsonArray != null && jsonArray.length() > 0) {
-                        try {
-                            JSONObject jsonObj = jsonArray.getJSONObject(0);
-                            String userid = jsonObj.getString("objectId");
-                            if (!TextUtils.isEmpty(userid)) {
-                                callBackBmob.succssCallBack(true);
-                            } else {
-                                callBackBmob.failed("账号或密码错误");
-                            }
-                        } catch (JSONException s) {
-                            e.printStackTrace();
-                            callBackBmob.failed(e.getMessage());
+
+                        Gson gson = new Gson();
+                        User[]  users = gson.fromJson(jsonArray.toString(), User[].class);
+                        if (users!=null){
+                            callBackBmob.succssCallBack(true);
+                            UserManager.getInstance().saveUser(users[0]);
+                        }else{
+                            callBackBmob.failed("账号或密码错误" );
                         }
                     } else {
-                        callBackBmob.succssCallBack(false );
+                       // callBackBmob.succssCallBack(false );
+                        callBackBmob.failed("账号或密码错误" );
                     }
                 } else {
                     Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());

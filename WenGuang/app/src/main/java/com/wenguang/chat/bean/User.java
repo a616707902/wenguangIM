@@ -1,6 +1,7 @@
 package com.wenguang.chat.bean;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobFile;
 
 /**
  * 作者：chenpan
@@ -13,6 +14,9 @@ public class User extends BmobObject {
     private String account;
     private String password;
     private String idcard;
+    private  String name;
+    private  String minesign;
+    private BmobFile minepic;
 public User(){
     this.setTableName("wenguangUser");
 }
@@ -38,5 +42,29 @@ public User(){
 
     public void setIdcard(String idcard) {
         this.idcard = idcard;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMinesign() {
+        return minesign;
+    }
+
+    public void setMinesign(String minesign) {
+        this.minesign = minesign;
+    }
+
+    public BmobFile getMinepic() {
+        return minepic;
+    }
+
+    public void setMinepic(BmobFile minepic) {
+        this.minepic = minepic;
     }
 }

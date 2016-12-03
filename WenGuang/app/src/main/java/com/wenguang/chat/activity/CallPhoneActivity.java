@@ -2,10 +2,12 @@ package com.wenguang.chat.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -90,6 +92,9 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
 
     @Override
     protected void initInjector() {
+        mToolbar.setTitle("");
+        mToolbar.setNavigationIcon(R.drawable.icon_back);
+        setSupportActionBar(mToolbar);
         mIM = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mCallPhoneNum.setInputType(InputType.TYPE_NULL);
         mAllContactsList = new ArrayList<SortModel>();
@@ -102,6 +107,8 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
 
     @Override
     protected void initEventAndData() {
+
+
         MPermissions.requestPermissions(this, Common.REQUECT_CODE_CONTACT, Manifest.permission.READ_CONTACTS);
         mCallPhoneNum.addTextChangedListener(new TextWatcher() {
             @Override
@@ -238,5 +245,14 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
 
     @PermissionDenied(Common.REQUECT_CALL_PHONE)
     public void requestCallFailed() {
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

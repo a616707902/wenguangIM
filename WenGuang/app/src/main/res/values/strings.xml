@@ -32,4 +32,12 @@
     <string name="mine_about_info">因为专注，所以专业。文广通讯让你沟通无忧！</string>
     <string name="call_phone">通话</string>
     <string name="title_activity_recommend">RecommendActivity</string>
+    <string name="selectall">全选</string>
+    <string name="recommed">推荐</string>
+    <string name="send">发      送</string>
+    <string name="send_message">我是%s，最近在使用一款免费的通话软件，感觉还不错，推荐给你，给你连接地址：www.baidu.com，常联系！</string>
+    <string name="message">信息</string>
+    <string name="inputname">姓名</string>
+    <string name="inputsgn">个性签名</string>
+    <string name="inputidcard">身份证号</string>
 </resources>

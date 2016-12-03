@@ -136,4 +136,8 @@ public class HomeActivity extends BaseActivity implements HomeView {
         return new HomePresenter();
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(false);
+    }
 }

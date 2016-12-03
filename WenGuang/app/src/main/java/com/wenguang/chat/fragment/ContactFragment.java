@@ -2,9 +2,19 @@ package com.wenguang.chat.fragment;
 
 
 import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -19,6 +29,7 @@ import com.wenguang.chat.common.Common;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
 import com.wenguang.chat.mvp.presenter.ContactFragmentPresenter;
 import com.wenguang.chat.mvp.view.ContactFragmentView;
+import com.wenguang.chat.utils.ToastUtils;
 import com.wenguang.chat.utils.common.CharacterParser;
 import com.wenguang.chat.utils.common.PinyinComparator;
 import com.wenguang.chat.utils.common.SortModel;
@@ -32,6 +43,7 @@ import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class ContactFragment extends BaseFragment implements ContactFragmentView {
 
@@ -48,6 +60,8 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
     SideBar sideBar;
     @Bind(R.id.lv_contacts)
     ListView mListView;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     /**
      * 汉字转换成拼音的类
@@ -70,6 +84,9 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
 
     @Override
     protected void initInjector() {
+        toolbar.setTitle("");
+        setHasOptionsMenu(true);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         sideBar.setTextView(dialog);
         characterParser = CharacterParser.getInstance();
         mAllContactsList = new ArrayList<SortModel>();
@@ -81,6 +98,7 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
 
     @Override
     protected void initEventAndData() {
+        toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.toolbar_add));
         MPermissions.requestPermissions(this, Common.REQUECT_CODE_CONTACT, Manifest.permission.READ_CONTACTS);
         /** 清除输入字符 **/
         ivClearText.setOnClickListener(new View.OnClickListener() {
@@ -114,7 +132,7 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
                 if (content.length() > 0) {
 //                    ArrayList<SortModel> fileterList = (ArrayList<SortModel>) search(content);
 //                    adapter.updateListView(fileterList);
-                    ((ContactFragmentPresenter)mPresenter).serchContact(mActivity,content,mAllContactsList);
+                    ((ContactFragmentPresenter) mPresenter).serchContact(mActivity, content, mAllContactsList);
                     // mAdapter.updateData(mContacts);
                 } else {
                     adapter.updateListView(mAllContactsList);
@@ -152,7 +170,6 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
     protected void lazyLoadData() {
 
 
-
     }
 
     @Override
@@ -169,16 +186,38 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
 
     @Override
     public void setList(List<SortModel> models) {
-        mAllContactsList=models;
+        mAllContactsList = models;
     }
 
     @PermissionGrant(Common.REQUECT_CODE_CONTACT)
     public void requestContactSuccess() {
-        ((ContactFragmentPresenter)mPresenter).getContactList(mActivity);
+        ((ContactFragmentPresenter) mPresenter).getContactList(mActivity);
 
     }
 
     @PermissionDenied(Common.REQUECT_CODE_CONTACT)
     public void requestContactFailed() {
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.home_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.action_item1:
+                Intent intent=new Intent(Intent.ACTION_EDIT, Uri.parse("content://com.android.contacts/contacts/"+"1"));
+                startActivity(intent);
+                break;
+
+            default:
+                break;
+        }
+        return true;
     }
 }

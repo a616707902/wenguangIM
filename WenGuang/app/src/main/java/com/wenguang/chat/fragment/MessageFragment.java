@@ -9,18 +9,14 @@ import android.view.ViewGroup;
 import com.wenguang.chat.R;
 import com.wenguang.chat.base.BaseFragment;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
+import com.wenguang.chat.mvp.presenter.MessageFragmentPresenter;
 
 public class MessageFragment extends BaseFragment {
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.home_fragment, null);
-		return view;
-	}
 
 	@Override
 	protected int getlayoutId() {
-		return 0;
+		return R.layout.message_fragment;
 	}
 
 	@Override
@@ -40,6 +36,6 @@ public class MessageFragment extends BaseFragment {
 
 	@Override
 	public BasePresenter getPresenter() {
-		return null;
+		return new MessageFragmentPresenter();
 	}
 }

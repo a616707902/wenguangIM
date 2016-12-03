@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:toolbar="http://schemas.android.com/tools"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,8 +15,7 @@
         android:background="@color/thin_white"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        toolbar:theme="@style/ToolBarTheme"
-        >
+        toolbar:theme="@style/ToolBarTheme">
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,7 +23,7 @@
             android:layout_gravity="center"
             android:text="@string/call_phone"
             android:textColor="@android:color/black"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -50,35 +48,54 @@
                 android:id="@+id/call_phone_num"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/four_eight_dp"
+                android:background="@color/alpa_cyan"
                 android:textColor="@color/white"
-                android:textSize="@dimen/twenty_sp"
-                android:background="@color/alpa_cyan"/>
+                android:paddingLeft="@dimen/twenty_dp"
+                android:textSize="@dimen/twenty_sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/one"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/select_one"/>
+                    android:gravity="center">
 
-                <Button
-                    android:id="@+id/two"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/select_two"/>
+                    <Button
+                        android:id="@+id/one"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/select_one" />
+                </RelativeLayout>
 
-                <Button
-                    android:id="@+id/three"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/select_three"/>
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/two"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/select_two" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/three"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/select_three" />
+                </RelativeLayout>
 
 
             </LinearLayout>
@@ -88,26 +105,44 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/four"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/select_four"/>
+                    android:gravity="center">
 
-                <Button
-                    android:id="@+id/five"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/select_five"/>
+                    <Button
+                        android:id="@+id/four"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/select_four" />
+                </RelativeLayout>
 
-                <Button
-                    android:id="@+id/six"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/select_six"/>
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/five"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/select_five" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/six"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/select_six" />
+                </RelativeLayout>
 
 
             </LinearLayout>
@@ -117,26 +152,45 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/seven"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/select_seven"/>
+                    android:gravity="center">
 
-                <Button
-                    android:id="@+id/eight"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/select_eight"/>
+                    <Button
+                        android:id="@+id/seven"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/select_seven" />
+                </RelativeLayout>
 
-                <Button
-                    android:id="@+id/nine"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/select_nine"/>
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/eight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/select_eight" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/nine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/select_nine" />
+
+                </RelativeLayout>
 
 
             </LinearLayout>
@@ -146,8 +200,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/select_zero"
-                />
+                android:background="@drawable/select_zero" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -163,21 +216,21 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/menu_home_p"/>
+                    android:src="@drawable/menu_home_p" />
 
                 <ImageView
                     android:id="@+id/call_phone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:src="@drawable/call_phone"/>
+                    android:src="@drawable/call_phone" />
 
                 <ImageView
                     android:id="@+id/delete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/delete"/>
+                    android:src="@drawable/delete" />
 
 
             </LinearLayout>
