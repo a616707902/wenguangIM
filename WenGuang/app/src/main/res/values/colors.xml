@@ -12,4 +12,19 @@
     <color name="bg_color">#F4F3F3</color>
     <color name="call_bg">#aaafffff</color>
     <color name="alpa_cyan">#aa50d2c2</color>
+    <color name="red">#FF0000</color>
+    <color name="blue">#7B68EE</color>
+    <color name="blue2">#1896E0</color>
+    <color name="qing">#48D1CC</color>
+    <color name="greed">#008B8B</color>
+    <color name="purple">#8B008B</color>
+    <color name="yellow">#EEEE00</color>
+    <array name="splsh_circle_color">
+        <item>@color/red</item>
+        <item>@color/blue</item>
+        <item>@color/qing</item>
+        <item>@color/greed</item>
+        <item>@color/purple</item>
+        <item>@color/yellow</item>
+    </array>
 </resources>

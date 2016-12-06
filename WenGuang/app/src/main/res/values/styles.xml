@@ -52,4 +52,8 @@
     <!--toolbar菜单按钮的颜色-->
     <style name="ActionButton.Overflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
     </style>
+
+    <style name="DialogTheme" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+    </style>
 </resources>
