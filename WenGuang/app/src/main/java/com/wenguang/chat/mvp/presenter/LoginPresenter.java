@@ -29,6 +29,9 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 return;
             }
         }
+        if (null != mView) {
+            mView.showLoadProgressDialog("登录中……");
+        }
         if (isverify) {
             SMSSDK.submitVerificationCode("+86", account, passwed);
 
@@ -131,8 +134,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                     if (null != mView) {
                         mView.goHomeActivity();
                     }
-                }else{
-                    if (null!=mView){
+                } else {
+                    if (null != mView) {
                         mView.showError("链接服务器错误！");
                     }
                 }
@@ -140,7 +143,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
             @Override
             public void failed(String e) {
-                if (null!=mView){
+                if (null != mView) {
                     mView.showError(e);
                 }
             }

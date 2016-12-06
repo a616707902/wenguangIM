@@ -29,11 +29,11 @@ public class SplshView extends View {
 	/**
 	 * 旋转动画大圆半径
 	 */
-	private float mRotationRadius = 90;
+	private float mRotationRadius = 60;
 	/**
 	 * 旋转小圆半径
 	 */
-	private float mCircleRadius = 18;
+	private float mCircleRadius = 12;
 	/**
 	 * 小圆颜色
 	 */
@@ -50,7 +50,7 @@ public class SplshView extends View {
 	/**
 	 * 背景颜色
 	 */
-	private int mSplshBackColor = Color.WHITE;
+	private int mSplshBackColor ;
 	/**
 	 * 空心圆半径
 	 */
@@ -100,6 +100,7 @@ public class SplshView extends View {
 
 	public SplshView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		init(context);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -119,7 +120,8 @@ public class SplshView extends View {
 		// 画笔初始化
 		mPaint.setAntiAlias(true);
 		mPaintBackground.setStyle(Style.STROKE);// 粗线条
-		mPaintBackground.setColor(mSplshBackColor);
+		mSplshBackColor=context.getResources().getColor(R.color.splsh_bg);
+		mPaintBackground.setColor( mSplshBackColor);
 
 	}
 

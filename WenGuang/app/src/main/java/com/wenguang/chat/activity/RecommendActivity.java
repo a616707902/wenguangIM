@@ -207,4 +207,14 @@ public class RecommendActivity extends BaseActivity implements RecommendView {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void showLoadProgressDialog(String str) {
+
+    }
+
+    @Override
+    public void dissDialog() {
+
+    }
 }

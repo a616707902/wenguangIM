@@ -19,6 +19,8 @@
     <color name="greed">#008B8B</color>
     <color name="purple">#8B008B</color>
     <color name="yellow">#EEEE00</color>
+    <color name="dialog_bg">#55000000</color>
+    <color name="splsh_bg">#00000000</color>
     <array name="splsh_circle_color">
         <item>@color/red</item>
         <item>@color/blue</item>

@@ -140,4 +140,14 @@ public class HomeActivity extends BaseActivity implements HomeView {
     public void onBackPressed() {
         moveTaskToBack(false);
     }
+
+    @Override
+    public void showLoadProgressDialog(String str) {
+
+    }
+
+    @Override
+    public void dissDialog() {
+
+    }
 }

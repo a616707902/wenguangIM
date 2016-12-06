@@ -186,5 +186,13 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
     }
 
 
+    @Override
+    public void showLoadProgressDialog(String str) {
 
+    }
+
+    @Override
+    public void dissDialog() {
+
+    }
 }

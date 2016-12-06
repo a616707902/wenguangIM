@@ -5,4 +5,8 @@ package com.wenguang.chat.mvp.view;
  */
 public interface BaseView {
 
+    void showLoadProgressDialog(String str);
+
+    void dissDialog();
+
 }

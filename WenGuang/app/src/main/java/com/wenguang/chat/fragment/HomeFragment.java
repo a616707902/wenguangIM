@@ -168,4 +168,13 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     }
 
 
+    @Override
+    public void showLoadProgressDialog(String str) {
+
+    }
+
+    @Override
+    public void dissDialog() {
+
+    }
 }

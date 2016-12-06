@@ -255,4 +255,14 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void showLoadProgressDialog(String str) {
+
+    }
+
+    @Override
+    public void dissDialog() {
+
+    }
 }

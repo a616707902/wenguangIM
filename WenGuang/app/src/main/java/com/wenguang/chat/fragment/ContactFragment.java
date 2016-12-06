@@ -220,4 +220,14 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
         }
         return true;
     }
+
+    @Override
+    public void showLoadProgressDialog(String str) {
+
+    }
+
+    @Override
+    public void dissDialog() {
+
+    }
 }

@@ -14,6 +14,7 @@ import com.wenguang.chat.mvp.presenter.LoginPresenter;
 import com.wenguang.chat.mvp.view.LoginView;
 import com.wenguang.chat.utils.ClickUtil;
 import com.wenguang.chat.utils.ToastUtils;
+import com.wenguang.chat.widget.LoadProgressDialog;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -38,6 +39,8 @@ public class LoginActivity extends BaseActivity implements LoginView {
     private String passwed;
     EventHandler mEventHandler;
 
+    private LoadProgressDialog progressDialog;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
@@ -48,7 +51,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         mEventHandler = new EventHandler() {
 
             @Override
-            public void afterEvent(int event, int result, Object data) {
+            public void afterEvent(int event, int result, final Object data) {
 
                 if (result == SMSSDK.RESULT_COMPLETE) {
                     //回调完成
@@ -69,6 +72,12 @@ public class LoginActivity extends BaseActivity implements LoginView {
                     }
                 } else {
                     ((Throwable) data).printStackTrace();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            showError(((Throwable) data).toString());
+                        }
+                    });
                 }
             }
         };
@@ -136,6 +145,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void goHomeActivity() {
+        dissDialog();
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         Common.USER_ACCOUNT = account;
         startActivity(intent);
@@ -151,5 +161,19 @@ public class LoginActivity extends BaseActivity implements LoginView {
     protected void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterEventHandler(mEventHandler);
+    }
+
+
+    @Override
+    public void showLoadProgressDialog(String str) {
+        progressDialog=LoadProgressDialog.getInstance(this);
+        progressDialog.setMessage(str);
+        progressDialog.show();
+    }
+
+    @Override
+    public void dissDialog() {
+        if (progressDialog!=null)
+        progressDialog.dismissWithSuccess();
     }
 }

@@ -27,6 +27,7 @@ public class LoadProgressDialog extends Dialog {
 	TextView tvMessage;
 //	ImageView ivProgressSpinner;
 	//AnimationDrawable adProgressSpinner;
+	SplshView splshView;
 	Context context;
     
 	OnDialogDismiss onDialogDismiss;
@@ -55,32 +56,12 @@ public class LoadProgressDialog extends Dialog {
 		this.context = context;
 		view = getLayoutInflater().inflate(R.layout.dialog_progress, null);
 		tvMessage = (TextView) view.findViewById(R.id.textview_message);
-//		ivProgressSpinner = (ImageView) view
-//        .findViewById(R.id.imageview_progress_spinner);
-        
-		//setSpinnerType(FADED_ROUND_SPINNER);
+		splshView= (SplshView) view.findViewById(R.id.imageview_progress_spinner);
+
 		this.setContentView(view);
 	}
     
-//	public void setSpinnerType(int spinnerType) {
-//		switch (spinnerType) {
-//            case 0:
-//                ivProgressSpinner.setImageResource(R.anim.round_spinner_fade);
-//                break;
-//            case 1:
-//                ivProgressSpinner.setImageResource(R.anim.gear_spinner);
-//                break;
-//            case 2:
-//                ivProgressSpinner.setImageResource(R.anim.round_spinner);
-//                break;
-//            default:
-//                ivProgressSpinner.setImageResource(R.anim.round_spinner_fade);
-//		}
-//
-//		adProgressSpinner = (AnimationDrawable) ivProgressSpinner.getDrawable();
-//
-//	}
-    
+
 	public void setMessage(String message) {
 		tvMessage.setText(message);
 	}
@@ -96,8 +77,7 @@ public class LoadProgressDialog extends Dialog {
     
 	public void dismissWithSuccess() {
 		tvMessage.setText("Success");
-		showSuccessImage();
-        
+
 		if (onDialogDismiss != null) {
 			this.setOnDismissListener(new OnDismissListener() {
                 
@@ -111,7 +91,6 @@ public class LoadProgressDialog extends Dialog {
 	}
     
 	public void dismissWithSuccess(String message) {
-		showSuccessImage();
 		if (message != null) {
 			tvMessage.setText(message);
 		} else {
@@ -131,7 +110,6 @@ public class LoadProgressDialog extends Dialog {
 	}
     
 	public void dismissWithFailure() {
-		showFailureImage();
 		tvMessage.setText("Failure");
 		if (onDialogDismiss != null) {
 			this.setOnDismissListener(new OnDismissListener() {
@@ -146,7 +124,7 @@ public class LoadProgressDialog extends Dialog {
 	}
     
 	public void dismissWithFailure(String message) {
-		showFailureImage();
+
 		if (message != null) {
 			tvMessage.setText(message);
 		} else {
@@ -164,16 +142,7 @@ public class LoadProgressDialog extends Dialog {
 		dismissHUD();
 	}
     
-	protected void showSuccessImage() {
-//		ivProgressSpinner.setVisibility(View.GONE);
-//		ivSuccess.setVisibility(View.VISIBLE);
-	}
-    
-	protected void showFailureImage() {
-//		ivProgressSpinner.setVisibility(View.GONE);
-//		ivFailure.setVisibility(View.VISIBLE);
-	}
-    
+
 	protected void reset() {
 //		ivProgressSpinner.setVisibility(View.VISIBLE);
 //		ivFailure.setVisibility(View.GONE);
@@ -182,22 +151,8 @@ public class LoadProgressDialog extends Dialog {
 	}
     
 	protected void dismissHUD() {
-		AsyncTask<String, Integer, Long> task = new AsyncTask<String, Integer, Long>() {
-            
-			@Override
-			protected Long doInBackground(String... params) {
-				SystemClock.sleep(500);
-				return null;
-			}
-            
-			@Override
-			protected void onPostExecute(Long result) {
-				super.onPostExecute(result);
-				dismiss();
-				reset();
-			}
-		};
-		task.execute();
+		splshView.splshDisapaer();
+
 	}
     
 	@Override

@@ -118,4 +118,14 @@ private  String message;
     public void back() {
         onBackPressed();
     }
+
+    @Override
+    public void showLoadProgressDialog(String str) {
+
+    }
+
+    @Override
+    public void dissDialog() {
+
+    }
 }
