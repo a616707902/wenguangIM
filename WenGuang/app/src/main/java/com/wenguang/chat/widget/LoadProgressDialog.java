@@ -18,15 +18,10 @@ import com.wenguang.chat.R;
 
 public class LoadProgressDialog extends Dialog {
     
-	public static final int FADED_ROUND_SPINNER = 0;
-	public static final int GEAR_SPINNER = 1;
-	public static final int SIMPLE_ROUND_SPINNER = 2;
-    
+
 	static LoadProgressDialog instance;
 	View view;
 	TextView tvMessage;
-//	ImageView ivProgressSpinner;
-	//AnimationDrawable adProgressSpinner;
 	SplshView splshView;
 	Context context;
     

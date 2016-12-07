@@ -29,4 +29,6 @@
         <item>@color/purple</item>
         <item>@color/yellow</item>
     </array>
+    <drawable name="white">#ffffff</drawable>
+    <drawable name="qing">#48D1CC</drawable>
 </resources>

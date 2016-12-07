@@ -19,6 +19,7 @@
             android:layout_height="@dimen/four_eight_dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="@dimen/twenty_dp"
+            android:textColor="@android:color/black"
             android:gravity="center"
             />
 
@@ -27,9 +28,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/show_num"
+            android:background="@drawable/select_call_phone"
             android:layout_marginLeft="@dimen/twenty_dp"
             android:layout_marginRight="@dimen/twenty_dp"
             android:layout_marginTop="@dimen/twenty_dp"
+            android:textColor="@drawable/btn_textcolor"
             android:text="@string/free_call"/>
 
         <Button
@@ -37,13 +40,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/free_call"
+            android:background="@drawable/select_call_phone"
             android:layout_marginLeft="@dimen/twenty_dp"
             android:layout_marginRight="@dimen/twenty_dp"
             android:layout_marginTop="@dimen/ten_dp"
+            android:textColor="@drawable/btn_textcolor"
             android:text="@string/pu_call"/>
 
         <Button
-            android:id="@+id/textview_message"
+            android:id="@+id/cancle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -51,8 +56,10 @@
             android:gravity="center"
             android:padding="10dp"
             android:singleLine="true"
+            android:background="@color/white"
+            android:textSize="@dimen/eighteen_sp"
             android:text="@string/cancel"
-            android:textColor="@android:color/white"/>
+            android:textColor="@color/qing"/>
     </RelativeLayout>
 
 </LinearLayout>
