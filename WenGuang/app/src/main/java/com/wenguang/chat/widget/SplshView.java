@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.os.Build;
@@ -148,7 +147,6 @@ public class SplshView extends View {
 		// 判断当前是否是第一个动画
 		if (mState == null) {
 			mState = new RotationState();// 执行第一个动画
-
 		}
 		mState.drawState(canvas);
 	}

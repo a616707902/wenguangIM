@@ -40,4 +40,7 @@
     <string name="inputname">姓名</string>
     <string name="inputsgn">个性签名</string>
     <string name="inputidcard">身份证号</string>
+    <string name="cancel">取消</string>
+    <string name="free_call">免费电话</string>
+    <string name="pu_call">普通电话</string>
 </resources>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@android:color/transparent"
+              android:gravity="center"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="@dimen/two_huandryd_fivty_dp"
+        android:layout_height="@dimen/two_huandryd_fivty_dp"
+        android:background="@drawable/call_phone_background"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/show_num"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/four_eight_dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/twenty_dp"
+            android:gravity="center"
+            />
+
+        <Button
+            android:id="@+id/free_call"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/show_num"
+            android:layout_marginLeft="@dimen/twenty_dp"
+            android:layout_marginRight="@dimen/twenty_dp"
+            android:layout_marginTop="@dimen/twenty_dp"
+            android:text="@string/free_call"/>
+
+        <Button
+            android:id="@+id/pu_call"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/free_call"
+            android:layout_marginLeft="@dimen/twenty_dp"
+            android:layout_marginRight="@dimen/twenty_dp"
+            android:layout_marginTop="@dimen/ten_dp"
+            android:text="@string/pu_call"/>
+
+        <Button
+            android:id="@+id/textview_message"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:text="@string/cancel"
+            android:textColor="@android:color/white"/>
+    </RelativeLayout>
+
+</LinearLayout>
