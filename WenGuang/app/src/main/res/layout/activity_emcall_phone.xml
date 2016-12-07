@@ -68,20 +68,20 @@
             android:paddingLeft="@dimen/twenty_dp"
             android:paddingRight="@dimen/twenty_dp">
 
-            <ImageButton
+            <TextView
                 android:id="@+id/mianti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true" />
 
-            <ImageButton
+            <TextView
                 android:id="@+id/pu_call"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true" />
 
-            <ImageButton
+            <TextView
                 android:id="@+id/quite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,20 +97,20 @@
             android:layout_marginBottom="@dimen/five_dp"
             android:paddingLeft="@dimen/twenty_dp"
             android:paddingRight="@dimen/twenty_dp">
-            <ImageButton
+            <TextView
                 android:id="@+id/keybox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true" />
 
-            <ImageButton
+            <TextView
                 android:id="@+id/kill"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true" />
 
-            <ImageButton
+            <TextView
                 android:id="@+id/cantact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

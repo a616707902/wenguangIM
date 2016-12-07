@@ -2,7 +2,6 @@ package com.wenguang.chat.activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,9 +17,9 @@ import butterknife.OnClick;
 
 public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView {
 
-
     @Bind(R.id.headimg)
     ImageView headimg;
+    ;
     @Bind(R.id.phone)
     TextView phone;
     @Bind(R.id.address)
@@ -28,17 +27,17 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
     @Bind(R.id.status)
     TextView status;
     @Bind(R.id.mianti)
-    ImageButton mianti;
+    TextView mianti;
     @Bind(R.id.pu_call)
-    ImageButton puCall;
+    TextView puCall;
     @Bind(R.id.quite)
-    ImageButton quite;
+    TextView quite;
     @Bind(R.id.keybox)
-    ImageButton keybox;
+    TextView keybox;
     @Bind(R.id.kill)
-    ImageButton kill;
+    TextView kill;
     @Bind(R.id.cantact)
-    ImageButton cantact;
+    TextView cantact;
 
     @Override
     protected int getLayoutId() {
