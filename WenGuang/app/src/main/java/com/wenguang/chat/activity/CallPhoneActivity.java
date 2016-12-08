@@ -2,7 +2,6 @@ package com.wenguang.chat.activity;
 
 import android.Manifest;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
@@ -27,6 +26,7 @@ import com.wenguang.chat.mvp.view.CallPhoneView;
 import com.wenguang.chat.utils.ToastUtils;
 import com.wenguang.chat.utils.common.PinyinComparator;
 import com.wenguang.chat.utils.common.SortModel;
+import com.wenguang.chat.widget.CallPhoneDialog;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
@@ -83,6 +83,7 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
 
     private List<SortModel> mAllContactsList;
     private ContactsSortAdapter adapter;
+    private CallPhoneDialog callPhoneDialog;
 
 
     @Override
@@ -141,8 +142,9 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
                 SortModel sortModel = (SortModel) adapter.getItem(position);
-                phoneNum=sortModel.getNumber();
-                callPhone();
+                phoneNum = sortModel.getNumber();
+                showLoadProgressDialog(phoneNum);
+//                callPhone();
 
             }
         });
@@ -191,7 +193,7 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
                 onBackPressed();
                 break;
             case R.id.call_phone:
-                callPhone();
+                showLoadProgressDialog(phoneNum);
                 break;
             case R.id.delete:
                 if (phoneNum.length() > 0) {
@@ -246,6 +248,7 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
     @PermissionDenied(Common.REQUECT_CALL_PHONE)
     public void requestCallFailed() {
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -258,7 +261,16 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
 
     @Override
     public void showLoadProgressDialog(String str) {
-
+        callPhoneDialog = CallPhoneDialog.getInstance(this);
+        callPhoneDialog.setPuOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callPhone();
+                callPhoneDialog.dismiss();
+            }
+        });
+        callPhoneDialog.setText(str);
+        callPhoneDialog.show();
     }
 
     @Override

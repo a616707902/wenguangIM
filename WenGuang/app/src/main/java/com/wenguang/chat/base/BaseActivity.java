@@ -69,7 +69,7 @@ public abstract class BaseActivity<T extends BasePresenter<BaseView>> extends Ap
      * 着色状态栏（4.4以上系统有效）
      */
     protected void SetStatusBarColor() {
-        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorAccent));
+        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(this, R.color.white));
     }
 
     /**

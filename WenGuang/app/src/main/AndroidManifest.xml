@@ -25,6 +25,8 @@
     <!-- 允许读取手机状态 用于创建BmobInstallation -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!--开机监听权限-->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".common.MyApplication"
@@ -53,6 +55,33 @@
             android:label="@string/title_activity_recommend" />
         <activity android:name=".activity.SendMessageActivity" />
         <activity android:name=".activity.EMCallPhoneActivity"></activity>
+
+        <!--开机自启的监听-->
+        <receiver android:name="com.wenguang.chat.event.BootBroadcastReceiver" >
+                    
+            <intent-filter>
+                        
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                        
+                <category android:name="android.intent.category.HOME" />
+                        
+            </intent-filter>
+            <intent-filter>
+                        
+                <action android:name="android.intent.action.ACTION_BOOT_COMPLETED" />
+                        
+                <category android:name="android.intent.category.HOME" />
+                        
+            </intent-filter>
+            <intent-filter>
+                        
+                <action android:name="android.intent.action.RECEIVE_BOOT_COMPLETED" />
+                        
+                <category android:name="android.intent.category.HOME" />
+                        
+            </intent-filter>
+                
+        </receiver>
     </application>
 
 </manifest>

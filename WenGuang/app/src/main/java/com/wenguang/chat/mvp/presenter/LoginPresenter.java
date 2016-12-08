@@ -108,7 +108,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                         mView.goHomeActivity();
                     }
                 } else {
-                    addUser(context, account, "");
+                    addUser(context, account, account.substring(0,4)+"wgtx");
                 }
             }
 

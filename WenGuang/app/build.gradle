@@ -34,6 +34,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
 //    compile 'io.reactivex:rxjava:1.0.14'
 //    compile 'io.reactivex:rxandroid:1.0.1'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile name:'SMSSDK-2.1.2',ext:'aar'
     apt 'com.zhy:mpermission-compiler:1.0.0'

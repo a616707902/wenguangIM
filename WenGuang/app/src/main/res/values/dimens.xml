@@ -27,4 +27,5 @@
     <dimen name="one_five_zero_dp">150dp</dimen>
     <dimen name="two_huandryd_fivty_dp">250dp</dimen>
     <dimen name="three">3dp</dimen>
+    <dimen name="sixty_dp">60dp</dimen>
 </resources>

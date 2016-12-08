@@ -31,4 +31,5 @@
     </array>
     <drawable name="white">#ffffff</drawable>
     <drawable name="qing">#48D1CC</drawable>
+    <color name="hui">#c7414141</color>
 </resources>

@@ -21,6 +21,7 @@
     <string name="miss_call_counts"> 未接来电\n%s</string>
     <string name="miss_sms_counts">未读短信\n%s</string>
     <string name="record_call_time" formatted="false">%s %s</string>
+    <string name="free_call_style" formatted="false">%s\r\n %s</string>
     <string name="add_contact">添加联系人</string>
     <string name="address_list">通讯录</string>
     <string name="mine_info">我的资料</string>
@@ -43,4 +44,10 @@
     <string name="cancel">取  消</string>
     <string name="free_call">免费电话</string>
     <string name="pu_call">普通电话</string>
+    <string name="mianti">免提</string>
+    <string name="s_pu_call">转普通电话</string>
+    <string name="jingyin">静音</string>
+    <string name="jianpan">键盘</string>
+    <string name="tongxunlu">通讯录</string>
+    <string name="status_connecting">正在接通...</string>
 </resources>

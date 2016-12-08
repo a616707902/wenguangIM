@@ -6,4 +6,6 @@ package com.wenguang.chat.mvp.view;
 
 public interface EMCallPhoneView extends BaseView{
 
+    void  setStatus(int res);
+
 }

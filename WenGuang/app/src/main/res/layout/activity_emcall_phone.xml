@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/head_icon" />
+            android:src="@drawable/icon_call_head" />
 
         <TextView
             android:id="@+id/phone"
@@ -59,6 +59,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:paddingLeft="@dimen/ten_dp"
+        android:paddingRight="@dimen/ten_dp"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -72,18 +74,33 @@
                 android:id="@+id/mianti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_mianti_p"
+                android:text="@string/mianti"
+                android:textColor="@color/qing"
+                android:drawablePadding="@dimen/five_dp"
+                android:gravity="center_horizontal"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true" />
 
             <TextView
                 android:id="@+id/pu_call"
                 android:layout_width="wrap_content"
+                android:drawableTop="@drawable/icon_pucall_p"
+                android:text="@string/s_pu_call"
+                android:textColor="@color/qing"
+                android:drawablePadding="@dimen/five_dp"
+                android:gravity="center_horizontal"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true" />
 
             <TextView
                 android:id="@+id/quite"
                 android:layout_width="wrap_content"
+                android:drawableTop="@drawable/icon_quite_p"
+                android:text="@string/jingyin"
+                android:textColor="@color/qing"
+                android:drawablePadding="@dimen/five_dp"
+                android:gravity="center_horizontal"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"/>
@@ -94,13 +111,18 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginBottom="@dimen/five_dp"
+            android:layout_marginBottom="@dimen/ten_dp"
             android:paddingLeft="@dimen/twenty_dp"
             android:paddingRight="@dimen/twenty_dp">
             <TextView
                 android:id="@+id/keybox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_keybox_p"
+                android:text="@string/jianpan"
+                android:textColor="@color/qing"
+                android:drawablePadding="@dimen/five_dp"
+                android:gravity="center_horizontal"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true" />
 
@@ -108,6 +130,9 @@
                 android:id="@+id/kill"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableTop="@drawable/icon_kill_p"
+                android:drawablePadding="@dimen/five_dp"
+                android:gravity="center_horizontal"
                 android:layout_centerInParent="true" />
 
             <TextView
@@ -115,6 +140,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:drawableTop="@drawable/icon_cantact_p"
+                android:text="@string/tongxunlu"
+                android:textColor="@color/qing"
+                android:drawablePadding="@dimen/five_dp"
+                android:gravity="center_horizontal"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
     </LinearLayout>
