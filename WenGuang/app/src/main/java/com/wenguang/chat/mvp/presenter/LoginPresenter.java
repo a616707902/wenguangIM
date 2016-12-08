@@ -3,7 +3,10 @@ package com.wenguang.chat.mvp.presenter;
 import android.content.Context;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.wenguang.chat.event.CallBackBmob;
 import com.wenguang.chat.mvp.model.LoginModel;
 import com.wenguang.chat.mvp.model.LoginModelImpl;
@@ -156,12 +159,32 @@ public class LoginPresenter extends BasePresenter<LoginView> {
      * @param context
      * @param account
      */
-    public void queryUserbyUser(Context context, String account, String password) {
+    public void queryUserbyUser(Context context, final String account, final String password) {
         mLoginModel.queryDataByUser(account, password, new CallBackBmob<Boolean>() {
             @Override
             public void succssCallBack(Boolean jsonArray) {
                 if (null != mView && jsonArray) {
-                    mView.goHomeActivity();
+                    EMClient.getInstance().login(account,password,new EMCallBack() {//回调
+                        @Override
+                        public void onSuccess() {
+                            EMClient.getInstance().groupManager().loadAllGroups();
+                            EMClient.getInstance().chatManager().loadAllConversations();
+                            Log.d("main", "登录聊天服务器成功！");
+                            mView.goHomeActivity();
+                        }
+
+                        @Override
+                        public void onProgress(int progress, String status) {
+
+                        }
+
+                        @Override
+                        public void onError(int code, String message) {
+                            Log.d("main", "登录聊天服务器失败！");
+                            mView.showError("登录聊天服务器失败！");
+                        }
+                    });
+
                 }
             }
 

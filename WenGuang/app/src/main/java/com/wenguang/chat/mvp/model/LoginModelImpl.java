@@ -2,10 +2,14 @@ package com.wenguang.chat.mvp.model;
 
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 import com.wenguang.chat.bean.User;
 import com.wenguang.chat.common.UserManager;
 import com.wenguang.chat.event.CallBackBmob;
@@ -22,10 +26,25 @@ import cn.smssdk.OnSendMessageHandler;
 import cn.smssdk.SMSSDK;
 
 /**
-* Created by MVPHelper on 2016/11/15
-*/
+ * Created by MVPHelper on 2016/11/15
+ */
 
-public class LoginModelImpl implements LoginModel{
+public class LoginModelImpl implements LoginModel {
+    CallBackBmob<String> backBmob;
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.arg1) {
+                case 1:
+                    backBmob.succssCallBack((String) msg.obj);
+                    break;
+                case 2:
+                    backBmob.failed("环信注册失败");
+                    break;
+            }
+        }
+
+    };
 
     @Override
     public void sendVerifyCode(Context context, String phone) {
@@ -36,11 +55,12 @@ public class LoginModelImpl implements LoginModel{
             }
         });
     }
+
     /**
      * 查询数据
      */
-    public void queryData(String account, final CallBackBmob callBackBmob){
-        BmobQuery query =new BmobQuery("wenguangUser");
+    public void queryData(String account, final CallBackBmob callBackBmob) {
+        BmobQuery query = new BmobQuery("wenguangUser");
         query.addWhereEqualTo("account", account);
         //v3.5.0版本提供`findObjectsByTable`方法查询自定义表名的数据
         query.findObjectsByTable(new QueryListener<JSONArray>() {
@@ -63,16 +83,16 @@ public class LoginModelImpl implements LoginModel{
                             callBackBmob.failed(e.getMessage());
                         }*/
                         Gson gson = new Gson();
-                        User[]  users = gson.fromJson(jsonArray.toString(), User[].class);
-                        if (users!=null){
+                        User[] users = gson.fromJson(jsonArray.toString(), User[].class);
+                        if (users != null) {
                             callBackBmob.succssCallBack(true);
                             UserManager.getInstance().saveUser(users[0]);
-                        }else{
+                        } else {
                             callBackBmob.succssCallBack(false);
                         }
                     } else {
                         callBackBmob.succssCallBack(false);
-                      //  callBackBmob.failed(e.getMessage() );
+                        //  callBackBmob.failed(e.getMessage() );
                     }
                 } else {
                     Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
@@ -81,8 +101,10 @@ public class LoginModelImpl implements LoginModel{
             }
         });
     }
-    public void addData(String account ,String password, final CallBackBmob callBackBmob){
+
+    public void addData(final String account, final String password, final CallBackBmob callBackBmob) {
         User user = new User();
+        backBmob = callBackBmob;
 //注意：不能调用user.setObjectId("")方法
         user.setAccount(account);
         user.setPassword(password);
@@ -90,9 +112,28 @@ public class LoginModelImpl implements LoginModel{
         user.save(new SaveListener<String>() {
 
             @Override
-            public void done(String objectId, BmobException e) {
+            public void done(final String objectId, BmobException e) {
                 if (e == null) {
-                    callBackBmob.succssCallBack(objectId);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+//注册失败会抛出HyphenateException
+                            try {
+                                EMClient.getInstance().createAccount(account, password);//同步方法
+                                Message message = new Message();
+                                message.arg1 = 1;
+                                message.obj = objectId;
+                                handler.sendMessage(message);
+                            } catch (HyphenateException e1) {
+                                e1.printStackTrace();
+                                Message message = new Message();
+                                message.arg1 = 2;
+                                message.obj = objectId;
+                                handler.sendMessage(message);
+                            }
+                        }
+                    }).start();
+                    // callBackBmob.succssCallBack(objectId);
                 } else {
                     Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
                     callBackBmob.failed(e.getMessage() + "," + e.getErrorCode());
@@ -100,11 +141,13 @@ public class LoginModelImpl implements LoginModel{
             }
         });
     }
+
+
     /**
      * 查询数据
      */
-    public void queryDataByUser(String account, String password,final CallBackBmob callBackBmob){
-        BmobQuery query =new BmobQuery("wenguangUser");
+    public void queryDataByUser(String account, String password, final CallBackBmob callBackBmob) {
+        BmobQuery query = new BmobQuery("wenguangUser");
         query.addWhereEqualTo("account", account);
         query.addWhereEqualTo("password", password);
         //v3.5.0版本提供`findObjectsByTable`方法查询自定义表名的数据
@@ -117,16 +160,16 @@ public class LoginModelImpl implements LoginModel{
                     if (jsonArray != null && jsonArray.length() > 0) {
 
                         Gson gson = new Gson();
-                        User[]  users = gson.fromJson(jsonArray.toString(), User[].class);
-                        if (users!=null){
+                        User[] users = gson.fromJson(jsonArray.toString(), User[].class);
+                        if (users != null) {
                             callBackBmob.succssCallBack(true);
                             UserManager.getInstance().saveUser(users[0]);
-                        }else{
-                            callBackBmob.failed("账号或密码错误" );
+                        } else {
+                            callBackBmob.failed("账号或密码错误");
                         }
                     } else {
-                       // callBackBmob.succssCallBack(false );
-                        callBackBmob.failed("账号或密码错误" );
+                        // callBackBmob.succssCallBack(false );
+                        callBackBmob.failed("账号或密码错误");
                     }
                 } else {
                     Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());

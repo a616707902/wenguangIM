@@ -32,6 +32,7 @@ public class Common {
     public static final int REQUECT_CODE_CONTACT = 2;
     public static final int REQUECT_CALL_PHONE = 3;
     public static final int REQUECT_SEND_MESSAGE = 4;
-
+    public static final int CONTECTING = 1;
+    public static final int CONTECTED = 2;
     public  static List<SortModel> SEND_LIST=null;
 }

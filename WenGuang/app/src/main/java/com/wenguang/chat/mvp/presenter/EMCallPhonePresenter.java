@@ -21,12 +21,16 @@ public class EMCallPhonePresenter extends BasePresenter<EMCallPhoneView> {
         mEMCallPhoneModel.volleyPost(context, phonenum, new CallBackBmob<PhoneLocal>() {
             @Override
             public void succssCallBack(PhoneLocal jsonArray) {
-
+                if (null != mView) {
+                    mView.setLocal(jsonArray.getResult().getProvince() + "·"+jsonArray.getResult().getCity());
+                }
             }
 
             @Override
             public void failed(String e) {
-
+                if (null != mView) {
+                    mView.setLocal(e);
+                }
             }
         });
     }

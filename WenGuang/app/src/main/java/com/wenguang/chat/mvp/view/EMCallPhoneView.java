@@ -5,7 +5,17 @@ package com.wenguang.chat.mvp.view;
 */
 
 public interface EMCallPhoneView extends BaseView{
-
+    
+    /**
+     * 设置状态
+     * @param res
+     */
     void  setStatus(int res);
+
+    /**
+     * 设置归属地
+     * @param res
+     */
+    void  setLocal(String res);
 
 }
