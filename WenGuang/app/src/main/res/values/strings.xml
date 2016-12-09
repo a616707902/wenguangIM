@@ -51,4 +51,9 @@
     <string name="tongxunlu">通讯录</string>
     <string name="status_connecting">正在接通...</string>
     <string name="status_connected">连接中...</string>
+    <string name="jujue">拒 绝</string>
+    <string name="jieting">接 听</string>
+    <string name="on_the_line">通话中...</string>
+    <string name="guaduan">挂断</string>
+    <string name="otherguaduan">对方已挂断</string>
 </resources>

@@ -2,6 +2,7 @@ package com.wenguang.chat.common;
 
 import android.app.ActivityManager;
 import android.app.Application;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
@@ -9,6 +10,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
+import com.wenguang.chat.service.CallReceiver;
 
 import java.util.Iterator;
 import java.util.List;
@@ -28,6 +30,7 @@ public class MyApplication extends Application {
 
     private static MyApplication mMyApplication;
     public static RequestQueue queues;
+    private CallReceiver callReceiver;
 
     @Override
     public void onCreate() {
@@ -39,7 +42,18 @@ public class MyApplication extends Application {
         Bmob.initialize(this, "4bdac565f3790ee4edac17b048261edc");
         UserManager.getInstance().init(this);
         initEMSDK();
+        registerCall();
         //  initFrescoConfig();
+    }
+
+    private void registerCall() {
+        IntentFilter callFilter = new IntentFilter(EMClient.getInstance().callManager().getIncomingCallBroadcastAction());
+        if(callReceiver == null){
+            callReceiver = new CallReceiver();
+        }
+
+        //register incoming call receiver
+        registerReceiver(callReceiver, callFilter);
     }
 
     public static MyApplication getApplication() {

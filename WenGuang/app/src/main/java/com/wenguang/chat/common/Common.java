@@ -16,6 +16,8 @@ import java.util.List;
  */
 
 public class Common {
+
+
     private static LayoutInflater inflater;
 
     public static View inflate(Context context, int res) {
@@ -32,7 +34,28 @@ public class Common {
     public static final int REQUECT_CODE_CONTACT = 2;
     public static final int REQUECT_CALL_PHONE = 3;
     public static final int REQUECT_SEND_MESSAGE = 4;
+    public static final int REQUECT_READ_EXTERNAL_STORAGE = 5;
+    public static final int REQUECT_CAMERA = 6;
+    /**
+     * 正在连接
+     */
     public static final int CONTECTING = 1;
+    /**
+     * 连接成功
+     */
     public static final int CONTECTED = 2;
+    /**
+     * 通话中
+     */
+    public static final int ONTHELINE = 3;
+    /**
+     * 挂断
+     */
+    public static final int KILL = 4;
+    /**
+     * 对方已挂断
+     */
+    public static final int OTHERKILL = 5;
+
     public  static List<SortModel> SEND_LIST=null;
 }

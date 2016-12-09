@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/background_dark"
-    android:orientation="vertical"
-    tools:context="com.wenguang.chat.activity.EMCallPhoneActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@android:color/background_dark"
+              android:orientation="vertical"
+              tools:context="com.wenguang.chat.activity.EMCallPhoneActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:src="@drawable/icon_call_head" />
+            android:src="@drawable/icon_call_head"/>
 
         <TextView
             android:id="@+id/phone"
@@ -28,7 +28,7 @@
             android:layout_marginTop="@dimen/ten_dp"
             android:textColor="@color/white"
             android:textSize="@dimen/twenty_two_sp"
-            tools:text="18200366005" />
+            tools:text="18200366005"/>
 
         <TextView
             android:id="@+id/address"
@@ -39,7 +39,7 @@
             android:layout_marginTop="@dimen/three"
             android:textColor="@color/white"
             android:textSize="@dimen/fourteen_sp"
-            tools:text="四川成都" />
+            tools:text="四川成都"/>
 
         <TextView
             android:id="@+id/status"
@@ -50,18 +50,66 @@
             android:layout_marginTop="@dimen/twenty_dp"
             android:textColor="@color/white"
             android:textSize="@dimen/fourteen_sp"
-            tools:text="正在连通……" />
+            tools:text="正在连通……"/>
 
 
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/comming_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:visibility="gone"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/ten_dp"
+        android:paddingRight="@dimen/ten_dp">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/guaduan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/ten_dp"
+                android:drawableTop="@drawable/guaduan"
+                android:gravity="center_horizontal"
+                android:text="@string/jujue"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/jieting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/ten_dp"
+                android:drawableTop="@drawable/jieting"
+                android:gravity="center_horizontal"
+                android:text="@string/jieting"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/call_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical"
         android:paddingLeft="@dimen/ten_dp"
         android:paddingRight="@dimen/ten_dp"
-        android:orientation="vertical">
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -74,78 +122,79 @@
                 android:id="@+id/mianti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableTop="@drawable/icon_mianti_p"
-                android:text="@string/mianti"
-                android:textColor="@color/qing"
-                android:drawablePadding="@dimen/five_dp"
-                android:gravity="center_horizontal"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true" />
+                android:drawablePadding="@dimen/five_dp"
+                android:drawableTop="@drawable/icon_mianti_p"
+                android:gravity="center_horizontal"
+                android:text="@string/mianti"
+                android:textColor="@color/qing"/>
 
             <TextView
                 android:id="@+id/pu_call"
                 android:layout_width="wrap_content"
-                android:drawableTop="@drawable/icon_pucall_p"
-                android:text="@string/s_pu_call"
-                android:textColor="@color/qing"
-                android:drawablePadding="@dimen/five_dp"
-                android:gravity="center_horizontal"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:drawablePadding="@dimen/five_dp"
+                android:drawableTop="@drawable/icon_pucall_p"
+                android:gravity="center_horizontal"
+                android:text="@string/s_pu_call"
+                android:textColor="@color/qing"/>
 
             <TextView
                 android:id="@+id/quite"
                 android:layout_width="wrap_content"
-                android:drawableTop="@drawable/icon_quite_p"
-                android:text="@string/jingyin"
-                android:textColor="@color/qing"
-                android:drawablePadding="@dimen/five_dp"
-                android:gravity="center_horizontal"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:drawablePadding="@dimen/five_dp"
+                android:drawableTop="@drawable/icon_quite_p"
+                android:gravity="center_horizontal"
+                android:text="@string/jingyin"
+                android:textColor="@color/qing"/>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_marginBottom="@dimen/ten_dp"
+            android:layout_weight="1"
             android:paddingLeft="@dimen/twenty_dp"
             android:paddingRight="@dimen/twenty_dp">
+
             <TextView
                 android:id="@+id/keybox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableTop="@drawable/icon_keybox_p"
-                android:text="@string/jianpan"
-                android:textColor="@color/qing"
-                android:drawablePadding="@dimen/five_dp"
-                android:gravity="center_horizontal"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true" />
+                android:drawablePadding="@dimen/five_dp"
+                android:drawableTop="@drawable/icon_keybox_p"
+                android:gravity="center_horizontal"
+                android:text="@string/jianpan"
+                android:textColor="@color/qing"/>
 
             <TextView
                 android:id="@+id/kill"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableTop="@drawable/icon_kill_p"
+                android:layout_centerInParent="true"
                 android:drawablePadding="@dimen/five_dp"
-                android:gravity="center_horizontal"
-                android:layout_centerInParent="true" />
+                android:drawableTop="@drawable/icon_kill_p"
+                android:gravity="center_horizontal"/>
 
             <TextView
                 android:id="@+id/cantact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:drawableTop="@drawable/icon_cantact_p"
-                android:text="@string/tongxunlu"
-                android:textColor="@color/qing"
+                android:layout_centerVertical="true"
                 android:drawablePadding="@dimen/five_dp"
+                android:drawableTop="@drawable/icon_cantact_p"
                 android:gravity="center_horizontal"
-                android:layout_centerVertical="true"/>
+                android:text="@string/tongxunlu"
+                android:textColor="@color/qing"/>
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
