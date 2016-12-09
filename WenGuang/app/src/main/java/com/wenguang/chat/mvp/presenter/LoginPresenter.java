@@ -170,6 +170,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                             EMClient.getInstance().groupManager().loadAllGroups();
                             EMClient.getInstance().chatManager().loadAllConversations();
                             Log.d("main", "登录聊天服务器成功！");
+                            
                             mView.goHomeActivity();
                         }
 

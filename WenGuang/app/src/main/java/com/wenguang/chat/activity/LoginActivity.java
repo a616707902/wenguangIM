@@ -60,12 +60,9 @@ public class LoginActivity extends BaseActivity implements LoginView {
 //                       goHomeActivity();
                         ((LoginPresenter) mPresenter).queryUserbyAccount(LoginActivity.this, account);
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                       runOnUiThread(new Runnable() {
-                           @Override
-                           public void run() {
-                               showError("已发送验证码");
-                           }
-                       });
+
+                        showError("已发送验证码");
+
                         //获取验证码成功
                     } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
                         //返回支持发送验证码的国家列表
@@ -145,16 +142,27 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void goHomeActivity() {
-        dissDialog();
-        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-        Common.USER_ACCOUNT = account;
-        startActivity(intent);
-        finish();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                dissDialog();
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                Common.USER_ACCOUNT = account;
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     @Override
-    public void showError(String msg) {
-        ToastUtils.showToast(this, msg);
+    public void showError(final String msg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ToastUtils.showToast(LoginActivity.this, msg);
+            }
+        });
     }
 
     @Override
@@ -166,14 +174,14 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     public void showLoadProgressDialog(String str) {
-        progressDialog=LoadProgressDialog.getInstance(this);
+        progressDialog = LoadProgressDialog.getInstance(this);
         progressDialog.setMessage(str);
         progressDialog.show();
     }
 
     @Override
     public void dissDialog() {
-        if (progressDialog!=null)
-        progressDialog.dismissWithSuccess();
+        if (progressDialog != null)
+            progressDialog.dismissWithSuccess();
     }
 }

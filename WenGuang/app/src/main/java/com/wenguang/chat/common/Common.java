@@ -56,6 +56,11 @@ public class Common {
      * 对方已挂断
      */
     public static final int OTHERKILL = 5;
+    /**
+     * 已拒绝
+     */
+    public static final int CONFUSE = 6;
 
     public  static List<SortModel> SEND_LIST=null;
+    public static final String MESSAGE_ATTR_IS_VOICE_CALL = "is_voice_call";
 }
