@@ -2,11 +2,15 @@ package com.wenguang.chat.mvp.presenter;
 
 import android.content.Context;
 
+import com.wenguang.chat.R;
 import com.wenguang.chat.bean.PhoneLocal;
 import com.wenguang.chat.event.CallBackBmob;
+import com.wenguang.chat.mvp.model.CallPhoneModel;
+import com.wenguang.chat.mvp.model.CallPhoneModelImpl;
 import com.wenguang.chat.mvp.model.EMCallPhoneModel;
 import com.wenguang.chat.mvp.model.EMCallPhoneModelImpl;
 import com.wenguang.chat.mvp.view.EMCallPhoneView;
+import com.wenguang.chat.utils.MobileUtils;
 
 /**
  * 作者：陈攀
@@ -33,5 +37,22 @@ public class EMCallPhonePresenter extends BasePresenter<EMCallPhoneView> {
                 }
             }
         });
+    }
+    /**
+     * 拨打电话
+     * @param callPhoneActivity
+     * @param phoneNum
+     */
+    CallPhoneModel callPhone=new CallPhoneModelImpl();
+    public void callPhone(Context callPhoneActivity, String phoneNum) {
+        boolean isphone= MobileUtils.isMobileNo(phoneNum);
+        if (isphone){
+            callPhone.callPhone(callPhoneActivity,phoneNum);
+        }else {
+            if (null!=mView)
+            {
+                mView.showMessage(callPhoneActivity.getResources().getString(R.string.notmobnumber));
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.view.View;
 import android.view.Window;
@@ -77,11 +78,13 @@ public class CallPhoneDialog extends Dialog {
         }
     }
 
-    public void setText(final String phonenum) {
+    public void setText(final String phonenum,String string) {
         phoneNum.setText(phonenum);
         if (!MobileUtils.isMobileNo(phonenum)) {
             setFreeString("不支持错误格式号码");
-        }else{
+        }else if (!TextUtils.isEmpty(string)){
+            setFreeString(string);
+        }else {
             setFreeOnClick(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

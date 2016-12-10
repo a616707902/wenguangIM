@@ -70,18 +70,7 @@ public class LoginModelImpl implements LoginModel {
                     Log.i("bmob", "查询成功：" + jsonArray.toString());
                     System.out.print(jsonArray);
                     if (jsonArray != null && jsonArray.length() > 0) {
-                       /* try {
-                            JSONObject jsonObj = jsonArray.getJSONObject(0);
-                            String userid = jsonObj.getString("objectId");
-                            if (!TextUtils.isEmpty(userid)) {
-                              callBackBmob.succssCallBack(true);
-                            } else {
-                                callBackBmob.succssCallBack(false);
-                            }
-                        } catch (JSONException s) {
-                            e.printStackTrace();
-                            callBackBmob.failed(e.getMessage());
-                        }*/
+
                         Gson gson = new Gson();
                         User[] users = gson.fromJson(jsonArray.toString(), User[].class);
                         if (users != null) {

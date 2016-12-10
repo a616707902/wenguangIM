@@ -1,5 +1,6 @@
 package com.wenguang.chat.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.Ringtone;
@@ -36,14 +37,20 @@ import com.wenguang.chat.base.BaseActivity;
 import com.wenguang.chat.common.Common;
 import com.wenguang.chat.common.MyApplication;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
+import com.wenguang.chat.mvp.presenter.CallPhonePresenter;
 import com.wenguang.chat.mvp.presenter.EMCallPhonePresenter;
 import com.wenguang.chat.mvp.view.EMCallPhoneView;
+import com.wenguang.chat.utils.ToastUtils;
+import com.zhy.m.permission.MPermissions;
+import com.zhy.m.permission.PermissionDenied;
+import com.zhy.m.permission.PermissionGrant;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 
 public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView {
 
+    private static final int MSG_CALL_END_CALL_PU = 7;
     protected final int MSG_CALL_MAKE_VOICE = 1;
     protected final int MSG_CALL_ANSWER = 2;
     protected final int MSG_CALL_REJECT = 3;
@@ -114,6 +121,10 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
 
     protected EMCallStateChangeListener callStateListener;
     HandlerThread callHandlerThread = new HandlerThread("callHandlerThread");
+    /**
+     * 转打电话
+     */
+    private boolean iscall_pu;
 
     {
         callHandlerThread.start();
@@ -206,6 +217,20 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
                     break;
                 case MSG_CALL_SWITCH_CAMERA:
                     EMClient.getInstance().callManager().switchCamera();
+                    break;
+                case MSG_CALL_END_CALL_PU:
+                    iscall_pu = true;
+                    if (soundPool != null)
+                        soundPool.stop(streamID);
+                    try {
+                        EMClient.getInstance().callManager().endCall();
+                    } catch (Exception e) {
+
+                        saveCallRecord();
+                        callPhone();
+                        finish();
+                    }
+
                     break;
                 default:
                     break;
@@ -385,6 +410,11 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
         mAddress.setText(res);
     }
 
+    @Override
+    public void showMessage(String str) {
+        ToastUtils.showToast(this, str);
+    }
+
 
     @OnClick({R.id.guaduan, R.id.jieting, R.id.mianti, R.id.pu_call, R.id.quite, R.id.keybox, R.id.kill, R.id.cantact})
     public void onClick(View view) {
@@ -414,6 +444,11 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
                 }
                 break;
             case R.id.pu_call:
+                mPuCall.setEnabled(false);
+                chronometer.stop();
+                endCallTriggerByMe = true;
+                setStatus(Common.KILL);
+                handler.sendEmptyMessage(MSG_CALL_END_CALL_PU);
                 break;
             case R.id.quite:
                 if (isMuteState) {
@@ -558,8 +593,12 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
                                                 Log.d("AAA", "CALL DISCONNETED");
                                                 removeCallStateListener();
                                                 saveCallRecord();
+                                                if (iscall_pu) {
+                                                    callPhone();
+                                                }
                                                 Animation animation = new AlphaAnimation(1.0f, 0.0f);
                                                 animation.setDuration(800);
+
                                                 findViewById(R.id.root_layout).startAnimation(animation);
                                                 finish();
                                             }
@@ -774,5 +813,19 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
 
     void releaseHandler() {
         handler.sendEmptyMessage(MSG_CALL_RLEASE_HANDLER);
+    }
+
+    private void callPhone() {
+        MPermissions.requestPermissions(this, Common.REQUECT_CALL_PHONE, Manifest.permission.CALL_PHONE);
+    }
+
+    @PermissionGrant(Common.REQUECT_CALL_PHONE)
+    public void requestCallPhone() {
+        ((EMCallPhonePresenter) mPresenter).callPhone(this, phonenum);
+
+    }
+
+    @PermissionDenied(Common.REQUECT_CALL_PHONE)
+    public void requestCallFailed() {
     }
 }

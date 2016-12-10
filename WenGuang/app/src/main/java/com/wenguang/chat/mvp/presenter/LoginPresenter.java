@@ -129,13 +129,33 @@ public class LoginPresenter extends BasePresenter<LoginView> {
      * @param account
      * @param password
      */
-    public void addUser(Context context, String account, String password) {
+    public void addUser(Context context, final String account, final String password) {
         mLoginModel.addData(account, password, new CallBackBmob<String>() {
             @Override
             public void succssCallBack(String jsonArray) {
                 if (!TextUtils.isEmpty(jsonArray)) {
                     if (null != mView) {
-                        mView.goHomeActivity();
+                        EMClient.getInstance().login(account,password,new EMCallBack() {//回调
+                            @Override
+                            public void onSuccess() {
+                                EMClient.getInstance().groupManager().loadAllGroups();
+                                EMClient.getInstance().chatManager().loadAllConversations();
+                                Log.d("main", "登录聊天服务器成功！");
+
+                                mView.goHomeActivity();
+                            }
+
+                            @Override
+                            public void onProgress(int progress, String status) {
+
+                            }
+
+                            @Override
+                            public void onError(int code, String message) {
+                                Log.d("main", "登录聊天服务器失败！");
+                                mView.showError("登录聊天服务器失败！");
+                            }
+                        });
                     }
                 } else {
                     if (null != mView) {

@@ -27,7 +27,7 @@
         <Button
             android:id="@+id/free_call"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/fourty_five"
             android:layout_below="@id/show_num"
             android:layout_marginLeft="@dimen/twenty_dp"
             android:layout_marginRight="@dimen/twenty_dp"
@@ -39,7 +39,7 @@
         <Button
             android:id="@+id/pu_call"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/fourty_five"
             android:layout_below="@id/free_call"
             android:layout_marginLeft="@dimen/twenty_dp"
             android:layout_marginRight="@dimen/twenty_dp"

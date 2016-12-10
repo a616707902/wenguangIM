@@ -13,4 +13,5 @@ public interface CallPhoneView extends BaseView{
 
     void setList(List<SortModel> models);
     void showMessage(String str);
+    void showDialog(String phone,String str);
 }

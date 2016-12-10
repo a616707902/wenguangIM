@@ -81,17 +81,17 @@ public abstract class BaseActivity<T extends BasePresenter<BaseView>> extends Ap
                 public void run() {
                     if (error == EMError.USER_REMOVED) {
                         // 显示帐号已经被移除
-                        ToastUtils.showToast(BaseActivity.this,"帐号已经被移除");
+                       // ToastUtils.showToast(BaseActivity.this,"帐号已经被移除");
                     } else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
                         // 显示帐号在其他设备登录
                         ToastUtils.showToast(BaseActivity.this,"帐号在其他设备登录");
                     } else {
                         if (NetUtils.hasNetwork(BaseActivity.this)) {
-                            ToastUtils.showToast(BaseActivity.this,"连接不到聊天服务器");
+                           // ToastUtils.showToast(BaseActivity.this,"连接不到聊天服务器");
                         }
                         //连接不到聊天服务器
                         else {
-                            ToastUtils.showToast(BaseActivity.this,"当前网络不可用，请检查网络设置");
+                           // ToastUtils.showToast(BaseActivity.this,"当前网络不可用，请检查网络设置");
                         }
                         //当前网络不可用，请检查网络设置
                     }
@@ -131,7 +131,7 @@ public abstract class BaseActivity<T extends BasePresenter<BaseView>> extends Ap
      * 着色状态栏（4.4以上系统有效）
      */
     protected void SetStatusBarColor() {
-        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(this, R.color.white));
+        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(this, R.color.blak));
     }
 
     /**

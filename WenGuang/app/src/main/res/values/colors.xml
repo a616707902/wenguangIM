@@ -33,4 +33,5 @@
     <drawable name="qing">#48D1CC</drawable>
     <color name="hui">#c7414141</color>
     <color name="gray">#b0b0b0</color>
+    <color name="blak">#000</color>
 </resources>

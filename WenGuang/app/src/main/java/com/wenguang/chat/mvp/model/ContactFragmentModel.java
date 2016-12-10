@@ -3,6 +3,7 @@ package com.wenguang.chat.mvp.model;
 import android.content.Context;
 
 import com.wenguang.chat.event.CallBack;
+import com.wenguang.chat.event.CallBackBmob;
 import com.wenguang.chat.utils.common.SortModel;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public interface ContactFragmentModel{
     void loadContacts(final Context context,final CallBack callBack);
    void search(String str, List<SortModel> mAllContactsList,final CallBack callBack);
+    void queryData(String account, final CallBackBmob callBackBmob);
 
 
 }

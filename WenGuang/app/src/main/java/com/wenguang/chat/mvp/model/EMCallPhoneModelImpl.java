@@ -19,6 +19,7 @@ import java.util.Map;
 
 public class EMCallPhoneModelImpl implements EMCallPhoneModel {
     String url = "http://apis.juhe.cn/mobile/get";
+    String juheAPIKEY="e59b086b3ef990049b3056d6a5d5e342";
 
     @Override
     public void volleyPost(Context context, String phonenum, final CallBackBmob<PhoneLocal> callBackBmob) {
@@ -45,7 +46,7 @@ public class EMCallPhoneModelImpl implements EMCallPhoneModel {
         };
         Map<String, String> map = new HashMap<String, String>();
         map.put("phone", phonenum);
-        map.put("key", "e59b086b3ef990049b3056d6a5d5e342");
+        map.put("key", juheAPIKEY);
         VolleyRequest.RequestPostString(context, url, "get", map, volleyInterface);
     }
 

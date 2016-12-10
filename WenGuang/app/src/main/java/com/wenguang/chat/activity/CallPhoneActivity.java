@@ -23,6 +23,7 @@ import com.wenguang.chat.common.Common;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
 import com.wenguang.chat.mvp.presenter.CallPhonePresenter;
 import com.wenguang.chat.mvp.view.CallPhoneView;
+import com.wenguang.chat.utils.MobileUtils;
 import com.wenguang.chat.utils.ToastUtils;
 import com.wenguang.chat.utils.common.PinyinComparator;
 import com.wenguang.chat.utils.common.SortModel;
@@ -75,6 +76,7 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
     LinearLayout mKeyboard;
     private InputMethodManager mIM;
     private String phoneNum = "";
+    private String callPhoneNum = "";
 
     /**
      * 根据拼音来排列ListView里面的数据类
@@ -142,8 +144,14 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
                 SortModel sortModel = (SortModel) adapter.getItem(position);
-                phoneNum = sortModel.getNumber();
-                showLoadProgressDialog(phoneNum);
+                callPhoneNum = sortModel.getNumber();
+                if (MobileUtils.isMobileNo(callPhoneNum)){
+                    ((CallPhonePresenter) mPresenter).queryAccount(CallPhoneActivity.this, callPhoneNum);
+                }else {
+                    showLoadProgressDialog(callPhoneNum);
+                }
+
+             //   showLoadProgressDialog(callPhoneNum);
 //                callPhone();
 
             }
@@ -193,7 +201,12 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
                 onBackPressed();
                 break;
             case R.id.call_phone:
-                showLoadProgressDialog(phoneNum);
+                callPhoneNum=phoneNum;
+                if (MobileUtils.isMobileNo(callPhoneNum)){
+                    ((CallPhonePresenter) mPresenter).queryAccount(CallPhoneActivity.this, callPhoneNum);
+                }else {
+                    showLoadProgressDialog(callPhoneNum);
+                }
                 break;
             case R.id.delete:
                 if (phoneNum.length() > 0) {
@@ -209,9 +222,6 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
     }
 
 
-    @OnClick(R.id.call_phone_num)
-    public void onClick() {
-    }
 
     @Override
     public void setAdapter(List<SortModel> models) {
@@ -229,6 +239,20 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
         ToastUtils.showToast(this, str);
     }
 
+    @Override
+    public void showDialog(String phone, String str) {
+        callPhoneDialog = CallPhoneDialog.getInstance(this);
+        callPhoneDialog.setPuOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callPhone();
+                callPhoneDialog.dismiss();
+            }
+        });
+        callPhoneDialog.setText(phone,str);
+        callPhoneDialog.show();
+    }
+
     @PermissionGrant(Common.REQUECT_CODE_CONTACT)
     public void requestContactSuccess() {
         ((CallPhonePresenter) mPresenter).getContactList(this);
@@ -241,7 +265,7 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
 
     @PermissionGrant(Common.REQUECT_CALL_PHONE)
     public void requestCallPhone() {
-        ((CallPhonePresenter) mPresenter).callPhone(this, phoneNum);
+        ((CallPhonePresenter) mPresenter).callPhone(this, callPhoneNum);
 
     }
 
@@ -260,7 +284,8 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
     }
 
     @Override
-    public void showLoadProgressDialog(String str) {
+    public void showLoadProgressDialog(String phone) {
+
         callPhoneDialog = CallPhoneDialog.getInstance(this);
         callPhoneDialog.setPuOnClick(new View.OnClickListener() {
             @Override
@@ -269,7 +294,7 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
                 callPhoneDialog.dismiss();
             }
         });
-        callPhoneDialog.setText(str);
+        callPhoneDialog.setText(phone,null);
         callPhoneDialog.show();
     }
 
