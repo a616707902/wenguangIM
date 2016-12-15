@@ -91,10 +91,10 @@
         <Button
             android:id="@+id/login_login"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/fifty"
+            android:layout_height="@dimen/four_eight_dp"
             android:layout_below="@id/login_passwed"
             android:background="@drawable/login_back"
-            android:layout_marginTop="@dimen/ten_dp"
+            android:layout_marginTop="@dimen/five_dp"
             android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="@dimen/twenty_two_sp"
@@ -107,6 +107,7 @@
             android:layout_below="@id/login_login"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/five_dp"
+            android:layout_marginBottom="@dimen/three"
             android:text="@string/passwed_login"
             android:textColor="@color/white"/>
 

@@ -10,5 +10,7 @@ import com.wenguang.chat.event.CallBackBmob;
 public interface MineFragmentModel {
     void getUserByAccount(String account, final CallBackBmob<User> callBackBmob);
 
-    void upDataUserMessageByAccount( String name, String sign, String idcard, CallBackBmob<String> call);
+    void upDataUserMessageByAccount( String name, String sign, String idcard, String picpath,CallBackBmob<String> call);
+
+   // void upDataPic(String picpath, CallBackBmob<String> call);
 }

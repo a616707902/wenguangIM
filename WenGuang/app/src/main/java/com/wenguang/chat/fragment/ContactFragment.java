@@ -4,17 +4,14 @@ package com.wenguang.chat.fragment;
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -29,7 +26,6 @@ import com.wenguang.chat.common.Common;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
 import com.wenguang.chat.mvp.presenter.ContactFragmentPresenter;
 import com.wenguang.chat.mvp.view.ContactFragmentView;
-import com.wenguang.chat.utils.ToastUtils;
 import com.wenguang.chat.utils.common.CharacterParser;
 import com.wenguang.chat.utils.common.PinyinComparator;
 import com.wenguang.chat.utils.common.SortModel;
@@ -43,7 +39,6 @@ import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 public class ContactFragment extends BaseFragment implements ContactFragmentView {
 
@@ -204,6 +199,7 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.home_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

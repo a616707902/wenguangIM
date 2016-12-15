@@ -60,7 +60,13 @@ public class Common {
      * 已拒绝
      */
     public static final int CONFUSE = 6;
-
+    public static final String LOCAL_FOLDER_NAME="local_folder_name";//跳转到相册页的文件夹名称
+    /** 请求相册 */
+    public static final int REQUEST_CODE_GETIMAGE_BYSDCARD = 0;
+    /** 请求相机 */
+    public static final int REQUEST_CODE_GETIMAGE_BYCAMERA = 1;
+    /** 请求裁剪 */
+    public static final int REQUEST_CODE_GETIMAGE_BYCROP = 2;
     public  static List<SortModel> SEND_LIST=null;
     public static final String MESSAGE_ATTR_IS_VOICE_CALL = "is_voice_call";
 }

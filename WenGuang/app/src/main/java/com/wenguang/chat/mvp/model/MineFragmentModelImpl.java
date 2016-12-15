@@ -10,15 +10,15 @@ import com.wenguang.chat.common.UserManager;
 import com.wenguang.chat.event.CallBackBmob;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.List;
+import java.io.File;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadFileListener;
 
 /**
  * Created by MVPHelper on 2016/11/16
@@ -57,11 +57,37 @@ public class MineFragmentModelImpl implements MineFragmentModel {
     }
 
     @Override
-    public void upDataUserMessageByAccount( String name, String sign, String idcard, final CallBackBmob<String> call) {
-        User user = new User();
+    public void upDataUserMessageByAccount(String name, String sign, String idcard, String picpath, final CallBackBmob<String> call) {
+        final User user = new User();
         user.setName(name);
         user.setIdcard(idcard);
         user.setMinesign(sign);
+        if (!TextUtils.isEmpty(picpath)) {
+            final BmobFile bmobFile = new BmobFile(new File(picpath));
+            bmobFile.uploadblock(new UploadFileListener() {
+                @Override
+                public void done(BmobException e) {
+                    if(e==null){
+                        user.setMinepic(bmobFile);
+                    }else{
+
+                    }
+                    user.update(UserManager.getInstance().getUser().getObjectId(), new UpdateListener() {
+
+                        @Override
+                        public void done(BmobException e) {
+                            if (e == null) {
+                                call.succssCallBack("更新成功");
+                            } else {
+                                Log.i("bmob", "更新失败：" + e.getMessage() + "," + e.getErrorCode());
+                                call.failed(e.getMessage() + "," + e.getErrorCode());
+                            }
+                        }
+                    });
+                }
+            });
+          //  user.setMinepic(bmobFile);
+        } else {
             user.update(UserManager.getInstance().getUser().getObjectId(), new UpdateListener() {
 
                 @Override
@@ -74,5 +100,8 @@ public class MineFragmentModelImpl implements MineFragmentModel {
                     }
                 }
             });
+        }
     }
+
+
 }

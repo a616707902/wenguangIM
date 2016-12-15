@@ -7,8 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
-import android.os.SystemClock;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
@@ -64,6 +62,7 @@ public class LoadProgressDialog extends Dialog {
 	@Override
 	public void show() {
 		if (!((Activity) context).isFinishing()) {
+			splshView=new SplshView(context);
 			super.show();
 		} else {
 			instance = null;
@@ -147,6 +146,7 @@ public class LoadProgressDialog extends Dialog {
     
 	protected void dismissHUD() {
 		splshView.splshDisapaer();
+		dismiss();
 
 	}
     

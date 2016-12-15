@@ -160,6 +160,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                dissDialog();
                 ToastUtils.showToast(LoginActivity.this, msg);
             }
         });

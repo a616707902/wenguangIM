@@ -42,10 +42,11 @@ public class MineFragmentPresenter extends BasePresenter<MineFragmentView> {
         });
     }
 
-    public void upDataUserMessage(Context context, String name, String sign, String idcard) {
-        mineFragmentModel.upDataUserMessageByAccount( name, sign, idcard, new CallBackBmob<String>() {
+    public void upDataUserMessage(Context context, String name, String sign, String idcard, final String picpath) {
+        mineFragmentModel.upDataUserMessageByAccount( name, sign, idcard,picpath, new CallBackBmob<String>() {
             @Override
             public void succssCallBack(String jsonArray) {
+
                 if (null != mView) {
                     mView.showMessage(jsonArray);
                 }

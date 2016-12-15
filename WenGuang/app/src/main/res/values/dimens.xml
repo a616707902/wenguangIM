@@ -28,4 +28,9 @@
     <dimen name="two_huandryd_fivty_dp">250dp</dimen>
     <dimen name="three">3dp</dimen>
     <dimen name="sixty_dp">60dp</dimen>
+    <dimen name="title_view_left_back_padding_left">12dp</dimen>
+    <dimen name="title_view_left_back_padding_right">12dp</dimen>
+    <dimen name="header_bar_height">45dp</dimen>
+    <dimen name="dividing_0.5">0.5dip</dimen>
+    <dimen name="textsize_17">17dp</dimen>
 </resources>
