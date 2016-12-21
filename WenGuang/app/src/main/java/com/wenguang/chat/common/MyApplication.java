@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
@@ -13,11 +15,17 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMOptions;
+import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.wenguang.chat.R;
 import com.wenguang.chat.service.CallReceiver;
 import com.wenguang.chat.utils.LocalImageHelper;
 
@@ -37,7 +45,7 @@ import cn.smssdk.SMSSDK;
 
 public class MyApplication extends Application {
 
-
+    public static final String IMAGE_LOADER_CACHE_PATH = "/wenguang/Images/";
     private static MyApplication mMyApplication;
     public static RequestQueue queues;
     private CallReceiver callReceiver;
@@ -72,21 +80,48 @@ public class MyApplication extends Application {
         }
     }
 
-    public static void initImageLoader(Context context) {
+    public  void initImageLoader(Context context) {
+        File cacheDir = null;
+        if (!TextUtils.isEmpty(IMAGE_LOADER_CACHE_PATH)) {
+            cacheDir = StorageUtils.getOwnCacheDirectory(context, IMAGE_LOADER_CACHE_PATH);
+        } else {
+            cacheDir = StorageUtils.getCacheDirectory(context);
+        }
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
         config.threadPriority(Thread.NORM_PRIORITY);
         config.denyCacheImageMultipleSizesInMemory();
         config.memoryCacheSize((int) Runtime.getRuntime().maxMemory() / 4);
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
         config.diskCacheSize(100 * 1024 * 1024); // 100 MiB
+        config.diskCacheExtraOptions(720, 1280, null);
+        config.diskCache(new UnlimitedDiskCache(cacheDir));
         config.tasksProcessingOrder(QueueProcessingType.LIFO);
         //修改连接超时时间5秒，下载超时时间5秒
         config.imageDownloader(new BaseImageDownloader(mMyApplication, 5 * 1000, 5 * 1000));
         //		config.writeDebugLogs(); // Remove for release app
         // Initialize ImageLoader with configuration.
+        config.memoryCacheSizePercentage(14);
+        config.memoryCacheExtraOptions(720, 1280);
+        config.memoryCache(new WeakMemoryCache());
+
+        config.threadPoolSize(3);
+        config.threadPriority(Thread.NORM_PRIORITY - 2);
+
+        config.defaultDisplayImageOptions(getDisplayOptions());
         ImageLoader.getInstance().init(config.build());
     }
-
+    public DisplayImageOptions getDisplayOptions() {
+        return new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.color.default_image_background)
+                .showImageForEmptyUri(R.color.default_image_background)
+                .showImageOnFail(R.color.default_image_background)
+                .cacheInMemory(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .build();
+    }
     public String getCachePath() {
         File cacheDir;
         if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))
@@ -156,6 +191,7 @@ public class MyApplication extends Application {
         }
         return processName;
     }
+
     /**
      * @return
      * @Description： 获取当前屏幕1/4宽度

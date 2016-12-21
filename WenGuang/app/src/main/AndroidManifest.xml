@@ -90,7 +90,10 @@
             android:name=".activity.SendMessageActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".activity.EMCallPhoneActivity"
+        android:name=".activity.EMCallPhoneActivity"
+        android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.ImagesDetailActivity"
             android:screenOrientation="portrait"></activity>
 
         <!--开机自启的监听-->

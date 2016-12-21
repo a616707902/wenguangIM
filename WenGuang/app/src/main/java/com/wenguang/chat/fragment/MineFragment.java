@@ -4,10 +4,13 @@ package com.wenguang.chat.fragment;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -21,12 +24,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 import com.wenguang.chat.R;
+import com.wenguang.chat.activity.ImagesDetailActivity;
 import com.wenguang.chat.activity.LocalAlbum;
 import com.wenguang.chat.activity.RecommendActivity;
 import com.wenguang.chat.base.BaseFragment;
@@ -83,6 +86,8 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
     DisplayImageOptions options;
 
     private LoadProgressDialog progressDialog;
+    String url;
+
 
     @Override
     protected int getlayoutId() {
@@ -109,13 +114,14 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
         mineIdcard.setText(user.getIdcard());
         BmobFile file = user.getMinepic();
         if (file != null) {
-            String url = file.getUrl();
+            url = file.getUrl();
             if (!TextUtils.isEmpty(url)) {
-                Glide.with(mActivity)
-                        .load(url)
-                        .placeholder(R.drawable.icon_default)
-                        .error(R.drawable.head_icon)
-                        .into(mineImg);
+//                Glide.with(mActivity)
+//                        .load(url)
+//                        .placeholder(R.drawable.icon_default)
+//                        .error(R.drawable.head_icon)
+//                        .into(mineImg);
+                ImageLoader.getInstance().displayImage(url, mineImg);
             }
         }
 
@@ -138,7 +144,7 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
     }
 
 
-    @OnClick({R.id.recommend, R.id.about, R.id.btnRight, R.id.edit_img})
+    @OnClick({R.id.recommend, R.id.about, R.id.btnRight, R.id.edit_img, R.id.mine_img})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.recommend:
@@ -147,6 +153,9 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
                 break;
             case R.id.about:
 
+                break;
+            case R.id.mine_img:
+                showBigPic(mineImg);
                 break;
             case R.id.btnRight:
                 isSave = !isSave;
@@ -157,6 +166,35 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
                 showChooseIMG_WAYDialog();
                 break;
         }
+    }
+
+    /**
+     * 显示大图
+     */
+    private void showBigPic(View view) {
+        Rect frame = new Rect();
+        //这里可能会出错
+        ((Activity) mActivity).getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+        int statusBarHeight = frame.top;
+
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        location[1] += statusBarHeight;
+
+        int width = view.getWidth();
+        int height = view.getHeight();
+        Bundle extras = new Bundle();
+        extras.putString(ImagesDetailActivity.INTENT_IMAGE_URL_TAG, url);
+        extras.putInt(ImagesDetailActivity.INTENT_IMAGE_X_TAG, location[0]);
+        extras.putInt(ImagesDetailActivity.INTENT_IMAGE_Y_TAG, location[1]);
+        extras.putInt(ImagesDetailActivity.INTENT_IMAGE_W_TAG, width);
+        extras.putInt(ImagesDetailActivity.INTENT_IMAGE_H_TAG, height);
+             /*   readyGo(ImagesDetailActivity.class, extras);
+                getActivity().overridePendingTransition(0, 0);*/
+        Intent intent = new Intent(mActivity, ImagesDetailActivity.class);
+        intent.putExtras(extras);
+        mActivity.startActivity(intent);
+        (((Activity) mActivity)).overridePendingTransition(0, 0);
     }
 
     private void showEdit() {
@@ -196,7 +234,7 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
         if (TextUtils.isEmpty(name) && TextUtils.isEmpty(sign) && TextUtils.isEmpty(idcard) && LocalImageHelper.getInstance().getLocalfile() == null) {
 
         } else {
-            ((MineFragmentPresenter) mPresenter).upDataUserMessage(mActivity, name, sign, idcard,LocalImageHelper.getInstance().getLocalfile().getPath());
+            ((MineFragmentPresenter) mPresenter).upDataUserMessage(mActivity, name, sign, idcard, LocalImageHelper.getInstance().getLocalfile().getPath());
             showLoadProgressDialog("更新中...");
         }
 

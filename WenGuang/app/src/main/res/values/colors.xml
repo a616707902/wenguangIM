@@ -21,6 +21,7 @@
     <color name="yellow">#EEEE00</color>
     <color name="dialog_bg">#55000000</color>
     <color name="splsh_bg">#00000000</color>
+    <color name="default_image_background">#FFDEDEDE</color>
     <array name="splsh_circle_color">
         <item>@color/red</item>
         <item>@color/blue</item>

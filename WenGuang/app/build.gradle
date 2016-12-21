@@ -48,4 +48,6 @@ dependencies {
     compile 'com.zhy:mpermission-api:1.0.0'
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
     compile 'cn.bmob.android:http-legacy:1.0'
+    compile 'com.github.chrisbanes.photoview:library:1.2.2'
+    compile 'com.nineoldandroids:library:2.4.0'
 }
