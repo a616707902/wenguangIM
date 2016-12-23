@@ -3,6 +3,7 @@ package com.wenguang.chat.activity;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -78,7 +79,14 @@ public class HomeActivity extends BaseActivity implements HomeView {
         }
     }
 
-    private void showFragment(int index) {
+
+
+    public void setMessageCheck(){
+//        switchTab(R.id.radio_message);
+//
+        mRadioMessage.performClick();
+    }
+    public void showFragment(int index) {
        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         // ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
@@ -138,7 +146,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
 
     @Override
     public void onBackPressed() {
-        moveTaskToBack(false);
+        moveTaskToBack(true);
     }
 
     @Override
@@ -150,4 +158,15 @@ public class HomeActivity extends BaseActivity implements HomeView {
     public void dissDialog() {
 
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_MENU) {//MENU键
+            //监控/拦截菜单键
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
 }

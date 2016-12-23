@@ -64,6 +64,10 @@ public class CallPhoneDialog extends Dialog {
     public static CallPhoneDialog getInstance(Context context) {
         if (instance == null) {
             instance = new CallPhoneDialog(context);
+        }else{
+            instance.dismiss();
+            instance=null;
+            instance = new CallPhoneDialog(context);
         }
         return instance;
     }

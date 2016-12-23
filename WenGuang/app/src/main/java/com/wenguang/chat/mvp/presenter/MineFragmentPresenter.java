@@ -7,6 +7,7 @@ import com.wenguang.chat.event.CallBackBmob;
 import com.wenguang.chat.mvp.model.MineFragmentModel;
 import com.wenguang.chat.mvp.model.MineFragmentModelImpl;
 import com.wenguang.chat.mvp.view.MineFragmentView;
+import com.wenguang.chat.utils.LocalImageHelper;
 
 /**
  * 作者：chenpan
@@ -42,7 +43,11 @@ public class MineFragmentPresenter extends BasePresenter<MineFragmentView> {
         });
     }
 
-    public void upDataUserMessage(Context context, String name, String sign, String idcard, final String picpath) {
+    public void upDataUserMessage(Context context, String name, String sign, String idcard, final LocalImageHelper.LocalFile localFile) {
+        String picpath=null;
+        if (null!=localFile){
+            picpath=localFile.getPath();
+        }
         mineFragmentModel.upDataUserMessageByAccount( name, sign, idcard,picpath, new CallBackBmob<String>() {
             @Override
             public void succssCallBack(String jsonArray) {

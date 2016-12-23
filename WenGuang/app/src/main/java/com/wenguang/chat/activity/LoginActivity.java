@@ -1,6 +1,7 @@
 package com.wenguang.chat.activity;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,8 @@ import com.wenguang.chat.mvp.view.LoginView;
 import com.wenguang.chat.utils.ClickUtil;
 import com.wenguang.chat.utils.ToastUtils;
 import com.wenguang.chat.widget.LoadProgressDialog;
+
+import org.json.JSONObject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -69,12 +72,21 @@ public class LoginActivity extends BaseActivity implements LoginView {
                     }
                 } else {
                     ((Throwable) data).printStackTrace();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            showError(((Throwable) data).toString());
+                    try {
+                        Throwable throwable = (Throwable) data;
+                        throwable.printStackTrace();
+                        JSONObject object = new JSONObject(throwable.getMessage());
+                        String des = object.optString("detail");//错误描述
+                        int status = object.optInt("status");//错误代码
+                        if (status > 0 && !TextUtils.isEmpty(des)) {
+                            showError(des);
+                            return;
                         }
-                    });
+                    } catch (Exception e) {
+                        //do something
+                        showError(((Throwable) data).toString());
+                    }
+
                 }
             }
         };

@@ -234,7 +234,8 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
         if (TextUtils.isEmpty(name) && TextUtils.isEmpty(sign) && TextUtils.isEmpty(idcard) && LocalImageHelper.getInstance().getLocalfile() == null) {
 
         } else {
-            ((MineFragmentPresenter) mPresenter).upDataUserMessage(mActivity, name, sign, idcard, LocalImageHelper.getInstance().getLocalfile().getPath());
+
+            ((MineFragmentPresenter) mPresenter).upDataUserMessage(mActivity, name, sign, idcard, LocalImageHelper.getInstance().getLocalfile());
             showLoadProgressDialog("更新中...");
         }
 

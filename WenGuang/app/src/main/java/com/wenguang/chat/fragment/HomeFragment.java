@@ -2,7 +2,6 @@ package com.wenguang.chat.fragment;
 
 import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,10 +14,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wenguang.chat.R;
 import com.wenguang.chat.activity.CallPhoneActivity;
+import com.wenguang.chat.activity.HomeActivity;
 import com.wenguang.chat.adapter.BaseRecyclerAdapter;
 import com.wenguang.chat.adapter.RecordCallHolder;
 import com.wenguang.chat.base.BaseFragment;
@@ -28,7 +29,6 @@ import com.wenguang.chat.mvp.presenter.BasePresenter;
 import com.wenguang.chat.mvp.presenter.HomeFragmentPresenter;
 import com.wenguang.chat.mvp.view.HomeFragmentView;
 import com.wenguang.chat.utils.DimenUtil;
-import com.wenguang.chat.utils.ToastUtils;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
@@ -36,6 +36,7 @@ import com.zhy.m.permission.PermissionGrant;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 
 public class HomeFragment extends BaseFragment implements HomeFragmentView {
 
@@ -50,6 +51,8 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     RecyclerView mRecyclerView;
     @Bind(R.id.fab)
     FloatingActionButton mFab;
+    @Bind(R.id.miss_ll)
+    LinearLayout mMissLl;
 
 
     private BaseRecyclerAdapter mAdapter;
@@ -73,11 +76,12 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     @Override
     protected void initEventAndData() {
         mToolbar.setOverflowIcon(getResources().getDrawable(R.drawable.toolbar_add));
+        MPermissions.requestPermissions(this, Common.REQUECT_CALL_PHONE, Manifest.permission.CALL_PHONE);
         MPermissions.requestPermissions(this, Common.REQUECT_CODE_MISSCALL, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_SMS, Manifest.permission.READ_CALL_LOG);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(mActivity, CallPhoneActivity.class);
+                Intent intent = new Intent(mActivity, CallPhoneActivity.class);
                 startActivity(intent);
             }
         });
@@ -105,7 +109,20 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
         switch (item.getItemId()) {
 
             case R.id.action_item1:
-                Intent intent=new Intent(Intent.ACTION_EDIT, Uri.parse("content://com.android.contacts/contacts/"+"1"));
+//                Intent intent=new Intent(Intent.ACTION_EDIT, Uri.parse("content://com.android.contacts/contacts/"+"1"));
+//                Intent intent = new Intent(Intent.ACTION_INSERT);
+//                intent.setType("vnd.android.cursor.dir/person");
+//                intent.setType("vnd.android.cursor.dir/contact");
+//                intent.setType("vnd.android.cursor.dir/raw_contact");
+                Intent intent = new Intent(Intent.ACTION_INSERT_OR_EDIT);
+                intent.setType("vnd.android.cursor.item/person");
+                intent.setType("vnd.android.cursor.item/contact");
+                intent.setType("vnd.android.cursor.item/raw_contact");
+//                intent.putExtra(android.provider.ContactsContract.Intents.Insert.NAME, name);
+//                intent.putExtra(android.provider.ContactsContract.Intents.Insert.COMPANY,company);
+//                intent.putExtra(android.provider.ContactsContract.Intents.Insert.PHONE, tel);
+//                intent.putExtra(android.provider.ContactsContract.Intents.Insert.PHONE_TYPE, 2);
+
                 startActivity(intent);
                 break;
 
@@ -167,7 +184,17 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     public void requestMissCallFailed() {
     }
 
+    @PermissionGrant(Common.REQUECT_CALL_PHONE)
+    public void requestCallPhone() {
+//        CallPhoneModel callPhone = new CallPhoneModelImpl();
+////        ((CallPhonePresenter) mPresenter).callPhone(this, callPhoneNum);
+//        callPhone.callPhone(mContext, callPhoneNum);
 
+    }
+
+    @PermissionDenied(Common.REQUECT_CALL_PHONE)
+    public void requestCallFailed() {
+    }
     @Override
     public void showLoadProgressDialog(String str) {
 
@@ -176,5 +203,11 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     @Override
     public void dissDialog() {
 
+    }
+
+
+    @OnClick(R.id.home_unread_messages)
+    public void onClick() {
+        ((HomeActivity)mActivity).setMessageCheck();
     }
 }

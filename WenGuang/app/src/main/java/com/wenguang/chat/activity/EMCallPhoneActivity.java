@@ -37,7 +37,6 @@ import com.wenguang.chat.base.BaseActivity;
 import com.wenguang.chat.common.Common;
 import com.wenguang.chat.common.MyApplication;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
-import com.wenguang.chat.mvp.presenter.CallPhonePresenter;
 import com.wenguang.chat.mvp.presenter.EMCallPhonePresenter;
 import com.wenguang.chat.mvp.view.EMCallPhoneView;
 import com.wenguang.chat.utils.ToastUtils;
@@ -90,6 +89,10 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
     Chronometer chronometer;
     @Bind(R.id.tv_network_status)
     TextView netwrokStatusVeiw;
+    @Bind(R.id.call_back)
+    ImageView mCallBack;
+    @Bind(R.id.root_layout)
+    LinearLayout mRootLayout;
     private String phonenum;
 
     private boolean isComming = false;
@@ -158,7 +161,7 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
                                     st2 = getResources().getString(R.string.can_not_connect_chat_server_connection);
                                 }
                                 Toast.makeText(EMCallPhoneActivity.this, st2, Toast.LENGTH_SHORT).show();
-                                finish();
+                                mCallBack.setVisibility(View.VISIBLE);
                             }
                         });
                     }
@@ -416,7 +419,7 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
     }
 
 
-    @OnClick({R.id.guaduan, R.id.jieting, R.id.mianti, R.id.pu_call, R.id.quite, R.id.keybox, R.id.kill, R.id.cantact})
+    @OnClick({R.id.guaduan, R.id.jieting, R.id.mianti, R.id.pu_call, R.id.quite, R.id.keybox, R.id.kill, R.id.cantact,R.id.call_back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.guaduan:
@@ -481,6 +484,9 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
                 handler.sendEmptyMessage(MSG_CALL_END);
                 break;
             case R.id.cantact:
+                break;
+            case R.id.call_back:
+                finish();
                 break;
         }
     }
@@ -787,6 +793,10 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
         // save
         EMClient.getInstance().chatManager().saveMessage(message);
     }
+
+
+
+
 
     enum CallingState {
         CANCELLED, NORMAL, REFUSED, BEREFUSED, UNANSWERED, OFFLINE, NO_RESPONSE, BUSY, VERSION_NOT_SAME

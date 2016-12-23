@@ -18,6 +18,7 @@ import java.util.List;
 public class Common {
 
 
+
     private static LayoutInflater inflater;
 
     public static View inflate(Context context, int res) {
@@ -36,6 +37,7 @@ public class Common {
     public static final int REQUECT_SEND_MESSAGE = 4;
     public static final int REQUECT_READ_EXTERNAL_STORAGE = 5;
     public static final int REQUECT_CAMERA = 6;
+    public static final int REQUECT_CODE_SMS =7 ;
     /**
      * 正在连接
      */

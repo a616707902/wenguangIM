@@ -8,7 +8,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.Window;
 
 import com.hyphenate.EMConnectionListener;
@@ -161,7 +160,7 @@ public abstract class BaseActivity<T extends BasePresenter<BaseView>> extends Ap
         AppManager.getAppManager().finishActivity(this);
     }
 
-    @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -170,5 +169,5 @@ public abstract class BaseActivity<T extends BasePresenter<BaseView>> extends Ap
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 }

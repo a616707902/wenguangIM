@@ -7,10 +7,10 @@
     <color name="gray_white">#3fffffff</color>
     <color name="login_color">#afffff</color>
     <color name="cyan">#50d2c2</color>
-    <color name="ray_red">#ed6ac4</color>
+    <color name="ray_red">#9d9ddb</color>
     <color name="thin_white">#f1f1f1</color>
     <color name="bg_color">#F4F3F3</color>
-    <color name="call_bg">#aaafffff</color>
+    <color name="call_bg">#aa55d2c2</color>
     <color name="alpa_cyan">#aa50d2c2</color>
     <color name="red">#FF0000</color>
     <color name="blue">#7B68EE</color>
