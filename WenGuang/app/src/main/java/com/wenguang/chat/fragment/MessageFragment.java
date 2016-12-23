@@ -2,6 +2,8 @@ package com.wenguang.chat.fragment;
 
 
 import android.Manifest;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 
@@ -17,7 +19,6 @@ import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -39,9 +40,9 @@ public class MessageFragment extends BaseFragment {
 
     @Override
     protected void initInjector() {
-        mInfoList = new ArrayList<MessageInfo>();
-        adapter = new MessageAdapter(mActivity, mInfoList);
-        mListView.setAdapter(adapter);
+//        mInfoList = new ArrayList<MessageInfo>();
+//        adapter = new MessageAdapter(mActivity, mInfoList);
+//        mListView.setAdapter(adapter);
 
     }
 
@@ -68,12 +69,28 @@ public class MessageFragment extends BaseFragment {
     @PermissionGrant(Common.REQUECT_CODE_SMS)
     public void requestSMSSuccess() {
         //  ((CallPhonePresenter) mPresenter).getContactList(this);
-        GetMessageInfo getMessageInfo=new GetMessageInfo(mActivity);
-        adapter.updateListView(getMessageInfo.getSmsInfos());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                GetMessageInfo getMessageInfo = new GetMessageInfo(mActivity);
+                mInfoList = getMessageInfo.getSmsInfos();
+                mHandler.sendEmptyMessage(1);
+            }
+        }).start();
+        // adapter.updateListView(getMessageInfo.getSmsInfos());
 
     }
 
     @PermissionDenied(Common.REQUECT_CODE_SMS)
     public void requestSMSFailed() {
     }
+
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            adapter=new MessageAdapter(mActivity,mInfoList);
+            mListView.setAdapter(adapter);
+        }
+    };
 }

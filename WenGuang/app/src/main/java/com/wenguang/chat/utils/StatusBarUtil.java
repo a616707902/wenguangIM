@@ -29,7 +29,7 @@ import com.wenguang.chat.widget.StatusBarView;
 */
 public class StatusBarUtil {
 
-    public static final int DEFAULT_STATUS_BAR_ALPHA = 112;
+    public static final int DEFAULT_STATUS_BAR_ALPHA = 255;
     private static final int COLOR_TRANSLUCENT = Color.parseColor("#00000000");
 
 

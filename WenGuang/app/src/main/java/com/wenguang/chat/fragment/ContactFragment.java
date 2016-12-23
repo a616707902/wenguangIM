@@ -26,9 +26,11 @@ import com.wenguang.chat.common.Common;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
 import com.wenguang.chat.mvp.presenter.ContactFragmentPresenter;
 import com.wenguang.chat.mvp.view.ContactFragmentView;
+import com.wenguang.chat.utils.MobileUtils;
 import com.wenguang.chat.utils.common.CharacterParser;
 import com.wenguang.chat.utils.common.PinyinComparator;
 import com.wenguang.chat.utils.common.SortModel;
+import com.wenguang.chat.widget.CallPhoneDialog;
 import com.wenguang.chat.widget.SideBar;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
@@ -70,6 +72,8 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
 
     private List<SortModel> mAllContactsList;
     private ContactsSortAdapter adapter;
+    private String callPhoneNum;
+    private CallPhoneDialog callPhoneDialog;
 
 
     @Override
@@ -156,6 +160,13 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
                 adapter.toggleChecked(position);
+                callPhoneNum = ((SortModel) adapter.getItem(position)).getNumber();
+                if (MobileUtils.isMobileNo(callPhoneNum)) {
+                    ((ContactFragmentPresenter) mPresenter).queryAccount(mActivity, callPhoneNum);
+                } else {
+                    showLoadProgressDialog(callPhoneNum);
+                }
+
             }
         });
 
@@ -182,6 +193,20 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
     @Override
     public void setList(List<SortModel> models) {
         mAllContactsList = models;
+    }
+
+    @Override
+    public void showDialog(String phone, String str) {
+        callPhoneDialog = CallPhoneDialog.getInstance(mActivity);
+        callPhoneDialog.setPuOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callPhone();
+                callPhoneDialog.dismiss();
+            }
+        });
+        callPhoneDialog.setText(phone,str);
+        callPhoneDialog.show();
     }
 
     @PermissionGrant(Common.REQUECT_CODE_CONTACT)
@@ -219,11 +244,32 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
 
     @Override
     public void showLoadProgressDialog(String str) {
-
+        callPhoneDialog = CallPhoneDialog.getInstance(mActivity);
+        callPhoneDialog.setPuOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callPhone();
+                callPhoneDialog.dismiss();
+            }
+        });
+        callPhoneDialog.setText(callPhoneNum, null);
+        callPhoneDialog.show();
     }
 
     @Override
     public void dissDialog() {
 
+    }
+    private void callPhone() {
+        MPermissions.requestPermissions(this, Common.REQUECT_CALL_PHONE, Manifest.permission.CALL_PHONE);
+    }
+    @PermissionGrant(Common.REQUECT_CALL_PHONE)
+    public void requestCallPhone() {
+        ((ContactFragmentPresenter) mPresenter).callPhone(mActivity, callPhoneNum);
+
+    }
+
+    @PermissionDenied(Common.REQUECT_CALL_PHONE)
+    public void requestCallFailed() {
     }
 }

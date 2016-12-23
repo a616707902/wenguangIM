@@ -48,7 +48,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
     @Override
     protected void initInjector() {
         showFragment(1);
-        SetStatusBarColor(R.color.white);
+        SetStatusBarColor(R.color.blak);
 
     }
 
@@ -167,6 +167,4 @@ public class HomeActivity extends BaseActivity implements HomeView {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
 }
