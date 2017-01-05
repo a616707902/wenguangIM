@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.os.SystemClock;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -59,6 +60,8 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
     protected CallingState callingState = CallingState.CANCELLED;
     @Bind(R.id.headimg)
     ImageView mHeadimg;
+    @Bind(R.id.name)
+    TextView mName;
     @Bind(R.id.phone)
     TextView mPhone;
     @Bind(R.id.address)
@@ -191,11 +194,11 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
                     } catch (Exception e1) {
                         e1.printStackTrace();
                         saveCallRecord();
-                        finish();
+                          finish();
                     }
                     callingState = CallingState.REFUSED;
                     break;
-                case MSG_CALL_END:
+                case MSG_CALL_END://挂断电话执行
                     if (soundPool != null)
                         soundPool.stop(streamID);
                     try {
@@ -250,6 +253,7 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
     @Override
     protected void initInjector() {
         phonenum = getIntent().getStringExtra("phonenum");
+
         isComming = getIntent().getBooleanExtra("isComingCall", false);
         audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
         pushProvider = new EMCallManager.EMCallPushProvider() {
@@ -299,6 +303,8 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
     @Override
     protected void initEventAndData() {
         mPhone.setText(phonenum);
+        ((EMCallPhonePresenter)mPresenter).searchName(this, phonenum);
+
         ((EMCallPhonePresenter) mPresenter).getLocale(this, phonenum);
         setStatus(Common.CONTECTING);
         if (isComming) {//如果是呼入电话
@@ -418,8 +424,18 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
         ToastUtils.showToast(this, str);
     }
 
+    @Override
+    public void showName(String str) {
+        if (TextUtils.isEmpty(str)){
+            mName.setVisibility(View.GONE);
+        }else{
+            mName.setText(str);
+        }
 
-    @OnClick({R.id.guaduan, R.id.jieting, R.id.mianti, R.id.pu_call, R.id.quite, R.id.keybox, R.id.kill, R.id.cantact,R.id.call_back})
+    }
+
+
+    @OnClick({R.id.guaduan, R.id.jieting, R.id.mianti, R.id.pu_call, R.id.quite, R.id.keybox, R.id.kill, R.id.cantact, R.id.call_back})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.guaduan:
@@ -584,7 +600,7 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
                             }
                         });
                         break;
-                    case DISCONNECTED:// 电话断了
+                    case DISCONNECTED:// 电话断了,对方不在线时也执行这里
                         handler.removeCallbacks(timeoutHangup);
                         @SuppressWarnings("UnnecessaryLocalVariable") final CallError fError = error;
                         runOnUiThread(new Runnable() {
@@ -606,7 +622,8 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
                                                 animation.setDuration(800);
 
                                                 findViewById(R.id.root_layout).startAnimation(animation);
-                                                finish();
+                                                // finish();
+                                                mCallBack.setVisibility(View.VISIBLE);
                                             }
                                         });
                                     }
@@ -793,9 +810,6 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
         // save
         EMClient.getInstance().chatManager().saveMessage(message);
     }
-
-
-
 
 
     enum CallingState {

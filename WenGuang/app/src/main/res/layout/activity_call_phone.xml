@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:toolbar="http://schemas.android.com/tools"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.wenguang.chat.activity.CallPhoneActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:toolbar="http://schemas.android.com/tools"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical"
+              tools:context="com.wenguang.chat.activity.CallPhoneActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -23,7 +24,7 @@
             android:layout_gravity="center"
             android:text="@string/call_phone"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
 
     </android.support.v7.widget.Toolbar>
 
@@ -49,9 +50,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/four_eight_dp"
                 android:background="@color/alpa_cyan"
-                android:textColor="@color/white"
                 android:paddingLeft="@dimen/twenty_dp"
-                android:textSize="@dimen/twenty_sp" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/twenty_sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -68,7 +69,7 @@
                         android:id="@+id/one"
                         android:layout_width="@dimen/sixty_dp"
                         android:layout_height="@dimen/sixty_dp"
-                        android:background="@drawable/select_one" />
+                        android:background="@drawable/select_one"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -81,7 +82,7 @@
                         android:id="@+id/two"
                         android:layout_width="@dimen/sixty_dp"
                         android:layout_height="@dimen/sixty_dp"
-                        android:background="@drawable/select_two" />
+                        android:background="@drawable/select_two"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -94,7 +95,7 @@
                         android:id="@+id/three"
                         android:layout_width="@dimen/sixty_dp"
                         android:layout_height="@dimen/sixty_dp"
-                        android:background="@drawable/select_three" />
+                        android:background="@drawable/select_three"/>
                 </RelativeLayout>
 
 
@@ -115,7 +116,7 @@
                         android:id="@+id/four"
                         android:layout_width="@dimen/sixty_dp"
                         android:layout_height="@dimen/sixty_dp"
-                        android:background="@drawable/select_four" />
+                        android:background="@drawable/select_four"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -128,7 +129,7 @@
                         android:id="@+id/five"
                         android:layout_width="@dimen/sixty_dp"
                         android:layout_height="@dimen/sixty_dp"
-                        android:background="@drawable/select_five" />
+                        android:background="@drawable/select_five"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -141,7 +142,7 @@
                         android:id="@+id/six"
                         android:layout_width="@dimen/sixty_dp"
                         android:layout_height="@dimen/sixty_dp"
-                        android:background="@drawable/select_six" />
+                        android:background="@drawable/select_six"/>
                 </RelativeLayout>
 
 
@@ -162,7 +163,7 @@
                         android:id="@+id/seven"
                         android:layout_width="@dimen/sixty_dp"
                         android:layout_height="@dimen/sixty_dp"
-                        android:background="@drawable/select_seven" />
+                        android:background="@drawable/select_seven"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -175,7 +176,7 @@
                         android:id="@+id/eight"
                         android:layout_width="@dimen/sixty_dp"
                         android:layout_height="@dimen/sixty_dp"
-                        android:background="@drawable/select_eight" />
+                        android:background="@drawable/select_eight"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -188,7 +189,7 @@
                         android:id="@+id/nine"
                         android:layout_width="@dimen/sixty_dp"
                         android:layout_height="@dimen/sixty_dp"
-                        android:background="@drawable/select_nine" />
+                        android:background="@drawable/select_nine"/>
 
                 </RelativeLayout>
 
@@ -200,7 +201,7 @@
                 android:layout_width="@dimen/sixty_dp"
                 android:layout_height="@dimen/sixty_dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/select_zero" />
+                android:background="@drawable/select_zero"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -216,21 +217,21 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/menu_home_p" />
+                    android:src="@drawable/menu_home_p"/>
 
                 <ImageView
                     android:id="@+id/call_phone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:src="@drawable/call_phone" />
+                    android:src="@drawable/call_phone"/>
 
                 <ImageView
                     android:id="@+id/delete"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/delete" />
+                    android:src="@drawable/delete"/>
 
 
             </LinearLayout>

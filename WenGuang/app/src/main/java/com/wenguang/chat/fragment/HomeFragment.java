@@ -67,6 +67,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
     protected void initInjector() {
         mToolbar.setTitle("");
         setHasOptionsMenu(true);
+        mToolbar.setOverflowIcon(getResources().getDrawable(R.drawable.toolbar_add));
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
 
         mLayoutManager = new LinearLayoutManager(mRecyclerView.getContext());
@@ -75,7 +76,7 @@ public class HomeFragment extends BaseFragment implements HomeFragmentView {
 
     @Override
     protected void initEventAndData() {
-        mToolbar.setOverflowIcon(getResources().getDrawable(R.drawable.toolbar_add));
+
         MPermissions.requestPermissions(this, Common.REQUECT_CALL_PHONE, Manifest.permission.CALL_PHONE);
         MPermissions.requestPermissions(this, Common.REQUECT_CODE_MISSCALL, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_SMS, Manifest.permission.READ_CALL_LOG);
         mFab.setOnClickListener(new View.OnClickListener() {

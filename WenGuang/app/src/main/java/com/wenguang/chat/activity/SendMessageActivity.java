@@ -1,7 +1,7 @@
 package com.wenguang.chat.activity;
 
 import android.Manifest;
-import android.os.Bundle;
+import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -16,7 +16,6 @@ import com.wenguang.chat.bean.User;
 import com.wenguang.chat.common.Common;
 import com.wenguang.chat.common.UserManager;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
-import com.wenguang.chat.mvp.presenter.CallPhonePresenter;
 import com.wenguang.chat.mvp.presenter.SendMessagePresenter;
 import com.wenguang.chat.mvp.view.SendMessageView;
 import com.wenguang.chat.utils.ToastUtils;
@@ -26,9 +25,9 @@ import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.datatype.BmobFile;
+import me.naturs.library.statusbar.StatusBarHelper;
 
 public class SendMessageActivity extends BaseActivity implements SendMessageView {
 
@@ -46,7 +45,8 @@ public class SendMessageActivity extends BaseActivity implements SendMessageView
     TextView mineName;
     @Bind(R.id.mine_sign)
     TextView mineSign;
-private  String message;
+    private String message;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_send_message;
@@ -61,12 +61,12 @@ private  String message;
 
     @Override
     protected void initEventAndData() {
-        User user= UserManager.getInstance().getUser();
+        User user = UserManager.getInstance().getUser();
         mineName.setText(user.getName());
         mineSign.setText(user.getMinesign());
-        sendMsg.setText(getString(R.string.send_message,user.getName()));
-        BmobFile file= user.getMinepic();
-        if (file!=null){
+        sendMsg.setText(getString(R.string.send_message, user.getName()));
+        BmobFile file = user.getMinepic();
+        if (file != null) {
             String url = file.getUrl();
             if (!TextUtils.isEmpty(url)) {
                 Glide.with(this)
@@ -77,7 +77,18 @@ private  String message;
             }
         }
     }
+    @Override
+    protected void onTintStatusBar() {
+        if (mStatusBarHelper == null) {
+            mStatusBarHelper = new StatusBarHelper(this, StatusBarHelper.LEVEL_19_TRANSLUCENT,
+                    StatusBarHelper.LEVEL_NONE);
+        }
+        mStatusBarHelper.setActivityRootLayoutFitSystemWindows(false);
+//        mStatusBarHelper.setColor(getResources().getColor(R.color.drawer_status_bar_color));
+        mStatusBarHelper.setColor(Color.TRANSPARENT);
 
+
+    }
     @Override
     public BasePresenter getPresenter() {
         return new SendMessagePresenter();
@@ -86,10 +97,11 @@ private  String message;
 
     @OnClick(R.id.send)
     public void onClick() {
-        message=sendMsg.getText().toString();
+        message = sendMsg.getText().toString();
         MPermissions.requestPermissions(this, Common.REQUECT_SEND_MESSAGE, Manifest.permission.SEND_SMS);
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -99,9 +111,10 @@ private  String message;
         }
         return super.onOptionsItemSelected(item);
     }
+
     @PermissionGrant(Common.REQUECT_SEND_MESSAGE)
     public void requestCallPhone() {
-        ((SendMessagePresenter)mPresenter).sendMessage(this,message);
+        ((SendMessagePresenter) mPresenter).sendMessage(this, message);
 
     }
 
@@ -111,7 +124,7 @@ private  String message;
 
     @Override
     public void showMessage(String str) {
-        ToastUtils.showToast(this,str);
+        ToastUtils.showToast(this, str);
     }
 
     @Override

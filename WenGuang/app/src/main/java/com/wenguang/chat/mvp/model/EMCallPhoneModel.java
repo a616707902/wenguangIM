@@ -11,4 +11,5 @@ import com.wenguang.chat.event.CallBackBmob;
 
 public interface EMCallPhoneModel{
     void volleyPost(Context context,String phonenum,CallBackBmob<PhoneLocal> callBackBmob);
+    void  getContactName(Context context,String number,CallBackBmob<String> callBackBmob);
 }

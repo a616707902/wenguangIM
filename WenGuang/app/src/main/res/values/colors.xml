@@ -42,4 +42,5 @@
     <color name="gray_3">#333333</color>
     <color name="album_item_bg">#fffcfcfd</color>
     <color name="common_title_bg">#aa111213</color>
+    <color name="red_hight">#961515</color>
 </resources>

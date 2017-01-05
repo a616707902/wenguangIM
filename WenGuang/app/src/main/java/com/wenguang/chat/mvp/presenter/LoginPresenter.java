@@ -7,13 +7,17 @@ import android.util.Log;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.wenguang.chat.common.UserManager;
 import com.wenguang.chat.event.CallBackBmob;
 import com.wenguang.chat.mvp.model.LoginModel;
 import com.wenguang.chat.mvp.model.LoginModelImpl;
 import com.wenguang.chat.mvp.view.LoginView;
 import com.wenguang.chat.utils.MobileUtils;
 
-import cn.smssdk.SMSSDK;
+import cn.bmob.v3.BmobSMS;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
+
 
 /**
  * 作者：chenpan
@@ -25,7 +29,7 @@ import cn.smssdk.SMSSDK;
 public class LoginPresenter extends BasePresenter<LoginView> {
     LoginModel mLoginModel = new LoginModelImpl();
 
-    public void login(Context context, final String account, String passwed, boolean isverify) {
+    public void login(final Context context, final String account, String passwed, boolean isverify) {
         if (TextUtils.isEmpty(account) || TextUtils.isEmpty(passwed)) {
             if (null != mView) {
                 mView.editEmpty();
@@ -36,7 +40,27 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             mView.showLoadProgressDialog("登录中……");
         }
         if (isverify) {
-            SMSSDK.submitVerificationCode("+86", account, passwed);
+            //SMSSDK.submitVerificationCode("+86", account, passwed);
+            BmobSMS.verifySmsCode(account, passwed, new UpdateListener() {
+
+                @Override
+                public void done(BmobException ex) {
+                    // TODO Auto-generated method stub
+                    if (ex == null) {//短信验证码已验证成功
+                        Log.i("bmob", "验证通过");
+                        queryUserbyAccount(context, account);
+                    } else {
+                        if (mView != null) {
+                            if (ex.getErrorCode() == 207) {
+                                mView.showError("验证码错误！");
+                            } else {
+                                mView.showError(ex.getErrorCode() + ex.getLocalizedMessage());
+                            }
+                        }
+                        Log.i("bmob", "验证失败：code =" + ex.getErrorCode() + ",msg = " + ex.getLocalizedMessage());
+                    }
+                }
+            });
 
         } else {
             queryUserbyUser(context, account, passwed);
@@ -61,7 +85,28 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         }
         if (MobileUtils.isMobileNo(account)) {
             new TimeCount(60 * 1000, 1000).start();
-            mLoginModel.sendVerifyCode(context, account);
+            mLoginModel.sendVerifyCode(context, account, new CallBackBmob<Boolean>() {
+                @Override
+                public void succssCallBack(Boolean isok) {
+                    if (isok) {
+                        if (mView != null) {
+                            mView.showError("已发送验证码");
+                        }
+
+                    } else {
+                        if (mView != null) {
+                            mView.showError("发送验证码失败");
+                        }
+                    }
+                }
+
+                @Override
+                public void failed(String e) {
+                    if (mView != null) {
+                        mView.showError("发送验证码失败");
+                    }
+                }
+            });
         } else {
             if (mView != null) {
                 mView.isMobNumber();
@@ -107,11 +152,32 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             @Override
             public void succssCallBack(Boolean jsonArray) {
                 if (jsonArray) {
-                    if (null != mView) {
-                        mView.goHomeActivity();
-                    }
+                    EMClient.getInstance().login(account, UserManager.getInstance().getUser().getPassword(), new EMCallBack() {//回调
+                        @Override
+                        public void onSuccess() {
+                            EMClient.getInstance().groupManager().loadAllGroups();
+                            EMClient.getInstance().chatManager().loadAllConversations();
+                            Log.d("main", "登录聊天服务器成功！");
+                            if (null != mView) {
+
+                                mView.goHomeActivity();
+                            }
+                        }
+
+                        @Override
+                        public void onProgress(int progress, String status) {
+
+                        }
+
+                        @Override
+                        public void onError(int code, String message) {
+                            Log.d("main", "登录聊天服务器失败！");
+                            mView.showError("登录聊天服务器失败！");
+                        }
+                    });
+
                 } else {
-                    addUser(context, account, account.substring(0,4)+"wgtx");
+                    addUser(context, account, account.substring(0, 4) + "wgtx");
                 }
             }
 
@@ -135,7 +201,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             public void succssCallBack(String jsonArray) {
                 if (!TextUtils.isEmpty(jsonArray)) {
                     if (null != mView) {
-                        EMClient.getInstance().login(account,password,new EMCallBack() {//回调
+                        EMClient.getInstance().login(account, password, new EMCallBack() {//回调
                             @Override
                             public void onSuccess() {
                                 EMClient.getInstance().groupManager().loadAllGroups();
@@ -184,13 +250,13 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             @Override
             public void succssCallBack(Boolean jsonArray) {
                 if (null != mView && jsonArray) {
-                    EMClient.getInstance().login(account,password,new EMCallBack() {//回调
+                    EMClient.getInstance().login(account, password, new EMCallBack() {//回调
                         @Override
                         public void onSuccess() {
                             EMClient.getInstance().groupManager().loadAllGroups();
                             EMClient.getInstance().chatManager().loadAllConversations();
                             Log.d("main", "登录聊天服务器成功！");
-                            
+
                             mView.goHomeActivity();
                         }
 

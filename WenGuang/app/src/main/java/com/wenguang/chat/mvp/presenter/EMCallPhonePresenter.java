@@ -55,4 +55,29 @@ public class EMCallPhonePresenter extends BasePresenter<EMCallPhoneView> {
             }
         }
     }
+
+    public void searchName(Context callPhoneActivity, String phoneNum) {
+        boolean isphone= MobileUtils.isMobileNo(phoneNum);
+        if (isphone){
+            mEMCallPhoneModel.getContactName(callPhoneActivity, phoneNum, new CallBackBmob<String>() {
+                @Override
+                public void succssCallBack(String jsonArray) {
+                    if (null!=mView)
+                    {
+                        mView.showName(jsonArray);
+                    }
+                }
+
+                @Override
+                public void failed(String e) {
+
+                }
+            });
+        }else {
+            if (null!=mView)
+            {
+                mView.showMessage(callPhoneActivity.getResources().getString(R.string.notmobnumber));
+            }
+        }
+    }
 }

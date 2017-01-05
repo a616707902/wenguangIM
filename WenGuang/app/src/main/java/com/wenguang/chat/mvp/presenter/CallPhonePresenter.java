@@ -64,7 +64,7 @@ public class CallPhonePresenter extends BasePresenter<CallPhoneView> {
     }
 
     public void queryAccount(final Context context, final String callPhoneNum) {
-        mContactFragmentModel.queryData(callPhoneNum, new CallBackBmob<Boolean>() {
+        callPhone.queryData(callPhoneNum, new CallBackBmob<Boolean>() {
             @Override
             public void succssCallBack(Boolean jsonArray) {
                 if (jsonArray) {

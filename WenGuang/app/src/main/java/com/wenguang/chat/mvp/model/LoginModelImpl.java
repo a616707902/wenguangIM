@@ -4,7 +4,6 @@ package com.wenguang.chat.mvp.model;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -15,15 +14,12 @@ import com.wenguang.chat.common.UserManager;
 import com.wenguang.chat.event.CallBackBmob;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
-import cn.smssdk.OnSendMessageHandler;
-import cn.smssdk.SMSSDK;
 
 /**
  * Created by MVPHelper on 2016/11/15
@@ -47,11 +43,24 @@ public class LoginModelImpl implements LoginModel {
     };
 
     @Override
-    public void sendVerifyCode(Context context, String phone) {
-        SMSSDK.getVerificationCode("+86", phone.trim(), new OnSendMessageHandler() {
+    public void sendVerifyCode(Context context, String phone, final CallBackBmob callBackBmob) {
+//        SMSSDK.getVerificationCode("+86", phone.trim(), new OnSendMessageHandler() {
+//            @Override
+//            public boolean onSendMessage(String s, String s1) {
+//                return false;
+//            }
+//        });
+        BmobSMS.requestSMSCode( phone.trim(), "wenguang1", new QueryListener<Integer>() {
+
             @Override
-            public boolean onSendMessage(String s, String s1) {
-                return false;
+            public void done(Integer smsId, BmobException ex) {
+                // TODO Auto-generated method stub
+                if (ex == null) {//验证码发送成功
+                    callBackBmob.succssCallBack(true);
+                    Log.i("bmob", "短信id：" + smsId);//用于查询本次短信发送详情
+                } else {
+                    callBackBmob.succssCallBack(false);
+                }
             }
         });
     }
@@ -74,8 +83,9 @@ public class LoginModelImpl implements LoginModel {
                         Gson gson = new Gson();
                         User[] users = gson.fromJson(jsonArray.toString(), User[].class);
                         if (users != null) {
-                            callBackBmob.succssCallBack(true);
                             UserManager.getInstance().saveUser(users[0]);
+                            callBackBmob.succssCallBack(true);
+                         //   UserManager.getInstance().saveUser(users[0]);
                         } else {
                             callBackBmob.succssCallBack(false);
                         }
@@ -151,8 +161,9 @@ public class LoginModelImpl implements LoginModel {
                         Gson gson = new Gson();
                         User[] users = gson.fromJson(jsonArray.toString(), User[].class);
                         if (users != null) {
-                            callBackBmob.succssCallBack(true);
                             UserManager.getInstance().saveUser(users[0]);
+                            callBackBmob.succssCallBack(true);
+
                         } else {
                             callBackBmob.failed("账号或密码错误");
                         }

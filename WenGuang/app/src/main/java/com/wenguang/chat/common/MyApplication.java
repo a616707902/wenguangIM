@@ -26,6 +26,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.wenguang.chat.R;
+import com.wenguang.chat.event.CrashHandler;
 import com.wenguang.chat.service.CallReceiver;
 import com.wenguang.chat.utils.LocalImageHelper;
 
@@ -34,7 +35,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import cn.bmob.v3.Bmob;
-import cn.smssdk.SMSSDK;
 
 /**
  * 作者：chenpan
@@ -50,6 +50,7 @@ public class MyApplication extends Application {
     public static RequestQueue queues;
     private CallReceiver callReceiver;
     private Display display;
+    private Thread.UncaughtExceptionHandler mDefaultHandler;
 
     @Override
     public void onCreate() {
@@ -57,7 +58,7 @@ public class MyApplication extends Application {
         super.onCreate();
         mMyApplication = this;
         queues = Volley.newRequestQueue(getApplicationContext());
-        SMSSDK.initSDK(this, "1913670399fc0", "b315b8802256aa230d1f855624ef15ff");
+      //  SMSSDK.initSDK(this, "1913670399fc0", "b315b8802256aa230d1f855624ef15ff");
         Bmob.initialize(this, "4bdac565f3790ee4edac17b048261edc");
         UserManager.getInstance().init(this);
         initEMSDK();
@@ -78,6 +79,9 @@ public class MyApplication extends Application {
                     getSystemService(Context.WINDOW_SERVICE);
             display = windowManager.getDefaultDisplay();
         }
+        mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
+        Thread.setDefaultUncaughtExceptionHandler(CrashHandler.getInstance(
+                this, mDefaultHandler));
     }
 
     public  void initImageLoader(Context context) {

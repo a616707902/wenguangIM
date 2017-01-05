@@ -23,11 +23,13 @@ import com.wenguang.chat.utils.StatusBarUtil;
 import com.wenguang.chat.utils.ToastUtils;
 
 import butterknife.ButterKnife;
+import me.naturs.library.statusbar.StatusBarHelper;
 
 
 public abstract class BaseActivity<T extends BasePresenter<BaseView>> extends AppCompatActivity implements IBase{
     public BasePresenter mPresenter;
     public RxManager mRxManager;
+    protected StatusBarHelper mStatusBarHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,11 +39,17 @@ public abstract class BaseActivity<T extends BasePresenter<BaseView>> extends Ap
         setContentView(getLayoutId());
         ButterKnife.bind(this);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        onTintStatusBar();
         initInjector();
         mPresenter = getPresenter();
         if (mPresenter != null && this instanceof BaseView) {
             mPresenter.attach((BaseView) this);
         }
+
         initEventAndData();
         registerCallLister();
         //注册一个监听连接状态的listener
@@ -103,10 +111,16 @@ public abstract class BaseActivity<T extends BasePresenter<BaseView>> extends Ap
         AppManager.getAppManager().addActivity(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        SetStatusBarColor();
+      //  SetStatusBarColor();
     }
 
-
+    protected void onTintStatusBar() {
+        if (mStatusBarHelper == null) {
+            mStatusBarHelper = new StatusBarHelper(this, StatusBarHelper.LEVEL_19_TRANSLUCENT,
+                    StatusBarHelper.LEVEL_21_VIEW);
+        }
+        mStatusBarHelper.setColor(getResources().getColor(R.color.colorPrimaryDark));
+    }
     /**
      * 获取布局
      * @return
@@ -150,14 +164,15 @@ public abstract class BaseActivity<T extends BasePresenter<BaseView>> extends Ap
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+
         if (mPresenter != null && this instanceof BaseView) {
             mPresenter.detachView();
             mPresenter = null;
         }
         mRxManager.clear();
         ButterKnife.unbind(this);
-        AppManager.getAppManager().finishActivity(this);
+       // AppManager.getAppManager().finishActivity(this);
+        super.onDestroy();
     }
 
    /* @Override

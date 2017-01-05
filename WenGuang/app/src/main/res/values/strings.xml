@@ -80,4 +80,6 @@
     <string name="The_other_is_hang_up">对方已经挂断</string>
     <string name="The_other_party_did_not_answer_new">对方未接听</string>
     <string name="Into_the_blacklist">移入到黑名单？</string>
+    <string name="quit">退出</string>
+    <string name="title_activity_message_convertion">MessageConvertionActivity</string>
 </resources>

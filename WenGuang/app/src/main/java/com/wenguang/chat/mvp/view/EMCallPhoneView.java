@@ -19,5 +19,6 @@ public interface EMCallPhoneView extends BaseView{
     void  setLocal(String res);
 
     void showMessage(String str);
+    void showName(String str);
 
 }

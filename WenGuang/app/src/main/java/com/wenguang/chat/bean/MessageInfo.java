@@ -1,7 +1,5 @@
 package com.wenguang.chat.bean;
 
-import android.graphics.Bitmap;
-
 /**
  * 作者：chenpan
  * 时间：2016/12/23 11:38
@@ -11,43 +9,57 @@ import android.graphics.Bitmap;
 
 public class MessageInfo {
 
-    private String name;
-    private Bitmap contactPhoto;
+//    private String name;
+//    private Bitmap contactPhoto;
+//
+//    private String smsContent;
+//
+//    private String smsDate;
 
-    private String smsContent;
+    private String phone;
+    private String date;
+    private String content;
+    private int layoutId;
 
-    private String smsDate;
-
-    public String getName() {
-        return name;
+    public MessageInfo(String phone, String date, String content, int layoutId) {
+        this.phone = phone;
+        this.date = date;
+        this.content = content;
+        this.layoutId = layoutId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public MessageInfo() {
     }
 
-
-    public String getSmsContent() {
-        return smsContent;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setSmsContent(String smsContent) {
-        this.smsContent = smsContent;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getSmsDate() {
-        return smsDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setSmsDate(String smsDate) {
-        this.smsDate = smsDate;
-    }
-    public Bitmap getContactPhoto() {
-        return contactPhoto;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public void setContactPhoto(Bitmap contactPhoto) {
-        this.contactPhoto = contactPhoto;
+    public String getContent() {
+        return content;
     }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public int getLayoutId() {
+        return layoutId;
+    }
+
+    public void setLayoutId(int layoutId) {
+        this.layoutId = layoutId;
+    }
 }

@@ -55,8 +55,9 @@ public abstract class BaseFragment<T extends BasePresenter<BaseView>> extends Fr
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+
         ButterKnife.unbind(this);
+        super.onDestroy();
     }
 
 

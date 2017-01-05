@@ -11,11 +11,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3">
+        android:layout_weight="3.5">
         <ImageView
             android:id="@+id/call_back"
-            android:layout_width="@dimen/four_eight_dp"
-            android:layout_height="@dimen/four_eight_dp"
+            android:layout_width="@dimen/third_three"
+            android:layout_height="@dimen/third_three"
             android:layout_marginTop="@dimen/twenty_dp"
             android:src="@drawable/icon_back2"
             android:visibility="gone"
@@ -28,12 +28,23 @@
             android:layout_centerHorizontal="true"
             tools:text="网络出现问题"
             android:textColor="@android:color/white" />
+
         <ImageView
             android:id="@+id/headimg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:src="@drawable/icon_call_head"/>
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/headimg"
+            android:layout_centerHorizontal="true"
+           android:layout_marginBottom="@dimen/ten_dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fourteen_sp"
+            tools:text="正在连通……"/>
 
         <TextView
             android:id="@+id/phone"
@@ -45,14 +56,23 @@
             android:textColor="@color/white"
             android:textSize="@dimen/twenty_two_sp"
             tools:text="18200366005"/>
-
         <TextView
-            android:id="@+id/address"
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/phone"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/three"
+            android:layout_marginTop="@dimen/five_dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/twenty_two_sp"
+            tools:text="heyund"/>
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/five_dp"
             android:textColor="@color/white"
             android:textSize="@dimen/fourteen_sp"
             tools:text="四川成都"/>
@@ -67,16 +87,7 @@
             android:textSize="@dimen/fourteen_sp"
             android:textColor="#fff"
             android:text="Chronometer" />
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/chronometer"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/five_dp"
-            android:textColor="@color/white"
-            android:textSize="@dimen/fourteen_sp"
-            tools:text="正在连通……"/>
+
 
 
     </RelativeLayout>

@@ -10,7 +10,7 @@ import com.wenguang.chat.event.CallBackBmob;
 
 public interface LoginModel{
 
-void sendVerifyCode(Context context,String phone);
+    void sendVerifyCode(Context context, String phone, final CallBackBmob callBackBmob);
     void queryData(String account, final CallBackBmob callBackBmob);
      void addData(String account ,String password, final CallBackBmob callBackBmob);
     void queryDataByUser(String account, String password,final CallBackBmob callBackBmob);

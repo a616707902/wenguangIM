@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:toolbar="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_color"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:toolbar="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_color"
+              android:fitsSystemWindows="false"
+              android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -21,15 +22,16 @@
             android:layout_gravity="center"
             android:text="@string/address_list"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"/>
+
         <Button
             android:id="@+id/btnRight"
-            android:layout_gravity="right|center_vertical"
             style="@style/ActionButton.Overflow"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/submit"
             android:layout_width="@dimen/twenty_two_sp"
-            android:layout_height="@dimen/twenty_two_sp"/>
+            android:layout_height="@dimen/twenty_two_sp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/submit"/>
 
     </android.support.v7.widget.Toolbar>
 
@@ -50,7 +52,7 @@
             android:paddingLeft="4dp"
             android:paddingRight="40dp"
             android:singleLine="true"
-            android:textSize="14sp" />
+            android:textSize="14sp"/>
 
         <ImageView
             android:id="@+id/ivClearText"
@@ -59,7 +61,7 @@
             android:layout_gravity="right|center_vertical"
             android:padding="4dp"
             android:src="@drawable/clear_button"
-            android:visibility="invisible" />
+            android:visibility="invisible"/>
     </FrameLayout>
 
     <LinearLayout
@@ -74,13 +76,13 @@
             android:layout_height="20dp"
             android:layout_marginLeft="@dimen/ten_dp"
             android:background="@drawable/selector_checkbox_contact"
-            android:button="@null" />
+            android:button="@null"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/fifteen_dp"
-            android:text="@string/selectall" />
+            android:text="@string/selectall"/>
     </LinearLayout>
 
     <FrameLayout
@@ -101,7 +103,7 @@
             android:fadingEdge="none"
             android:scrollbars="none"
             android:scrollingCache="false"
-            android:visibility="visible" />
+            android:visibility="visible"/>
 
 
     </FrameLayout>

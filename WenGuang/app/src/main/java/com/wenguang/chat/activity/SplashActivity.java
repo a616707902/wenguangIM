@@ -5,8 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Window;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.wenguang.chat.R;
 import com.wenguang.chat.common.Common;
 import com.wenguang.chat.common.UserManager;
@@ -63,6 +66,7 @@ public class SplashActivity extends Activity {
 
     @Override
     public void onBackPressed() {
+        finish();
     }
 
     /**
@@ -71,14 +75,35 @@ public class SplashActivity extends Activity {
      * @param context
      * @param account
      */
-    public void queryUserbyUser(Context context, final String account, String password) {
+    public void queryUserbyUser(Context context, final String account, final String password) {
         mLoginModel.queryDataByUser(account, password, new CallBackBmob<Boolean>() {
             @Override
             public void succssCallBack(Boolean jsonArray) {
-                Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-                Common.USER_ACCOUNT = account;
-                startActivity(intent);
-                finish();
+                EMClient.getInstance().login(account, password, new EMCallBack() {//回调
+                    @Override
+                    public void onSuccess() {
+                        EMClient.getInstance().groupManager().loadAllGroups();
+                        EMClient.getInstance().chatManager().loadAllConversations();
+                        Log.d("main", "登录聊天服务器成功！");
+                        Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                        Common.USER_ACCOUNT = account;
+                        startActivity(intent);
+                        finish();
+
+                    }
+
+                    @Override
+                    public void onProgress(int progress, String status) {
+
+                    }
+
+                    @Override
+                    public void onError(int code, String message) {
+                       ToastUtils.showToast(SplashActivity.this,code+"登录聊天服务器失败,请检查网络？");
+                        finish();
+                    }
+                });
+
             }
 
             @Override

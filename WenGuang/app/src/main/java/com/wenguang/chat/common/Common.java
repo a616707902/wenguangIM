@@ -1,11 +1,13 @@
 package com.wenguang.chat.common;
 
 import android.content.Context;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import com.wenguang.chat.utils.common.SortModel;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -29,6 +31,14 @@ public class Common {
 
 
     }
+
+    /**
+     * 手机存储路径
+     * Environment.getExternalStorageDirectory();
+     */
+    public static final String PHONE_PATH= Environment.getExternalStorageDirectory().getAbsolutePath()
+            + File.separator+"wenguang"+ File.separator;
+    public static final String SAVEFOLDER=PHONE_PATH+"/Error";
 
     public static String USER_ACCOUNT = "";
     public static final int REQUECT_CODE_MISSCALL = 1;

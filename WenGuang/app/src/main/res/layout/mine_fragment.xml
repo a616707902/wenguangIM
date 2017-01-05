@@ -48,8 +48,8 @@
                 android:id="@+id/mine_img"
                 android:layout_width="@dimen/eighty_dp"
                 android:layout_height="@dimen/eighty_dp"
-                android:layout_marginTop="@dimen/ten_dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/ten_dp"
                 android:src="@drawable/head_icon"/>
 
             <ImageView
@@ -59,8 +59,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignRight="@id/mine_img"
                 android:layout_marginLeft="@dimen/fifteen_dp"
-                android:visibility="gone"
-                android:src="@drawable/bianji"/>
+                android:src="@drawable/bianji"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 
@@ -87,6 +87,14 @@
 
     </LinearLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -125,53 +133,67 @@
         android:paddingLeft="@dimen/four_eight_dp"
         android:textSize="@dimen/fourteen_sp"/>
 
-    <LinearLayout
-        android:id="@+id/recommend"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/ten_dp"
-            android:drawableLeft="@drawable/circle_cyan"
-            android:drawablePadding="@dimen/twenty_dp"
-            android:paddingLeft="@dimen/twenty_dp"
-            android:text="@string/mine_recommend"
-            android:textSize="@dimen/eighteen_sp"/>
+            <LinearLayout
+                android:id="@+id/recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/five_dp"
-            android:paddingLeft="@dimen/four_eight_dp"
-            android:text="@string/mine_recommend_info"
-            android:textSize="@dimen/fourteen_sp"/>
-    </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ten_dp"
+                    android:drawableLeft="@drawable/circle_cyan"
+                    android:drawablePadding="@dimen/twenty_dp"
+                    android:paddingLeft="@dimen/twenty_dp"
+                    android:text="@string/mine_recommend"
+                    android:textSize="@dimen/eighteen_sp"/>
 
-    <LinearLayout
-        android:id="@+id/about"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/five_dp"
+                    android:paddingLeft="@dimen/four_eight_dp"
+                    android:text="@string/mine_recommend_info"
+                    android:textSize="@dimen/fourteen_sp"/>
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/ten_dp"
-            android:drawableLeft="@drawable/circle_cyan"
-            android:drawablePadding="@dimen/twenty_dp"
-            android:paddingLeft="@dimen/twenty_dp"
-            android:text="@string/mine_about"
-            android:textSize="@dimen/eighteen_sp"/>
+            <LinearLayout
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/five_dp"
-            android:paddingLeft="@dimen/four_eight_dp"
-            android:text="@string/mine_about_info"
-            android:textSize="@dimen/fourteen_sp"/>
-    </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/ten_dp"
+                    android:drawableLeft="@drawable/circle_cyan"
+                    android:drawablePadding="@dimen/twenty_dp"
+                    android:paddingLeft="@dimen/twenty_dp"
+                    android:text="@string/mine_about"
+                    android:textSize="@dimen/eighteen_sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/five_dp"
+                    android:paddingLeft="@dimen/four_eight_dp"
+                    android:text="@string/mine_about_info"
+                    android:textSize="@dimen/fourteen_sp"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/quit"
+                android:layout_width="@dimen/hundred_dp"
+                android:layout_height="@dimen/fourty"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/twenty_dp"
+                android:background="@drawable/quit_selector"
+                android:text="@string/quit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sixteen_sp"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

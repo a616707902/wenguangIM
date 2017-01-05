@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.wenguang.chat"
           xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- BmobSDK权限 -->
+    <!--允许联网 -->
+    <!--获取GSM（2g）、WCDMA（联通3g）等网络状态的信息  -->
+    <!--获取wifi网络状态的信息 -->
+    <!--允许读取手机状态 -->
+    <!-- 其他权限 短信 -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <!-- Required -->
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -21,7 +32,7 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
-    <!--end-->
+    <!-- end -->
     <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
@@ -45,9 +56,8 @@
     <!-- 允许读取手机状态 用于创建BmobInstallation -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <!--开机监听权限-->
+    <!-- 开机监听权限 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
 
     <application
         android:name=".common.MyApplication"
@@ -90,34 +100,34 @@
             android:name=".activity.SendMessageActivity"
             android:screenOrientation="portrait"/>
         <activity
-        android:name=".activity.EMCallPhoneActivity"
-        android:screenOrientation="portrait"></activity>
+            android:name=".activity.EMCallPhoneActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.ImagesDetailActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
-        <!--开机自启的监听-->
-        <receiver android:name="com.wenguang.chat.event.BootBroadcastReceiver">
+        <!-- 开机自启的监听 -->
+        <receiver android:name=".event.BootBroadcastReceiver">
                     
             <intent-filter>
                         
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                         
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
                         
             </intent-filter>
             <intent-filter>
                         
                 <action android:name="android.intent.action.ACTION_BOOT_COMPLETED"/>
                         
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
                         
             </intent-filter>
             <intent-filter>
                         
                 <action android:name="android.intent.action.RECEIVE_BOOT_COMPLETED"/>
                         
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.DEFAULT"/>
                         
             </intent-filter>
                 
@@ -126,19 +136,19 @@
         <meta-data
             android:name="EASEMOB_APPKEY"
             android:value="a616707902#wenguang"/>
-        <!-- 声明SDK所需的service SDK核心功能-->
+        <!-- 声明SDK所需的service SDK核心功能 -->
         <service
             android:name="com.hyphenate.chat.EMChatService"
             android:exported="true"/>
         <service
             android:name="com.hyphenate.chat.EMJobService"
             android:exported="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            />
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
         <!-- 声明SDK所需的receiver -->
         <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+
                 <data android:scheme="package"/>
             </intent-filter>
             <!-- 可选filter -->
@@ -147,6 +157,11 @@
                 <action android:name="android.intent.action.USER_PRESENT"/>
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".activity.MessageConvertionActivity"
+            android:label="@string/title_activity_message_convertion">
+        </activity>
     </application>
 
 </manifest>

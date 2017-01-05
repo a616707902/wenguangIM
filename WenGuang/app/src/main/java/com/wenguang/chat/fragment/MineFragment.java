@@ -24,6 +24,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
@@ -31,9 +33,11 @@ import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 import com.wenguang.chat.R;
 import com.wenguang.chat.activity.ImagesDetailActivity;
 import com.wenguang.chat.activity.LocalAlbum;
+import com.wenguang.chat.activity.LoginActivity;
 import com.wenguang.chat.activity.RecommendActivity;
 import com.wenguang.chat.base.BaseFragment;
 import com.wenguang.chat.bean.User;
+import com.wenguang.chat.common.AppManager;
 import com.wenguang.chat.common.Common;
 import com.wenguang.chat.common.UserManager;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
@@ -77,6 +81,12 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
     Button btnRight;
     @Bind(R.id.edit_img)
     ImageView editImg;
+    @Bind(R.id.quit)
+    Button mQuit;
+    /**
+     * 退出程序Dialog
+     */
+    private Dialog dialogQuit;
     /**
      * true为编辑状态
      */
@@ -144,7 +154,7 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
     }
 
 
-    @OnClick({R.id.recommend, R.id.about, R.id.btnRight, R.id.edit_img, R.id.mine_img})
+    @OnClick({R.id.recommend, R.id.about, R.id.btnRight, R.id.edit_img, R.id.mine_img,R.id.quit})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.recommend:
@@ -165,7 +175,94 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
             case R.id.edit_img:
                 showChooseIMG_WAYDialog();
                 break;
+            case R.id.quit:
+                showQuitDialog();
+                break;
         }
+    }
+
+    /**
+     * 显示退出对话框
+     */
+    private void showQuitDialog() {
+        dialogQuit = new Dialog(mActivity, R.style.MyDialogStyle_top);
+        dialogQuit.setContentView(R.layout.dialog_exit);
+        dialogQuit.setCanceledOnTouchOutside(true);
+
+        // 取消弹出框
+        dialogQuit.findViewById(R.id.otherView1).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialogQuit.cancel();
+            }
+        });
+
+        // 取消弹出框
+        dialogQuit.findViewById(R.id.otherView2).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialogQuit.cancel();
+            }
+        });
+
+        // 退出当前用户
+        dialogQuit.findViewById(R.id.exitLogin).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                UserQuite();
+            }
+        });
+
+        // 退出程序
+        dialogQuit.findViewById(R.id.exitSystem).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialogQuit.dismiss();
+                exitSystem();
+            }
+        });
+        dialogQuit.show();
+    }
+
+    /**
+     * 退出程序
+     */
+    private void exitSystem() {
+
+        EMClient.getInstance().logout(true, new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                // TODO Auto-generated method stub
+                AppManager.getAppManager().AppExit(mActivity);
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
+    }
+
+    /**
+     * 切换用户
+     */
+    private void UserQuite() {
+        Intent intent=new Intent(mActivity, LoginActivity.class);
+        startActivity(intent);
+        AppManager.getAppManager().finishActivity(mActivity.getClass());
     }
 
     /**
@@ -203,6 +300,7 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
             setEditAble(mineName, true);
             setEditAble(mineSign, true);
             setEditAble(mineIdcard, true);
+            mQuit.setVisibility(View.GONE);
             editImg.setVisibility(View.VISIBLE);
             recommend.setVisibility(View.GONE);
             about.setVisibility(View.GONE);
@@ -211,12 +309,12 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
             mineIdcard.setHint(R.string.inputidcard);
 
         } else {
-
             saveUserData();
             btnRight.setBackgroundResource(R.drawable.bianji);
             setEditAble(mineName, false);
             setEditAble(mineSign, false);
             setEditAble(mineIdcard, false);
+            mQuit.setVisibility(View.VISIBLE);
             editImg.setVisibility(View.GONE);
             recommend.setVisibility(View.VISIBLE);
             about.setVisibility(View.VISIBLE);
@@ -428,4 +526,6 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
         }
         // }
     }
+
+
 }

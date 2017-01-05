@@ -1,7 +1,6 @@
 package com.wenguang.chat.activity;
 
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +16,8 @@ import com.wenguang.chat.utils.ClickUtil;
 import com.wenguang.chat.utils.ToastUtils;
 import com.wenguang.chat.widget.LoadProgressDialog;
 
-import org.json.JSONObject;
-
 import butterknife.Bind;
 import butterknife.OnClick;
-import cn.smssdk.EventHandler;
-import cn.smssdk.SMSSDK;
 
 public class LoginActivity extends BaseActivity implements LoginView {
 
@@ -40,7 +35,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     private String account;
     private String passwed;
-    EventHandler mEventHandler;
+  //  EventHandler mEventHandler;
 
     private LoadProgressDialog progressDialog;
 
@@ -51,47 +46,72 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
     @Override
     protected void initInjector() {
-        mEventHandler = new EventHandler() {
-
-            @Override
-            public void afterEvent(int event, int result, final Object data) {
-
-                if (result == SMSSDK.RESULT_COMPLETE) {
-                    //回调完成
-                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                        //提交验证码成功
-//                       goHomeActivity();
-                        ((LoginPresenter) mPresenter).queryUserbyAccount(LoginActivity.this, account);
-                    } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-
-                        showError("已发送验证码");
-
-                        //获取验证码成功
-                    } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
-                        //返回支持发送验证码的国家列表
-                    }
-                } else {
-                    ((Throwable) data).printStackTrace();
-                    try {
-                        Throwable throwable = (Throwable) data;
-                        throwable.printStackTrace();
-                        JSONObject object = new JSONObject(throwable.getMessage());
-                        String des = object.optString("detail");//错误描述
-                        int status = object.optInt("status");//错误代码
-                        if (status > 0 && !TextUtils.isEmpty(des)) {
-                            showError(des);
-                            return;
-                        }
-                    } catch (Exception e) {
-                        //do something
-                        showError(((Throwable) data).toString());
-                    }
-
-                }
-            }
-        };
-        SMSSDK.registerEventHandler(mEventHandler); //注册短信回调
+     // MObSMS();
+        bmobSMS();
     }
+
+    /**
+     * bmob短信验证
+     */
+    private void bmobSMS() {
+       // BmobSMS.initialize(this, "4bdac565f3790ee4edac17b048261edc", new MySMSCodeListener());
+
+    }
+//    class MySMSCodeListener implements SMSCodeListener {
+//
+//        @Override
+//        public void onReceive(String content) {
+//            if(mLoginPasswed != null){
+//                mLoginPasswed.setText(content);
+//            }
+//        }
+//
+//    }
+    /**
+     * mob短信验证
+     */
+//    private void MObSMS() {
+//        mEventHandler = new EventHandler() {
+//
+//            @Override
+//            public void afterEvent(int event, int result, final Object data) {
+//
+//                if (result == SMSSDK.RESULT_COMPLETE) {
+//                    //回调完成
+//                    if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+//                        //提交验证码成功
+////                       goHomeActivity();
+//                        ((LoginPresenter) mPresenter).queryUserbyAccount(LoginActivity.this, account);
+//                    } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
+//
+//                        showError("已发送验证码");
+//
+//                        //获取验证码成功
+//                    } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
+//                        //返回支持发送验证码的国家列表
+//                    }
+//                } else {
+//                    ((Throwable) data).printStackTrace();
+//                    try {
+//                        Throwable throwable = (Throwable) data;
+//                        throwable.printStackTrace();
+//                        JSONObject object = new JSONObject(throwable.getMessage());
+//                        String des = object.optString("detail");//错误描述
+//                        int status = object.optInt("status");//错误代码
+//                        if (status > 0 && !TextUtils.isEmpty(des)) {
+//                            showError(des);
+//                            return;
+//                        }
+//                    } catch (Exception e) {
+//                        //do something
+//                        showError(((Throwable) data).toString());
+//                    }
+//
+//                }
+//            }
+//        };
+//        SMSSDK.registerEventHandler(mEventHandler); //注册短信回调
+//    }
 
     @Override
     protected void initEventAndData() {
@@ -181,7 +201,7 @@ public class LoginActivity extends BaseActivity implements LoginView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SMSSDK.unregisterEventHandler(mEventHandler);
+      //  SMSSDK.unregisterEventHandler(mEventHandler);
     }
 
 

@@ -2,6 +2,7 @@ package com.wenguang.chat.activity;
 
 import android.Manifest;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
@@ -38,6 +39,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import me.naturs.library.statusbar.StatusBarHelper;
 
 public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
     @Bind(R.id.toolbar)
@@ -145,13 +147,13 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
                 SortModel sortModel = (SortModel) adapter.getItem(position);
                 callPhoneNum = sortModel.getNumber();
-                if (MobileUtils.isMobileNo(callPhoneNum)){
+                if (MobileUtils.isMobileNo(callPhoneNum)) {
                     ((CallPhonePresenter) mPresenter).queryAccount(CallPhoneActivity.this, callPhoneNum);
-                }else {
+                } else {
                     showLoadProgressDialog(callPhoneNum);
                 }
 
-             //   showLoadProgressDialog(callPhoneNum);
+                //   showLoadProgressDialog(callPhoneNum);
 //                callPhone();
 
             }
@@ -222,6 +224,18 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
     }
 
 
+    @Override
+    protected void onTintStatusBar() {
+        if (mStatusBarHelper == null) {
+            mStatusBarHelper = new StatusBarHelper(this, StatusBarHelper.LEVEL_19_TRANSLUCENT,
+                    StatusBarHelper.LEVEL_NONE);
+        }
+        mStatusBarHelper.setActivityRootLayoutFitSystemWindows(false);
+//        mStatusBarHelper.setColor(getResources().getColor(R.color.drawer_status_bar_color));
+        mStatusBarHelper.setColor(Color.TRANSPARENT);
+
+
+    }
 
     @Override
     public void setAdapter(List<SortModel> models) {

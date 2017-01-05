@@ -2,7 +2,7 @@ package com.wenguang.chat.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.os.Bundle;
+import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -35,8 +35,8 @@ import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.naturs.library.statusbar.StatusBarHelper;
 
 /**
  * 推荐界面
@@ -91,7 +91,18 @@ public class RecommendActivity extends BaseActivity implements RecommendView {
         lvContacts.setAdapter(adapter);
 
     }
+    @Override
+    protected void onTintStatusBar() {
+        if (mStatusBarHelper == null) {
+            mStatusBarHelper = new StatusBarHelper(this, StatusBarHelper.LEVEL_19_TRANSLUCENT,
+                    StatusBarHelper.LEVEL_NONE);
+        }
+        mStatusBarHelper.setActivityRootLayoutFitSystemWindows(false);
+//        mStatusBarHelper.setColor(getResources().getColor(R.color.drawer_status_bar_color));
+        mStatusBarHelper.setColor(Color.TRANSPARENT);
 
+
+    }
     @Override
     protected void initEventAndData() {
         // item事件
