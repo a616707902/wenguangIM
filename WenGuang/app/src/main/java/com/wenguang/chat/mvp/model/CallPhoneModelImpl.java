@@ -59,7 +59,6 @@ public class CallPhoneModelImpl implements CallPhoneModel {
                         User[] users = gson.fromJson(jsonArray.toString(), User[].class);
                         if (users != null) {
                             callBackBmob.succssCallBack(true);
-                          //  UserManager.getInstance().saveUser(users[0]);
                         } else {
                             callBackBmob.succssCallBack(false);
                         }

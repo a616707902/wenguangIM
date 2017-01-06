@@ -212,6 +212,7 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
 
             @Override
             public void onClick(View v) {
+                dialogQuit.dismiss();
                 UserQuite();
             }
         });
@@ -260,9 +261,30 @@ public class MineFragment extends BaseFragment implements MineFragmentView {
      * 切换用户
      */
     private void UserQuite() {
-        Intent intent=new Intent(mActivity, LoginActivity.class);
-        startActivity(intent);
-        AppManager.getAppManager().finishActivity(mActivity.getClass());
+        EMClient.getInstance().logout(true, new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                // TODO Auto-generated method stub
+                UserManager.getInstance().logout();
+                Intent intent = new Intent(mActivity, LoginActivity.class);
+                startActivity(intent);
+                AppManager.getAppManager().finishActivity(mActivity.getClass());
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
     }
 
     /**

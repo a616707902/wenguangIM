@@ -98,9 +98,15 @@ public class SplashActivity extends Activity {
                     }
 
                     @Override
-                    public void onError(int code, String message) {
-                       ToastUtils.showToast(SplashActivity.this,code+"登录聊天服务器失败,请检查网络？");
-                        finish();
+                    public void onError(final int code, String message) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ToastUtils.showToast(SplashActivity.this, code + "登录聊天服务器失败,请检查网络？");
+                                finish();
+                            }
+                        });
+
                     }
                 });
 

@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.wenguang.chat.bean.User;
-import com.wenguang.chat.common.UserManager;
 import com.wenguang.chat.event.CallBack;
 import com.wenguang.chat.event.CallBackBmob;
 import com.wenguang.chat.utils.common.SortModel;
@@ -189,7 +188,6 @@ public class ContactFragmentModelImpl implements ContactFragmentModel{
                         User[] users = gson.fromJson(jsonArray.toString(), User[].class);
                         if (users != null) {
                             callBackBmob.succssCallBack(true);
-                            UserManager.getInstance().saveUser(users[0]);
                         } else {
                             callBackBmob.succssCallBack(false);
                         }

@@ -65,7 +65,7 @@ public class CallPhoneDialog extends Dialog {
         if (instance == null) {
             instance = new CallPhoneDialog(context);
         }else{
-            instance.dismiss();
+//            instance.dismiss();
             instance=null;
             instance = new CallPhoneDialog(context);
         }
@@ -93,9 +93,10 @@ public class CallPhoneDialog extends Dialog {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(context, EMCallPhoneActivity.class);
-                    intent.putExtra("phonenum",phonenum);
+                    intent.putExtra("phonenum", phonenum);
                     context.startActivity(intent);
-                    ((Activity)context).finish();
+                    instance.dismiss();
+                   // ((Activity)context).finish();
 
                 }
             });

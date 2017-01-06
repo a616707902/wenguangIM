@@ -58,7 +58,7 @@ public class MyApplication extends Application {
         super.onCreate();
         mMyApplication = this;
         queues = Volley.newRequestQueue(getApplicationContext());
-      //  SMSSDK.initSDK(this, "1913670399fc0", "b315b8802256aa230d1f855624ef15ff");
+        //  SMSSDK.initSDK(this, "1913670399fc0", "b315b8802256aa230d1f855624ef15ff");
         Bmob.initialize(this, "4bdac565f3790ee4edac17b048261edc");
         UserManager.getInstance().init(this);
         initEMSDK();
@@ -84,7 +84,7 @@ public class MyApplication extends Application {
                 this, mDefaultHandler));
     }
 
-    public  void initImageLoader(Context context) {
+    public void initImageLoader(Context context) {
         File cacheDir = null;
         if (!TextUtils.isEmpty(IMAGE_LOADER_CACHE_PATH)) {
             cacheDir = StorageUtils.getOwnCacheDirectory(context, IMAGE_LOADER_CACHE_PATH);
@@ -114,6 +114,7 @@ public class MyApplication extends Application {
         config.defaultDisplayImageOptions(getDisplayOptions());
         ImageLoader.getInstance().init(config.build());
     }
+
     public DisplayImageOptions getDisplayOptions() {
         return new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.color.default_image_background)
@@ -126,6 +127,7 @@ public class MyApplication extends Application {
                 .considerExifParams(true)
                 .build();
     }
+
     public String getCachePath() {
         File cacheDir;
         if (android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED))

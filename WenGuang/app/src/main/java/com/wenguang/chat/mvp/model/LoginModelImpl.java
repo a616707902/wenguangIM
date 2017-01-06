@@ -168,7 +168,6 @@ public class LoginModelImpl implements LoginModel {
                             callBackBmob.failed("账号或密码错误");
                         }
                     } else {
-                        // callBackBmob.succssCallBack(false );
                         callBackBmob.failed("账号或密码错误");
                     }
                 } else {

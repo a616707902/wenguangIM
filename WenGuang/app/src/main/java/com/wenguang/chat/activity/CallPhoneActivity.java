@@ -255,7 +255,7 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
 
     @Override
     public void showDialog(String phone, String str) {
-        callPhoneDialog = CallPhoneDialog.getInstance(this);
+        callPhoneDialog = CallPhoneDialog.getInstance(CallPhoneActivity.this);
         callPhoneDialog.setPuOnClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

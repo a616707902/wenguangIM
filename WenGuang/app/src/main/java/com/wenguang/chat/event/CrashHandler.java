@@ -9,7 +9,6 @@ import android.os.Environment;
 
 import com.wenguang.chat.common.Common;
 import com.wenguang.chat.common.MyApplication;
-import com.wenguang.chat.utils.FileUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -47,7 +46,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
         if (ex != null) {
-            FileUtil.writeToFile(ex.getMessage(), Common.PHONE_PATH + "/Error/" + getCurrentDate() + ".txt");
+          //  FileUtil.writeToFile(ex.getMessage(), Common.PHONE_PATH + "/Error/" + getCurrentDate() + ".txt");
             saveCrashInfo(collectDeviceInfo(mContext), ex);
         }
         restartApplication();
@@ -127,7 +126,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
                         Common.SAVEFOLDER);
                 saveFolder.mkdirs();
                 // 鍐欏叆鏂囦欢
-                String fileName = "CrashError.txt";
+                String fileName = "CrashError"+getCurrentDate() +".txt";
                 fos = new FileOutputStream(new File(saveFolder, fileName));
                 fos.write(crashLog.toString().getBytes());
             }
