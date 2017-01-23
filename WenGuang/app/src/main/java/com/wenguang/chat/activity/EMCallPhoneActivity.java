@@ -207,7 +207,7 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
                         saveCallRecord();
                         finish();
                     }
-
+                    finish();
                     break;
                 case MSG_CALL_RLEASE_HANDLER:
                     try {
@@ -405,6 +405,7 @@ public class EMCallPhoneActivity extends BaseActivity implements EMCallPhoneView
                 break;
             case Common.OTHERKILL:
                 mStatus.setText(R.string.otherguaduan);
+
                 break;
             case Common.CONFUSE:
                 mStatus.setText(R.string.confuse);

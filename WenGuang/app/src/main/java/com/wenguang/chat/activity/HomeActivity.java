@@ -17,6 +17,7 @@ import com.wenguang.chat.fragment.MineFragment;
 import com.wenguang.chat.mvp.presenter.BasePresenter;
 import com.wenguang.chat.mvp.presenter.HomePresenter;
 import com.wenguang.chat.mvp.view.HomeView;
+import com.wenguang.chat.service.AppStatusService;
 
 import butterknife.Bind;
 
@@ -60,6 +61,7 @@ public class HomeActivity extends BaseActivity implements HomeView {
                 switchTab(i);
             }
         });
+        AppStatusService.start(this);
     }
 
     public void switchTab(int id) {

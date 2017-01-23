@@ -62,6 +62,7 @@
     <application
         android:name=".common.MyApplication"
         android:allowBackup="true"
+        android:persistent="true"
         android:icon="@mipmap/icon_appicon"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -162,6 +163,14 @@
             android:name=".activity.MessageConvertionActivity"
             android:label="@string/title_activity_message_convertion">
         </activity>
+        <service
+            android:name="com.wenguang.chat.service.AppStatusService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.wenguang.chat.service.AppStatusService" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

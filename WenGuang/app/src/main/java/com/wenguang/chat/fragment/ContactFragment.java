@@ -160,7 +160,8 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
                 adapter.toggleChecked(position);
-                callPhoneNum = ((SortModel) adapter.getItem(position)).getNumber();
+                callPhoneNum = ((SortModel) adapter.getItem(position)).getNumber().replace(" ", "");
+                ;
                 if (MobileUtils.isMobileNo(callPhoneNum)) {
                     ((ContactFragmentPresenter) mPresenter).queryAccount(mActivity, callPhoneNum);
                 } else {
@@ -197,6 +198,13 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
 
     @Override
     public void showDialog(String phone, String str) {
+        if (callPhoneDialog == null) {
+
+        } else {
+            callPhoneDialog.dismiss();
+            callPhoneDialog = null;
+
+        }
         callPhoneDialog = CallPhoneDialog.getInstance(mActivity);
         callPhoneDialog.setPuOnClick(new View.OnClickListener() {
             @Override
@@ -205,7 +213,7 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
                 callPhoneDialog.dismiss();
             }
         });
-        callPhoneDialog.setText(phone,str);
+        callPhoneDialog.setText(phone, str);
         callPhoneDialog.show();
     }
 
@@ -232,7 +240,7 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
         switch (item.getItemId()) {
 
             case R.id.action_item1:
-                Intent intent=new Intent(Intent.ACTION_EDIT, Uri.parse("content://com.android.contacts/contacts/"+"1"));
+                Intent intent = new Intent(Intent.ACTION_EDIT, Uri.parse("content://com.android.contacts/contacts/" + "1"));
                 startActivity(intent);
                 break;
 
@@ -260,9 +268,11 @@ public class ContactFragment extends BaseFragment implements ContactFragmentView
     public void dissDialog() {
 
     }
+
     private void callPhone() {
         MPermissions.requestPermissions(this, Common.REQUECT_CALL_PHONE, Manifest.permission.CALL_PHONE);
     }
+
     @PermissionGrant(Common.REQUECT_CALL_PHONE)
     public void requestCallPhone() {
         ((ContactFragmentPresenter) mPresenter).callPhone(mActivity, callPhoneNum);

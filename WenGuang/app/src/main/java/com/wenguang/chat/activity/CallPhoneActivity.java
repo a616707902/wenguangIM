@@ -146,7 +146,7 @@ public class CallPhoneActivity extends BaseActivity implements CallPhoneView {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long arg3) {
                 SortModel sortModel = (SortModel) adapter.getItem(position);
-                callPhoneNum = sortModel.getNumber();
+                callPhoneNum = sortModel.getNumber().replace(" ","");
                 if (MobileUtils.isMobileNo(callPhoneNum)) {
                     ((CallPhonePresenter) mPresenter).queryAccount(CallPhoneActivity.this, callPhoneNum);
                 } else {

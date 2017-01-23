@@ -53,7 +53,7 @@ public class SplashActivity extends Activity {
             @Override
             public void run() {
                 if (UserManager.getInstance().isLogin()) {
-                        queryUserbyUser(SplashActivity.this,UserManager.getInstance().getUser().getAccount(),UserManager.getInstance().getUser().getPassword());
+                    queryUserbyUser(SplashActivity.this, UserManager.getInstance().getUser().getAccount(), UserManager.getInstance().getUser().getPassword());
                 } else {
                     Intent intent = new Intent(SplashActivity.this,
                             LoginActivity.class);
@@ -99,13 +99,43 @@ public class SplashActivity extends Activity {
 
                     @Override
                     public void onError(final int code, String message) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ToastUtils.showToast(SplashActivity.this, code + "登录聊天服务器失败,请检查网络？");
-                                finish();
-                            }
-                        });
+                        if (code == 200) {
+                            EMClient.getInstance().logout(true, new EMCallBack() {
+                                @Override
+                                public void onSuccess() {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            queryUserbyUser(SplashActivity.this, UserManager.getInstance().getUser().getAccount(), UserManager.getInstance().getUser().getPassword());
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onError(final int i, String s) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ToastUtils.showToast(SplashActivity.this, i + "服务端出现异常！");
+                                            finish();
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onProgress(int i, String s) {
+
+                                }
+                            });
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ToastUtils.showToast(SplashActivity.this, code + "登录聊天服务器失败,请检查网络？");
+                                    finish();
+                                }
+                            });
+                        }
 
                     }
                 });
