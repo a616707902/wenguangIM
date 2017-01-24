@@ -104,4 +104,8 @@ public class AppManager {
   public boolean isAppExit() {
     return activityStack == null || activityStack.isEmpty();
   }
+
+  public boolean hasForegroundActivies(){
+    return activityStack.size() != 0;
+  }
 }

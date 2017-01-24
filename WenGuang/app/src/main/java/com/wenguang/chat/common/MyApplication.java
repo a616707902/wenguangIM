@@ -13,7 +13,9 @@ import android.view.WindowManager;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMOptions;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -28,6 +30,7 @@ import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.wenguang.chat.R;
 import com.wenguang.chat.event.CrashHandler;
 import com.wenguang.chat.service.CallReceiver;
+import com.wenguang.chat.utils.EaseNotifier;
 import com.wenguang.chat.utils.LocalImageHelper;
 
 import java.io.File;
@@ -49,8 +52,16 @@ public class MyApplication extends Application {
     private static MyApplication mMyApplication;
     public static RequestQueue queues;
     private CallReceiver callReceiver;
+    /**
+     * EMEventListener
+     */
+    protected EMMessageListener messageListener = null;
     private Display display;
     private Thread.UncaughtExceptionHandler mDefaultHandler;
+    /*
+         * the notifier
+         */
+    private EaseNotifier notifier = null;
 
     @Override
     public void onCreate() {
@@ -74,6 +85,8 @@ public class MyApplication extends Application {
         initImageLoader(getApplicationContext());
         //本地图片辅助类初始化
         LocalImageHelper.init(this);
+        notifier=new EaseNotifier();
+        notifier.init(this);
         if (display == null) {
             WindowManager windowManager = (WindowManager)
                     getSystemService(Context.WINDOW_SERVICE);
@@ -147,6 +160,7 @@ public class MyApplication extends Application {
 
         //register incoming call receiver
         registerReceiver(callReceiver, callFilter);
+        registerMessageListener();
     }
 
     public static MyApplication getApplication() {
@@ -206,4 +220,43 @@ public class MyApplication extends Application {
     public int getQuarterWidth() {
         return display.getWidth() / 4;
     }
+
+    /**
+     * Global listener
+     * If this event already handled by an activity, you don't need handle it again
+     * activityList.size() <= 0 means all activities already in background or not in Activity Stack
+     */
+    protected void registerMessageListener() {
+        messageListener = new EMMessageListener() {
+            @Override
+            public void onMessageReceived(List<EMMessage> messages) {
+                for (EMMessage message : messages) {
+                    // in background, do not refresh UI, notify it in notification bar
+                    if (!AppManager.getAppManager().hasForegroundActivies()) {
+                        notifier.onNewMsg(message);
+                    }
+                }
+            }
+            @Override
+            public void onCmdMessageReceived(List<EMMessage> messages) {
+            }
+
+            @Override
+            public void onMessageReadAckReceived(List<EMMessage> messages) {
+            }
+
+            @Override
+            public void onMessageDeliveryAckReceived(List<EMMessage> message) {
+            }
+
+            @Override
+            public void onMessageChanged(EMMessage message, Object change) {
+
+            }
+        };
+
+        EMClient.getInstance().chatManager().addMessageListener(messageListener);
+    }
+
+
 }

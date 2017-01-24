@@ -1,9 +1,5 @@
 package com.wenguang.chat.base;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -49,31 +45,15 @@ public abstract class BaseActivity<T extends BasePresenter<BaseView>> extends Ap
         if (mPresenter != null && this instanceof BaseView) {
             mPresenter.attach((BaseView) this);
         }
-
-        initEventAndData();
-        registerCallLister();
         //注册一个监听连接状态的listener
         EMClient.getInstance().addConnectionListener(new MyConnectionListener());
-    }
-
-    private void registerCallLister() {
-        IntentFilter callFilter = new IntentFilter(EMClient.getInstance().callManager().getIncomingCallBroadcastAction());
-        registerReceiver(new CallReceiver(), callFilter);
+        initEventAndData();
 
 
     }
-    private class CallReceiver extends BroadcastReceiver {
 
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            // 拨打方username
-            String from = intent.getStringExtra("from");
-            // call type
-            String type = intent.getStringExtra("type");
-            //跳转到通话页面
 
-        }
-    }
+
     //实现ConnectionListener接口
     private class MyConnectionListener implements EMConnectionListener {
         @Override
